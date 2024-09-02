@@ -69,19 +69,19 @@
               <form role="form text-left" method="POST" action="/register">
                 @csrf
                 <div class="mb-3">
-                  <input type="text" class="form-control" placeholder="Name" name="name" id="name" aria-label="Name" aria-describedby="name" value="{{ old('name') }}">
+                  <input type="text" class="form-control" placeholder="Nombre" name="name" id="name" aria-label="Name" aria-describedby="name" value="{{ old('name') }}">
                   @error('name')
                     <p class="text-danger text-xs mt-2">{{ $message }}</p>
                   @enderror
                 </div>
                 <div class="mb-3">
-                  <input type="email" class="form-control" placeholder="Email" name="email" id="email" aria-label="Email" aria-describedby="email-addon" value="{{ old('email') }}">
+                  <input type="email" class="form-control" placeholder="Correo electrónico" name="email" id="email" aria-label="Email" aria-describedby="email-addon" value="{{ old('email') }}">
                   @error('email')
                     <p class="text-danger text-xs mt-2">{{ $message }}</p>
                   @enderror
                 </div>
                 <div class="mb-3">
-                  <input type="password" class="form-control" placeholder="Password" name="password" id="password" aria-label="Password" aria-describedby="password-addon">
+                  <input type="password" class="form-control" placeholder="Contraseña" name="password" id="password" aria-label="Password" aria-describedby="password-addon">
                   @error('password')
                     <p class="text-danger text-xs mt-2">{{ $message }}</p>
                   @enderror
