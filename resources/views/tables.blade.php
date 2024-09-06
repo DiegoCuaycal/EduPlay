@@ -1,5 +1,4 @@
 <!-- resources/views/quiz_editor.blade.php -->
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -58,6 +57,17 @@
             margin-right: 10px;
             background-color: transparent;
         }
+        .slide-item {
+            cursor: pointer;
+            padding: 10px;
+            border: 1px solid #ddd;
+            margin-bottom: 5px;
+            background-color: #fff;
+        }
+        .slide-item.active {
+            background-color: #007bff;
+            color: white;
+        }
     </style>
 </head>
 <body>
@@ -76,79 +86,160 @@
         <div class="sidebar p-3">
             <h5>Preguntas</h5>
             <ul class="list-unstyled" id="slides-list">
-                <li class="mb-2" id="slide-template" style="display: none;">
-                    <div class="d-flex align-items-center">
-                        <img src="path/to/image.jpg" alt="Pregunta" class="img-thumbnail" style="width: 80px; height: 50px;">
-                        <span class="ms-2">Nueva Pregunta</span>
-                        <button class="btn btn-sm btn-danger ms-auto">🗑</button>
-                    </div>
-                </li>
+                <!-- Diapositiva predeterminada (no se puede eliminar) -->
+                <li class="slide-item active" data-slide="1">Pregunta 1 (Por defecto)</li>
             </ul>
             <button class="btn btn-primary w-100" id="add-slide">Añadir Página</button>
         </div>
 
         <!-- Content -->
-        <div class="content flex-grow-1">
-            <div class="mb-3">
-                <input type="text" class="form-control" placeholder="Ingresa Aquí tu Pregunta">
-            </div>
-            <div class="mb-3 text-center">
-                <button class="btn btn-light border">Cargar Imagen</button>
-            </div>
-            <div class="answers">
-                <div class="answer-box" data-color="red">
-                    <input type="checkbox" class="checkbox">
-                    <input type="text" class="form-control" placeholder="Escribe aquí una respuesta" style="border: none; background: transparent;">
+        <div class="content flex-grow-1" id="content-area">
+            <!-- El contenido de las diapositivas será dinámico -->
+            <div id="slide-content-1">
+                <div class="mb-3">
+                    <input type="text" class="form-control question-input" placeholder="Ingresa Aquí tu Pregunta">
                 </div>
-                <div class="answer-box" data-color="blue">
-                    <input type="checkbox" class="checkbox">
-                    <input type="text" class="form-control" placeholder="Escribe aquí una respuesta" style="border: none; background: transparent;">
+                <div class="mb-3 text-center">
+                    <button class="btn btn-light border">Cargar Imagen</button>
                 </div>
-                <div class="answer-box" data-color="yellow">
-                    <input type="checkbox" class="checkbox">
-                    <input type="text" class="form-control" placeholder="Escribe aquí una respuesta" style="border: none; background: transparent;">
-                </div>
-                <div class="answer-box" data-color="green">
-                    <input type="checkbox" class="checkbox">
-                    <input type="text" class="form-control" placeholder="Escribe aquí una respuesta" style="border: none; background: transparent;">
+                <div class="answers">
+                    <div class="answer-box" data-color="red">
+                        <input type="checkbox" class="checkbox">
+                        <input type="text" class="form-control answer-input" placeholder="Primera respuesta" style="border: none; background: transparent;">
+                    </div>
+                    <div class="answer-box" data-color="blue">
+                        <input type="checkbox" class="checkbox">
+                        <input type="text" class="form-control answer-input" placeholder="Segunda respuesta" style="border: none; background: transparent;">
+                    </div>
+                    <div class="answer-box" data-color="yellow">
+                        <input type="checkbox" class="checkbox">
+                        <input type="text" class="form-control answer-input" placeholder="Tercera respuesta" style="border: none; background: transparent;">
+                    </div>
+                    <div class="answer-box" data-color="green">
+                        <input type="checkbox" class="checkbox">
+                        <input type="text" class="form-control answer-input" placeholder="Cuarta respuesta" style="border: none; background: transparent;">
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 
     <script>
-        // Manejo de selección de respuestas
-        document.querySelectorAll('.answer-box').forEach(box => {
-            const checkbox = box.querySelector('.checkbox');
-            const input = box.querySelector('input[type="text"]');
+        let currentSlide = 1; // Mantiene un control de la diapositiva actual
+        let slidesData = {1: getSlideContent(1)}; // Datos temporales de las diapositivas
 
-            // Cambiar color cuando el texto se escribe
-            input.addEventListener('input', function() {
-                if (this.value.trim() !== "") {
-                    box.classList.add('active');
-                } else {
-                    box.classList.remove('active');
-                }
+        // Función para cambiar de diapositiva
+        function switchToSlide(slideNumber) {
+            // Guardar el contenido actual antes de cambiar
+            slidesData[currentSlide] = getSlideContent(currentSlide);
+            
+            // Cambiar la diapositiva actual
+            currentSlide = slideNumber;
+            
+            // Cargar el contenido correspondiente a la diapositiva seleccionada
+            loadSlideContent(slideNumber);
+            
+            // Marcar la diapositiva seleccionada como activa
+            document.querySelectorAll('.slide-item').forEach(item => {
+                item.classList.remove('active');
             });
-
-            // Mantener color al seleccionar el checkbox
-            checkbox.addEventListener('change', function() {
-                if (checkbox.checked) {
-                    box.classList.add('active');
-                } else {
-                    box.classList.remove('active');
-                }
-            });
-        });
+            document.querySelector(`.slide-item[data-slide="${slideNumber}"]`).classList.add('active');
+        }
 
         // Añadir nueva diapositiva
         document.getElementById('add-slide').addEventListener('click', function() {
             const slidesList = document.getElementById('slides-list');
-            const newSlide = document.getElementById('slide-template').cloneNode(true);
-            newSlide.style.display = 'block';
-            newSlide.removeAttribute('id');
+            const newSlideNumber = Object.keys(slidesData).length + 1; // Obtener el número de la nueva diapositiva
+
+            // Crear una nueva diapositiva en la lista
+            const newSlide = document.createElement('li');
+            newSlide.classList.add('slide-item');
+            newSlide.dataset.slide = newSlideNumber;
+            newSlide.textContent = `Pregunta ${newSlideNumber}`;
+            newSlide.addEventListener('click', function() {
+                switchToSlide(newSlideNumber);
+            });
             slidesList.appendChild(newSlide);
+
+            // Inicializar contenido vacío para la nueva diapositiva
+            slidesData[newSlideNumber] = `
+                <div class="mb-3">
+                    <input type="text" class="form-control question-input" placeholder="Ingresa Aquí tu Pregunta">
+                </div>
+                <div class="mb-3 text-center">
+                    <button class="btn btn-light border">Cargar Imagen</button>
+                </div>
+                <div class="answers">
+                    <div class="answer-box" data-color="red">
+                        <input type="checkbox" class="checkbox">
+                        <input type="text" class="form-control answer-input" placeholder="Primera respuesta" style="border: none; background: transparent;">
+                    </div>
+                    <div class="answer-box" data-color="blue">
+                        <input type="checkbox" class="checkbox">
+                        <input type="text" class="form-control answer-input" placeholder="Segunda respuesta" style="border: none; background: transparent;">
+                    </div>
+                    <div class="answer-box" data-color="yellow">
+                        <input type="checkbox" class="checkbox">
+                        <input type="text" class="form-control answer-input" placeholder="Tercera respuesta" style="border: none; background: transparent;">
+                    </div>
+                    <div class="answer-box" data-color="green">
+                        <input type="checkbox" class="checkbox">
+                        <input type="text" class="form-control answer-input" placeholder="Cuarta respuesta" style="border: none; background: transparent;">
+                    </div>
+                </div>
+            `;
+            
+            // Cambiar automáticamente a la nueva diapositiva
+            switchToSlide(newSlideNumber);
         });
+
+        // Función para obtener el contenido de una diapositiva
+        function getSlideContent(slideNumber) {
+            const question = document.querySelector('#content-area .question-input')?.value || '';
+            const answers = Array.from(document.querySelectorAll('#content-area .answer-input')).map(input => input.value);
+            const checkboxes = Array.from(document.querySelectorAll('#content-area .checkbox')).map(checkbox => checkbox.checked);
+            
+            return { question, answers, checkboxes };
+        }
+
+        // Función para cargar el contenido de una diapositiva
+        function loadSlideContent(slideNumber) {
+            const content = slidesData[slideNumber];
+
+            // Limpiar el área de contenido y cargar el contenido de la diapositiva
+            const contentArea = document.getElementById('content-area');
+            contentArea.innerHTML = `
+                <div class="mb-3">
+                    <input type="text" class="form-control question-input" placeholder="Ingresa Aquí tu Pregunta" value="${content.question}">
+                </div>
+                <div class="mb-3 text-center">
+                    <button class="btn btn-light border">Cargar Imagen</button>
+                </div>
+                <div class="answers">
+                    ${['red', 'blue', 'yellow', 'green'].map((color, index) => `
+                        <div class="answer-box" data-color="${color}">
+                            <input type="checkbox" class="checkbox" ${content.checkboxes[index] ? 'checked' : ''}>
+                            <input type="text" class="form-control answer-input" placeholder="Respuesta ${index + 1}" style="border: none; background: transparent;" value="${content.answers[index]}">
+                        </div>
+                    `).join('')}
+                </div>
+            `;
+
+            // Vuelve a añadir la funcionalidad de resaltar respuestas
+            addAnswerBoxEvents();
+        }
+
+        // Función para agregar la funcionalidad de cambiar el color de las respuestas
+        function addAnswerBoxEvents() {
+            document.querySelectorAll('.answer-box').forEach(box => {
+                box.addEventListener('click', function() {
+                    this.classList.toggle('active');
+                });
+            });
+        }
+
+        // Inicializar eventos en las respuestas de la primera diapositiva
+        addAnswerBoxEvents();
     </script>
 
 </body>
