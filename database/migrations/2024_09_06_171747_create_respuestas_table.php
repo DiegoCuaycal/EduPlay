@@ -12,8 +12,13 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('respuestas', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
+            $table->integer('ID_RESPUESTA')->primary();
+            $table->integer('ID_PARTICIPACION')->nullable();
+            $table->integer('ID_PREGUNTA')->nullable();
+            $table->integer('ID_OPCION')->nullable();
+            $table->text('TEXTO_RESPUESTA');
+            $table->integer('TIEMPO_RESPUESTA');
+            $table->timestamps(); // Si deseas agregar campos de timestamps (created_at y updated_at)
         });
     }
 
@@ -25,3 +30,4 @@ return new class extends Migration
         Schema::dropIfExists('respuestas');
     }
 };
+

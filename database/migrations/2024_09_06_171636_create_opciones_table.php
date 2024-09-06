@@ -12,8 +12,14 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('opciones', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
+            // Definimos las columnas
+            $table->integer('id_opcion')->primary(); // PRIMARY KEY
+            $table->integer('id_pregunta')->nullable(); // Puede ser nulo
+            $table->text('texto_opcion'); // No nulo
+            $table->boolean('es_correcta'); // No nulo
+            
+            // Si 'id_pregunta' hace referencia a otra tabla, podemos definir una clave foránea aquí
+            // $table->foreign('id_pregunta')->references('id')->on('preguntas');
         });
     }
 
@@ -25,3 +31,4 @@ return new class extends Migration
         Schema::dropIfExists('opciones');
     }
 };
+

@@ -12,8 +12,10 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('usuarios', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
+            $table->string('ID_USUARIO', 50)->primary();
+            $table->string('NOMBRE_USUARIO', 50);
+            $table->string('CORREO_ELECTRONICO', 50);
+            $table->timestamps(); // Si deseas agregar campos de timestamps (created_at y updated_at)
         });
     }
 
@@ -25,3 +27,4 @@ return new class extends Migration
         Schema::dropIfExists('usuarios');
     }
 };
+

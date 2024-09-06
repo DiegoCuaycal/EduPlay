@@ -12,8 +12,12 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('reportes', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
+            $table->integer('ID_REPORTE')->primary();
+            $table->string('ID_USUARIO', 50)->nullable();
+            $table->integer('ID_EVALUACION')->nullable();
+            $table->text('DETALLES');
+            $table->date('FECHA_GENERACION');
+            $table->timestamps(); // Si deseas agregar campos de timestamps (created_at y updated_at)
         });
     }
 
@@ -25,3 +29,4 @@ return new class extends Migration
         Schema::dropIfExists('reportes');
     }
 };
+

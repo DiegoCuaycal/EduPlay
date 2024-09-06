@@ -12,8 +12,16 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('participaciones', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
+            // Definimos las columnas
+            $table->integer('id_participacion')->primary(); // PRIMARY KEY
+            $table->integer('id_evaluacion')->nullable(); // Puede ser nulo
+            $table->string('id_usuario', 50)->nullable(); // Puede ser nulo
+            $table->date('fecha_participacion'); // No nulo
+            $table->integer('puntaje_total'); // No nulo
+            $table->integer('tiempo_total'); // No nulo
+
+            // Si 'id_evaluacion' hace referencia a otra tabla, podemos definir una clave foránea aquí
+            // $table->foreign('id_evaluacion')->references('id')->on('evaluaciones');
         });
     }
 
@@ -25,3 +33,4 @@ return new class extends Migration
         Schema::dropIfExists('participaciones');
     }
 };
+

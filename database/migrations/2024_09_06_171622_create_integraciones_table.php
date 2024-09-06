@@ -12,8 +12,14 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('integraciones', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
+            // Definimos las columnas
+            $table->integer('id_integracion')->primary(); // PRIMARY KEY
+            $table->string('id_usuario', 50)->nullable(); // Puede ser nulo
+            $table->string('plataforma', 50); // No nulo
+            $table->date('fecha_integracion'); // No nulo
+            
+            // No se especifican claves foráneas en el SQL original, pero si existe alguna relación,
+            // se puede agregar aquí.
         });
     }
 
