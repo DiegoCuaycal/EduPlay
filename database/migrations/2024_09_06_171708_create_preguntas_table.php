@@ -12,12 +12,12 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('preguntas', function (Blueprint $table) {
-            $table->integer('ID_PREGUNTA')->primary();
-            $table->integer('ID_EVALUACION')->nullable();
-            $table->string('TIPO_PREGUNTA', 50);
-            $table->string('TEXTO_PREGUNTA', 50);
-            $table->string('IMAGEN', 50);
-            $table->timestamps(); // Si deseas agregar campos de timestamps (created_at y updated_at)
+            $table->id('id_pregunta'); // Usar id como clave primaria
+            $table->foreignId('id_evaluacion')->nullable()->constrained('evaluaciones')->onDelete('cascade'); // Clave foránea
+            $table->string('tipo_pregunta', 50);
+            $table->string('texto_pregunta', 255); // Extender el tamaño de la pregunta
+            $table->string('imagen', 255)->nullable(); // La imagen es opcional
+            $table->timestamps(); // created_at y updated_at
         });
     }
 
@@ -29,4 +29,5 @@ return new class extends Migration
         Schema::dropIfExists('preguntas');
     }
 };
+
 
