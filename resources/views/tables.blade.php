@@ -122,8 +122,8 @@
                     </div>
                     <div class="mb-3 text-center">
                         <!-- Campo de carga de imagen -->
-                        <label for="slides[1][image]" class="btn btn-light border">Cargar Imagen</label>
-                        <input type="file" name="slides[1][image]" id="slides[1][image]" style="display: none;">
+                        <label for="slides_1_image" class="btn btn-light border">Cargar Imagen</label>
+                        <input type="file" name="slides[1][image]" id="slides_1_image" class="d-none">
                     </div>
                     <div class="answers">
                         <!-- Respuesta 1 -->
@@ -160,21 +160,18 @@
         <input type="hidden" name="total_questions" id="total-questions" value="1">
     </form>
 
-
-
     <script>
         let currentSlide = 1; // Mantiene un control de la diapositiva actual
-        let slidesData = { 1: getSlideContent(1) }; // Datos temporales de las diapositivas
+        let slideIndex = 1; // Controla el número total de preguntas
+        let slidesData = { 1: getSlideContent(1) }; // Almacena los datos de las diapositivas
 
         // Función para cambiar de diapositiva
         function switchToSlide(slideNumber) {
-            // Guardar el contenido actual antes de cambiar
+            // Guardar el contenido actual
             slidesData[currentSlide] = getSlideContent(currentSlide);
 
-            // Cambiar la diapositiva actual
+            // Cambiar a la nueva diapositiva
             currentSlide = slideNumber;
-
-            // Cargar el contenido correspondiente a la diapositiva seleccionada
             loadSlideContent(slideNumber);
 
             // Marcar la diapositiva seleccionada como activa
@@ -186,60 +183,89 @@
 
         // Añadir nueva diapositiva
         document.getElementById('add-slide').addEventListener('click', function () {
-            const slidesList = document.getElementById('slides-list');
-            const newSlideNumber = Object.keys(slidesData).length + 1; // Obtener el número de la nueva diapositiva
+            slideIndex++; // Incrementa el índice para las nuevas diapositivas
 
-            // Crear una nueva diapositiva en la lista
+            // Crear una nueva entrada en la lista de preguntas (sidebar)
+            const slidesList = document.getElementById('slides-list');
             const newSlide = document.createElement('li');
             newSlide.classList.add('slide-item');
-            newSlide.dataset.slide = newSlideNumber;
-            newSlide.textContent = `Pregunta ${newSlideNumber}`;
+            newSlide.dataset.slide = slideIndex;
+            newSlide.textContent = `Pregunta ${slideIndex}`;
             newSlide.addEventListener('click', function () {
-                switchToSlide(newSlideNumber);
+                switchToSlide(slideIndex);
             });
             slidesList.appendChild(newSlide);
 
             // Inicializar contenido para la nueva diapositiva
-            slidesData[newSlideNumber] = {
+            slidesData[slideIndex] = {
                 question: '',
                 answers: ['', '', '', ''],
                 correct_answers: []
             };
 
+            // Crear el nuevo bloque de contenido para la pregunta
+            const slideContent = `
+            <div id="slide-content-${slideIndex}">
+                <div class="mb-3">
+                    <input type="text" name="slides[${slideIndex}][question]" class="form-control question-input" placeholder="Ingresa Aquí tu Pregunta">
+                </div>
+                <div class="mb-3 text-center">
+                    <label for="slides[${slideIndex}][image]" class="btn btn-light border">Cargar Imagen</label>
+                    <input type="file" name="slides[${slideIndex}][image]" id="slides[${slideIndex}][image]" style="display: none;">
+                </div>
+                <div class="answers">
+                    <div class="answer-box" data-color="red">
+                        <input type="checkbox" name="slides[${slideIndex}][correct_answers][]" value="0" class="checkbox">
+                        <input type="text" name="slides[${slideIndex}][answers][]" class="form-control answer-input" placeholder="Primera respuesta" style="border: none; background: transparent;">
+                    </div>
+                    <div class="answer-box" data-color="blue">
+                        <input type="checkbox" name="slides[${slideIndex}][correct_answers][]" value="1" class="checkbox">
+                        <input type="text" name="slides[${slideIndex}][answers][]" class="form-control answer-input" placeholder="Segunda respuesta" style="border: none; background: transparent;">
+                    </div>
+                    <div class="answer-box" data-color="yellow">
+                        <input type="checkbox" name="slides[${slideIndex}][correct_answers][]" value="2" class="checkbox">
+                        <input type="text" name="slides[${slideIndex}][answers][]" class="form-control answer-input" placeholder="Tercera respuesta" style="border: none; background: transparent;">
+                    </div>
+                    <div class="answer-box" data-color="green">
+                        <input type="checkbox" name="slides[${slideIndex}][correct_answers][]" value="3" class="checkbox">
+                        <input type="text" name="slides[${slideIndex}][answers][]" class="form-control answer-input" placeholder="Cuarta respuesta" style="border: none; background: transparent;">
+                    </div>
+                </div>
+            </div>
+        `;
+
+            // Insertar la nueva pregunta en el área de contenido
+            document.getElementById('content-area').insertAdjacentHTML('beforeend', slideContent);
+
             // Cambiar automáticamente a la nueva diapositiva
-            switchToSlide(newSlideNumber);
+            switchToSlide(slideIndex);
 
             // Actualizar el número total de preguntas
-            document.getElementById('total-questions').value = newSlideNumber;
+            document.getElementById('total-questions').value = slideIndex;
         });
 
+        // Función para obtener el contenido de una diapositiva (puedes ajustarla según la estructura de tus inputs)
+        function getSlideContent(slideNumber) {
+            return {
+                question: document.querySelector(`#slide-content-${slideNumber} .question-input`).value,
+                answers: Array.from(document.querySelectorAll(`#slide-content-${slideNumber} .answer-input`)).map(input => input.value),
+                correct_answers: Array.from(document.querySelectorAll(`#slide-content-${slideNumber} .checkbox:checked`)).map(input => input.value)
+            };
+        }
 
-        let slideIndex = 1;
-        document.getElementById('add-slide').addEventListener('click', function () {
-            slideIndex++;
-            const slideContent = `
-        <div id="slide-content-${slideIndex}">
-            <div class="mb-3">
-                <input type="text" name="slides[${slideIndex}][question]" class="form-control question-input" placeholder="Ingresa Aquí tu Pregunta">
-            </div>
-            <div class="mb-3 text-center">
-                <label for="slides[${slideIndex}][image]" class="btn btn-light border">Cargar Imagen</label>
-                <input type="file" name="slides[${slideIndex}][image]" id="slides[${slideIndex}][image]" style="display: none;">
-            </div>
-            <div class="answers">
-                <div class="answer-box" data-color="red">
-                    <input type="checkbox" name="slides[${slideIndex}][correct_answers][]" value="0" class="checkbox">
-                    <input type="text" name="slides[${slideIndex}][answers][]" class="form-control answer-input" placeholder="Primera respuesta" style="border: none; background: transparent;">
-                </div>
-                <!-- Más respuestas aquí... -->
-            </div>
-        </div>
-    `;
-            document.getElementById('content-area').insertAdjacentHTML('beforeend', slideContent);
-        });
-
-
+        // Función para cargar el contenido de una diapositiva
+        function loadSlideContent(slideNumber) {
+            const data = slidesData[slideNumber];
+            document.querySelector(`#slide-content-${slideNumber} .question-input`).value = data.question;
+            document.querySelectorAll(`#slide-content-${slideNumber} .answer-input`).forEach((input, index) => {
+                input.value = data.answers[index];
+            });
+            document.querySelectorAll(`#slide-content-${slideNumber} .checkbox`).forEach(input => {
+                input.checked = data.correct_answers.includes(input.value);
+            });
+        }
     </script>
+
 
 </body>
 
