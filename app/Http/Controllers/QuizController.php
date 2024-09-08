@@ -9,50 +9,60 @@ use App\Models\Opcion;     // Modelo para 'opciones'
 
 class QuizController extends Controller
 {
+    // Método para guardar la evaluación y las preguntas
     public function save(Request $request)
     {
-        // Validar la solicitud
+        // Validar los datos recibidos
         $request->validate([
             'title' => 'required|string|max:255',
-            'slides' => 'required|array',
             'slides.*.question' => 'required|string',
-            'slides.*.answers' => 'required|array|min:1',
-            'slides.*.correct_answers' => 'required|array|min:1',
+            'slides.*.answers' => 'required|array',
+            'slides.*.correct_answers' => 'required|array',
+            'slides.*.image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
-        // Guardar la evaluación
+        // Guardar la evaluación (quiz)
         $evaluacion = new Evaluacion();
-        $evaluacion->id_usuario = auth()->id(); // Asigna el ID del usuario autenticado
-        $evaluacion->titulo = $request->input('title');
-        $evaluacion->descripcion = 'Descripción generada automáticamente';
-        $evaluacion->fecha_creacion = now();
-        $evaluacion->fecha_modificacion = now();
+        $evaluacion->title = $request->input('title');
         $evaluacion->save();
 
-        // Guardar las preguntas y opciones
-        foreach ($request->input('slides') as $slideNumber => $slideData) {
-            // Guardar la pregunta
+        // Guardar cada pregunta y sus respuestas
+        foreach ($request->slides as $slide) {
             $pregunta = new Pregunta();
-            $pregunta->id_evaluacion = $evaluacion->id_evaluacion;
-            $pregunta->texto_pregunta = $slideData['question'];
-            $pregunta->tipo_pregunta = 'Opción múltiple'; // Puedes ajustar esto si es necesario
-            $pregunta->imagen = ''; // Si manejas imágenes, ajusta este campo
-            $pregunta->created_at = now();
-            $pregunta->updated_at = now();
+            $pregunta->evaluacion_id = $evaluacion->id;
+            $pregunta->question_text = $slide['question'];
             $pregunta->save();
 
-            // Guardar las opciones
-            foreach ($slideData['answers'] as $index => $answerText) {
+            // Guardar las opciones de respuesta
+            foreach ($slide['answers'] as $index => $answer) {
                 $opcion = new Opcion();
-                $opcion->id_pregunta = $pregunta->id_pregunta;
-                $opcion->texto_opcion = $answerText;
-                $opcion->es_correcta = in_array($index, $slideData['correct_answers']); // Asigna si la opción es correcta
+                $opcion->pregunta_id = $pregunta->id;
+                $opcion->answer_text = $answer;
+                $opcion->is_correct = in_array($index, $slide['correct_answers']) ? 1 : 0;
                 $opcion->save();
+            }
+
+            // Guardar la imagen si existe
+            if (!empty($slide['image'])) {
+                $imagePath = $slide['image']->store('questions_images', 'public');
+                $pregunta->image_path = $imagePath;
+                $pregunta->save();
             }
         }
 
-        // Redirigir con mensaje de éxito
-        return redirect()->back()->with('success', 'El cuestionario ha sido guardado exitosamente.');
+        // Redirigir a la lista de evaluaciones después de guardar
+        return redirect()->route('quiz.index')->with('success', 'Prueba guardada exitosamente.');
+    }
+
+    // Método para listar las evaluaciones guardadas
+    public function index()
+    {
+        // Obtener todas las evaluaciones
+        $evaluaciones = Evaluacion::all();
+
+        // Retornar la vista con las evaluaciones
+        return view('quiz.index', compact('evaluaciones'));
     }
 }
+
 

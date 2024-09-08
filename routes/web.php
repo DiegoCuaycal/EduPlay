@@ -82,6 +82,8 @@ Route::group(['middleware' => 'guest'], function () {
 	Route::get('/reset-password/{token}', [ResetController::class, 'resetPass'])->name('password.reset');
 	Route::post('/reset-password', [ChangePasswordController::class, 'changePassword'])->name('password.update');
 	Route::post('/save-quiz', [QuizController::class, 'save'])->name('save.quiz');
+	Route::get('/quiz', [QuizController::class, 'index'])->name('quiz.index');
+
 
 });
 
