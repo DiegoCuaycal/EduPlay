@@ -26,7 +26,7 @@
               </g>
             </svg>
           </div>
-          <span class="nav-link-text me-1">لوحة القيادة</span>
+         <!-- <span class="nav-link-text me-1">لوحة القيادة</span> -->
         </a>
       </li>
       <li class="nav-item">
@@ -46,7 +46,7 @@
               </g>
             </svg>
           </div>
-          <span class="nav-link-text me-1">الجداول</span>
+         <!-- <span class="nav-link-text me-1">الجداول</span> -->
         </a>
       </li>
       <li class="nav-item">
@@ -66,7 +66,7 @@
               </g>
             </svg>
           </div>
-          <span class="nav-link-text me-1">الفواتير</span>
+        <!--  <span class="nav-link-text me-1">الفواتير</span> -->
         </a>
       </li>
       <li class="nav-item">
@@ -87,7 +87,7 @@
               </g>
             </svg>
           </div>
-          <span class="nav-link-text me-1">الواقع الافتراضي</span>
+        <!--  <span class="nav-link-text me-1">الواقع الافتراضي</span> -->
         </a>
       </li>
       <li class="nav-item">
@@ -129,7 +129,7 @@
               </g>
             </svg>
           </div>
-          <span class="nav-link-text me-1">حساب تعريفي</span>
+        <!--  <span class="nav-link-text me-1">حساب تعريفي</span> -->
         </a>
       </li>
       <li class="nav-item">
@@ -149,7 +149,7 @@
               </g>
             </svg>
           </div>
-          <span class="nav-link-text me-1">تسجيل الدخول</span>
+         <!-- <span class="nav-link-text me-1">تسجيل الدخول</span> -->
         </a>
       </li>
       <li class="nav-item">
@@ -171,7 +171,7 @@
               </g>
             </svg>
           </div>
-          <span class="nav-link-text me-1">اشتراك</span>
+       <!--   <span class="nav-link-text me-1">اشتراك</span>  -->
         </a>
       </li>
     </ul>
@@ -184,9 +184,9 @@
           <i class="ni ni-diamond text-dark text-gradient text-lg top-0" aria-hidden="true" id="sidenavCardIcon"></i>
         </div>
         <div class="docs-info">
-          <h6 class="text-white up mb-0 text-end">تحتاج مساعدة?</h6>
-          <p class="text-xs font-weight-bold text-end">يرجى التحقق من مستنداتنا</p>
-          <a href="/documentation/getting-started/overview.html" target="_blank" class="btn btn-white btn-sm w-100 mb-0">توثيق</a>
+          <!-- <h6 class="text-white up mb-0 text-end">تحتاج مساعدة?</h6> -->
+         <!--  <p class="text-xs font-weight-bold text-end">يرجى التحقق من مستنداتنا</p> -->
+         <!-- <a href="/documentation/getting-started/overview.html" target="_blank" class="btn btn-white btn-sm w-100 mb-0">توثيق</a> !-->
         </div>
       </div>
     </div>
