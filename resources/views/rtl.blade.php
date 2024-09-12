@@ -11,7 +11,7 @@
               <div class="row">
                 <div class="col-8">
                   <div class="numbers">
-                    <p class="text-sm mb-0 text-capitalize font-weight-bold">أموال اليوم</p>
+                  <!--  <p class="text-sm mb-0 text-capitalize font-weight-bold">أموال اليوم</p> -->
                     <h5 class="font-weight-bolder mb-0">
                       $53,000
                       <span class="text-success text-sm font-weight-bolder">+55%</span>
@@ -33,7 +33,7 @@
               <div class="row">
                 <div class="col-8">
                   <div class="numbers">
-                    <p class="text-sm mb-0 text-capitalize font-weight-bold">مستخدمو اليوم</p>
+                    <!--<p class="text-sm mb-0 text-capitalize font-weight-bold">مستخدمو اليوم</p> -->
                     <h5 class="font-weight-bolder mb-0">
                       2,300
                       <span class="text-success text-sm font-weight-bolder">+33%</span>
@@ -55,7 +55,7 @@
               <div class="row">
                 <div class="col-8">
                   <div class="numbers">
-                    <p class="text-sm mb-0 text-capitalize font-weight-bold">عملاء جدد</p>
+                   <!-- <p class="text-sm mb-0 text-capitalize font-weight-bold">عملاء جدد</p> -->
                     <h5 class="font-weight-bolder mb-0">
                       +3,462
                       <span class="text-danger text-sm font-weight-bolder">-2%</span>
@@ -77,7 +77,7 @@
               <div class="row">
                 <div class="col-8">
                   <div class="numbers">
-                    <p class="text-sm mb-0 text-capitalize font-weight-bold">مبيعات</p>
+                   <!-- <p class="text-sm mb-0 text-capitalize font-weight-bold">مبيعات</p> -->
                     <h5 class="font-weight-bolder mb-0">
                       $103,430
                       <span class="text-success text-sm font-weight-bolder">+5%</span>
@@ -103,10 +103,10 @@
                   <div class="d-flex flex-column h-100">
                     <p class="mb-1 pt-2 text-bold">بناها المطورون</p>
                     <h5 class="font-weight-bolder">Soft UI Dashboard</h5>
-                    <p class="mb-5">من الألوان والبطاقات والطباعة إلى العناصر المعقدة ، ستجد الوثائق الكاملة.</p>
-                    <a class="text-dark font-weight-bold ps-1 mb-0 icon-move-left mt-auto" href="javascript:;">
+                <!--    <p class="mb-5">من الألوان والبطاقات والطباعة إلى العناصر المعقدة ، ستجد الوثائق الكاملة.</p> -->
+               <!--     <a class="text-dark font-weight-bold ps-1 mb-0 icon-move-left mt-auto" href="javascript:;"> -->
                       اقرأ المستندات
-                      <i class="fas fa-arrow-left text-sm ms-1" aria-hidden="true"></i>
+                      <i class="fas fa-arrow-left text-sm ms-1" aria-hidden="true"></i> 
                     </a>
                   </div>
                 </div>
@@ -128,9 +128,9 @@
               <span class="mask bg-gradient-dark"></span>
               <div class="card-body position-relative z-index-1 p-3 h-100">
                 <div class="d-flex flex-column h-100">
-                  <h5 class="text-white font-weight-bolder mb-4 pt-2">العمل مع الصواريخ</h5>
+                <!--  <h5 class="text-white font-weight-bolder mb-4 pt-2">العمل مع الصواريخ</h5>
                   <p class="text-white mb-5">تكوين الثروة هو لعبة تطوري حديثة ذات حصيلة إيجابية. الأمر كله يتعلق بمن يغتنم الفرصة أولاً هذه بطاقة بسيطة.</p>
-                  <a class="text-white font-weight-bold ps-1 mb-0 icon-move-left mt-auto" href="javascript:;">اقرأ المستندات
+                  <a class="text-white font-weight-bold ps-1 mb-0 icon-move-left mt-auto" href="javascript:;"> -->اقرأ المستندات
                     <i class="fas fa-arrow-left text-sm ms-1" aria-hidden="true"></i>
                   </a>
                 </div>
@@ -148,8 +148,8 @@
                   <canvas id="chart-bars" class="chart-canvas" height="170px"></canvas>
                 </div>
               </div>
-              <h6 class="ms-2 mt-4 mb-0"> المستخدمين النشطين </h6>
-              <p class="text-sm ms-2"> (<span class="font-weight-bolder">+23%</span>) من الأسبوع الماضي </p>
+             <!-- <h6 class="ms-2 mt-4 mb-0"> المستخدمين النشطين </h6>
+              <p class="text-sm ms-2"> (<span class="font-weight-bolder">+23%</span>) من الأسبوع الماضي </p> -->
               <div class="container border-radius-lg">
                 <div class="row">
                   <div class="col-3 py-3 ps-0">
@@ -169,7 +169,7 @@
                           </g>
                         </svg>
                       </div>
-                      <p class="text-xs mt-1 mb-0 font-weight-bold">المستخدمون</p>
+                     <!-- <p class="text-xs mt-1 mb-0 font-weight-bold">المستخدمون</p> -->
                     </div>
                     <h4 class="font-weight-bolder">36K</h4>
                     <div class="progress w-75">
@@ -195,7 +195,7 @@
                           </g>
                         </svg>
                       </div>
-                      <p class="text-xs mt-1 mb-0 font-weight-bold">نقرات</p>
+                   <!--   <p class="text-xs mt-1 mb-0 font-weight-bold">نقرات</p> -->
                     </div>
                     <h4 class="font-weight-bolder">2m</h4>
                     <div class="progress w-75">
@@ -219,7 +219,7 @@
                           </g>
                         </svg>
                       </div>
-                      <p class="text-xs mt-1 mb-0 font-weight-bold">مبيعات</p>
+                    <!--  <p class="text-xs mt-1 mb-0 font-weight-bold">مبيعات</p> -->
                     </div>
                     <h4 class="font-weight-bolder">435$</h4>
                     <div class="progress w-75">
@@ -244,7 +244,7 @@
                           </g>
                         </svg>
                       </div>
-                      <p class="text-xs mt-1 mb-0 font-weight-bold">العناصر</p>
+                      <!-- <p class="text-xs mt-1 mb-0 font-weight-bold">العناصر</p> -->
                     </div>
                     <h4 class="font-weight-bolder">43</h4>
                     <div class="progress w-75">
@@ -259,7 +259,7 @@
         <div class="col-lg-7">
           <div class="card">
             <div class="card-header pb-0">
-              <h6>نظرة عامة على المبيعات</h6>
+           <!--   <h6>نظرة عامة على المبيعات</h6>  -->
               <p class="text-sm">
                 <i class="fa fa-arrow-up text-success"></i>
                 <span class="font-weight-bold">4% أكثر</span> في عام 2021
