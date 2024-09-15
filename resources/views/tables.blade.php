@@ -230,94 +230,103 @@
                     <label for="question_type" class="form-label">Tipo de Pregunta</label>
                     <select id="question_type" class="form-select">
                         <option value="multiple-choice">Opción múltiple</option>
-                        <option value="true-false">Verdadero o falso</option>
-                        <option value="short-answer">Respuesta corta</option>
+                        <option value="true-false">Verdadero o Falso</option>
+                        <option value="short-answer">Respuesta Corta</option>
                     </select>
                 </div>
-                <div class="mb-3">
-                    <button type="button" class="btn btn-primary w-100" id="apply-to-all">Aplicar a Todos</button>
-                </div>
-                <button type="button" class="btn btn-danger w-100">Eliminar Todo</button>
+                <button type="button" class="btn btn-danger w-100" id="remove-slide">Eliminar Página</button>
             </div>
         </div>
     </form>
 
-    <!-- Bootstrap JS Bundle -->
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.7/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function () {
-            const slidesList = document.getElementById('slides-list');
-            const contentArea = document.getElementById('content-area');
-            let slideCount = 1;
+            let slideCounter = 1;
 
-            document.getElementById('add-slide').addEventListener('click', function () {
-                slideCount++;
-                const newSlideItem = document.createElement('li');
-                newSlideItem.classList.add('slide-item');
-                newSlideItem.setAttribute('data-slide', slideCount);
-                newSlideItem.textContent = `Pregunta ${slideCount}`;
-                slidesList.appendChild(newSlideItem);
+            function addSlide() {
+                slideCounter++;
+                const newSlide = `
+                <li class="slide-item" data-slide="${slideCounter}">Pregunta ${slideCounter}</li>
+                `;
+                document.getElementById('slides-list').insertAdjacentHTML('beforeend', newSlide);
 
-                const newSlideContent = document.createElement('div');
-                newSlideContent.id = `slide-content-${slideCount}`;
-                newSlideContent.classList.add('slide-content');
-                newSlideContent.innerHTML = `
+                const newContent = `
+                <div id="slide-content-${slideCounter}" class="slide-content">
                     <div class="mb-3">
-                        <input type="text" name="slides[${slideCount}][question]" class="form-control question-input" placeholder="Ingresa Aquí tu Pregunta">
+                        <input type="text" name="slides[${slideCounter}][question]" class="form-control question-input"
+                            placeholder="Ingresa Aquí tu Pregunta">
                     </div>
                     <div class="mb-3 text-center">
-                        <label for="slides_${slideCount}_image" class="btn btn-light border">Cargar Imagen</label>
-                        <input type="file" name="slides[${slideCount}][image]" id="slides_${slideCount}_image" class="d-none">
+                        <!-- Campo de carga de imagen -->
+                        <label for="slides_${slideCounter}_image" class="btn btn-light border">Cargar Imagen</label>
+                        <input type="file" name="slides[${slideCounter}][image]" id="slides_${slideCounter}_image" class="d-none">
                     </div>
                     <div class="answers">
+                        <!-- Respuesta 1 -->
                         <div class="answer-box" data-color="red">
-                            <input type="checkbox" name="slides[${slideCount}][correct_answers][]" value="0" class="checkbox">
-                            <input type="text" name="slides[${slideCount}][answers][]" class="form-control answer-input" placeholder="Primera respuesta" style="border: none; background: transparent;">
+                            <input type="checkbox" name="slides[${slideCounter}][correct_answers][]" value="0" class="checkbox">
+                            <input type="text" name="slides[${slideCounter}][answers][]" class="form-control answer-input"
+                                placeholder="Primera respuesta" style="border: none; background: transparent;">
                         </div>
+                        <!-- Respuesta 2 -->
                         <div class="answer-box" data-color="blue">
-                            <input type="checkbox" name="slides[${slideCount}][correct_answers][]" value="1" class="checkbox">
-                            <input type="text" name="slides[${slideCount}][answers][]" class="form-control answer-input" placeholder="Segunda respuesta" style="border: none; background: transparent;">
+                            <input type="checkbox" name="slides[${slideCounter}][correct_answers][]" value="1" class="checkbox">
+                            <input type="text" name="slides[${slideCounter}][answers][]" class="form-control answer-input"
+                                placeholder="Segunda respuesta" style="border: none; background: transparent;">
                         </div>
+                        <!-- Respuesta 3 -->
                         <div class="answer-box" data-color="yellow">
-                            <input type="checkbox" name="slides[${slideCount}][correct_answers][]" value="2" class="checkbox">
-                            <input type="text" name="slides[${slideCount}][answers][]" class="form-control answer-input" placeholder="Tercera respuesta" style="border: none; background: transparent;">
+                            <input type="checkbox" name="slides[${slideCounter}][correct_answers][]" value="2" class="checkbox">
+                            <input type="text" name="slides[${slideCounter}][answers][]" class="form-control answer-input"
+                                placeholder="Tercera respuesta" style="border: none; background: transparent;">
                         </div>
+                        <!-- Respuesta 4 -->
                         <div class="answer-box" data-color="green">
-                            <input type="checkbox" name="slides[${slideCount}][correct_answers][]" value="3" class="checkbox">
-                            <input type="text" name="slides[${slideCount}][answers][]" class="form-control answer-input" placeholder="Cuarta respuesta" style="border: none; background: transparent;">
+                            <input type="checkbox" name="slides[${slideCounter}][correct_answers][]" value="3" class="checkbox">
+                            <input type="text" name="slides[${slideCounter}][answers][]" class="form-control answer-input"
+                                placeholder="Cuarta respuesta" style="border: none; background: transparent;">
                         </div>
                     </div>
+                </div>
                 `;
-                contentArea.appendChild(newSlideContent);
+                document.getElementById('content-area').insertAdjacentHTML('beforeend', newContent);
+            }
 
-                // Switch to the newly added slide
+            function handleSlideClick(event) {
+                if (!event.target.classList.contains('slide-item')) return;
+
+                const slideNumber = event.target.getAttribute('data-slide');
                 document.querySelectorAll('.slide-item').forEach(item => item.classList.remove('active'));
-                newSlideItem.classList.add('active');
+                event.target.classList.add('active');
+
                 document.querySelectorAll('.slide-content').forEach(content => content.style.display = 'none');
-                document.getElementById(`slide-content-${slideCount}`).style.display = 'block';
-            });
+                document.getElementById(`slide-content-${slideNumber}`).style.display = 'block';
+            }
 
-            slidesList.addEventListener('click', function (e) {
-                if (e.target.classList.contains('slide-item')) {
-                    const slideNumber = e.target.getAttribute('data-slide');
+            function removeSlide() {
+                const activeSlide = document.querySelector('.slide-item.active');
+                if (!activeSlide) return;
 
-                    // Switch active slide
-                    document.querySelectorAll('.slide-item').forEach(item => item.classList.remove('active'));
-                    e.target.classList.add('active');
+                const slideNumber = activeSlide.getAttribute('data-slide');
+                document.getElementById(`slide-content-${slideNumber}`).remove();
+                activeSlide.remove();
 
-                    // Show corresponding content
-                    document.querySelectorAll('.slide-content').forEach(content => content.style.display = 'none');
-                    document.getElementById(`slide-content-${slideNumber}`).style.display = 'block';
+                // Reset to the first slide if the active one was removed
+                if (document.querySelectorAll('.slide-item').length > 0) {
+                    document.querySelector('.slide-item').classList.add('active');
+                    document.getElementById('slide-content-1').style.display = 'block';
                 }
-            });
+            }
 
-            document.getElementById('apply-to-all').addEventListener('click', function () {
-                const questionType = document.getElementById('question_type').value;
-                document.querySelectorAll('.question-input').forEach(input => input.value = questionType);
-            });
+            document.getElementById('add-slide').addEventListener('click', addSlide);
+            document.getElementById('remove-slide').addEventListener('click', removeSlide);
+            document.getElementById('slides-list').addEventListener('click', handleSlideClick);
         });
     </script>
 </body>
 
 </html>
+
