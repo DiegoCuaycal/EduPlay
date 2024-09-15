@@ -1,5 +1,3 @@
-<!-- resources/views/quiz_editor.blade.php -->
-<!-- resources/views/quiz_editor.blade.php -->
 <!DOCTYPE html>
 <html lang="en">
 
@@ -7,43 +5,81 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Quiz Editor</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
     <style>
         body {
-            background-color: #f5f5f5;
+            background-color: #f2f2f2;
+            font-family: Arial, sans-serif;
         }
 
         .admin-bar {
-            background-color: #eaeaea;
+            background-color: #004d99; /* Azul oscuro */
+            color: white;
             padding: 15px;
+            border-bottom: 2px solid #003366; /* Azul más oscuro */
+        }
+
+        .admin-bar input[type="text"] {
+            border: none;
+            border-radius: 5px;
+            padding: 8px;
+        }
+
+        .admin-bar button {
+            margin-left: 10px;
         }
 
         .sidebar {
-            background-color: #fafafa;
-            padding: 10px;
+            background-color: #ffffff;
+            padding: 15px;
             border-right: 1px solid #ddd;
             height: 100vh;
             overflow-y: auto;
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .sidebar h5 {
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            color: #333;
+        }
+
+        .sidebar .slide-item {
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 5px;
+            background-color: #e6f7ff; /* Azul muy claro */
+            cursor: pointer;
+            color: #333;
+            transition: background-color 0.3s;
+        }
+
+        .sidebar .slide-item.active {
+            background-color: #004d99; /* Azul oscuro */
+            color: white;
         }
 
         .content {
             padding: 20px;
-            background-color: #d5eaff;
+            background-color: #ffffff;
             border-radius: 10px;
             margin: 15px;
-            width: 100%;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            flex-grow: 1;
         }
 
         .answer-box {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background-color: #e0e0e0;
+            background-color: #f9f9f9; /* Gris claro */
             border-radius: 5px;
             padding: 10px;
             margin-bottom: 10px;
             cursor: pointer;
             color: #333;
+            transition: background-color 0.3s, color 0.3s;
         }
 
         .answer-box.active {
@@ -51,19 +87,19 @@
         }
 
         .answer-box[data-color="red"].active {
-            background-color: #ff7f7f;
+            background-color: #ff4d4d; /* Rojo claro */
         }
 
         .answer-box[data-color="blue"].active {
-            background-color: #007bff;
+            background-color: #004d99; /* Azul oscuro */
         }
 
         .answer-box[data-color="yellow"].active {
-            background-color: #ffc107;
+            background-color: #ffec80; /* Amarillo suave */
         }
 
         .answer-box[data-color="green"].active {
-            background-color: #28a745;
+            background-color: #66cc66; /* Verde claro */
         }
 
         .answer-box .checkbox {
@@ -78,21 +114,38 @@
             padding: 10px;
             border: 1px solid #ddd;
             margin-bottom: 5px;
-            background-color: #fff;
+            background-color: #ffffff;
+            border-radius: 5px;
         }
 
         .slide-item.active {
-            background-color: #007bff;
+            background-color: #004d99; /* Azul oscuro */
             color: white;
         }
 
         .right-sidebar {
-            background-color: #fafafa;
-            padding: 10px;
+            background-color: #ffffff;
+            padding: 15px;
             border-left: 1px solid #ddd;
             height: 100vh;
             width: 200px;
             overflow-y: auto;
+            box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .right-sidebar h5 {
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            color: #333;
+        }
+
+        .right-sidebar .form-select,
+        .right-sidebar .btn {
+            margin-bottom: 10px;
+        }
+
+        .right-sidebar .btn-danger {
+            margin-top: 20px;
         }
     </style>
 </head>
@@ -108,8 +161,12 @@
             <input type="text" name="title" class="form-control" placeholder="Ingrese el Título de Su prueba"
                 style="max-width: 300px;">
             <div>
-                <button type="button" class="btn btn-secondary">Salir</button>
-                <button type="submit" class="btn btn-primary">Guardar</button>
+                <button type="submit" class="btn btn-primary">
+                    <i class="fas fa-save"></i> Guardar
+                </button>
+                <button type="button" class="btn btn-danger">
+                    <i class="fas fa-trash-alt"></i> Eliminar
+                </button>
             </div>
         </div>
 
@@ -170,144 +227,95 @@
             <div class="right-sidebar p-3">
                 <h5>Opciones</h5>
                 <div class="mb-3">
-                    <label for="points">Puntos</label>
-                    <select id="points" class="form-select">
-                        <option value="100">100</option>
-                        <option value="200">200</option>
-                        <option value="300">300</option>
-                        <option value="400">400</option>
-                        <option value="500">500</option>
-                        <option value="600">600</option>
-                        <option value="700">700</option>
-                        <option value="800">800</option>
-                        <option value="900">900</option>
-                        <option value="1000">1000</option>
+                    <label for="question_type" class="form-label">Tipo de Pregunta</label>
+                    <select id="question_type" class="form-select">
+                        <option value="multiple-choice">Opción múltiple</option>
+                        <option value="true-false">Verdadero o falso</option>
+                        <option value="short-answer">Respuesta corta</option>
                     </select>
                 </div>
                 <div class="mb-3">
-                    <label for="time">Tiempo (segundos)</label>
-                    <select id="time" class="form-select">
-                        <option value="10">10</option>
-                        <option value="20">20</option>
-                        <option value="30">30</option>
-                        <option value="40">40</option>
-                        <option value="50">50</option>
-                        <option value="60">60</option>
-                        <option value="70">70</option>
-                        <option value="80">80</option>
-                        <option value="90">90</option>
-                        <option value="100">100</option>
-                    </select>
+                    <button type="button" class="btn btn-primary w-100" id="apply-to-all">Aplicar a Todos</button>
                 </div>
-                <button type="button" class="btn btn-danger w-100" id="delete-slide">Eliminar Diapositiva</button>
+                <button type="button" class="btn btn-danger w-100">Eliminar Todo</button>
             </div>
         </div>
-
-        <!-- Campos ocultos para el manejo de slides -->
-        <input type="hidden" name="current_slide" id="current-slide" value="1">
-        <input type="hidden" name="total_questions" id="total-questions" value="1">
     </form>
 
+    <!-- Bootstrap JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
     <script>
-        let currentSlide = 1;
-        let totalSlides = 1;
+        document.addEventListener('DOMContentLoaded', function () {
+            const slidesList = document.getElementById('slides-list');
+            const contentArea = document.getElementById('content-area');
+            let slideCount = 1;
 
-        // Cambiar entre diapositivas
-        document.getElementById('slides-list').addEventListener('click', function (event) {
-            if (event.target.classList.contains('slide-item')) {
-                const slideNumber = event.target.dataset.slide;
-                showSlide(slideNumber);
-            }
-        });
+            document.getElementById('add-slide').addEventListener('click', function () {
+                slideCount++;
+                const newSlideItem = document.createElement('li');
+                newSlideItem.classList.add('slide-item');
+                newSlideItem.setAttribute('data-slide', slideCount);
+                newSlideItem.textContent = `Pregunta ${slideCount}`;
+                slidesList.appendChild(newSlideItem);
 
-        function showSlide(slideNumber) {
-            document.querySelectorAll('.slide-item').forEach(item => item.classList.remove('active'));
-            document.querySelectorAll('.slide-content').forEach(content => content.style.display = 'none');
-
-            document.querySelector(`#slide-content-${slideNumber}`).style.display = 'block';
-            document.querySelector(`[data-slide="${slideNumber}"]`).classList.add('active');
-
-            document.getElementById('current-slide').value = slideNumber;
-            currentSlide = slideNumber;
-        }
-
-        // Añadir una nueva diapositiva
-        document.getElementById('add-slide').addEventListener('click', function () {
-            totalSlides++;
-            currentSlide = totalSlides;
-
-            // Agregar nuevo ítem en la sidebar
-            const newSlideItem = document.createElement('li');
-            newSlideItem.classList.add('slide-item');
-            newSlideItem.dataset.slide = totalSlides;
-            newSlideItem.textContent = `Pregunta ${totalSlides}`;
-            document.getElementById('slides-list').appendChild(newSlideItem);
-
-            // Crear nuevo contenido de diapositiva
-            const newSlideContent = document.createElement('div');
-            newSlideContent.classList.add('slide-content');
-            newSlideContent.id = `slide-content-${totalSlides}`;
-            newSlideContent.innerHTML = `
-                <div class="mb-3">
-                    <input type="text" name="slides[${totalSlides}][question]" class="form-control question-input" placeholder="Ingresa Aquí tu Pregunta">
-                </div>
-                <div class="mb-3 text-center">
-                    <label for="slides_${totalSlides}_image" class="btn btn-light border">Cargar Imagen</label>
-                    <input type="file" name="slides[${totalSlides}][image]" id="slides_${totalSlides}_image" class="d-none">
-                </div>
-                <div class="answers">
-                    <div class="answer-box" data-color="red">
-                        <input type="checkbox" name="slides[${totalSlides}][correct_answers][]" value="0" class="checkbox">
-                        <input type="text" name="slides[${totalSlides}][answers][]" class="form-control answer-input" placeholder="Primera respuesta" style="border: none; background: transparent;">
+                const newSlideContent = document.createElement('div');
+                newSlideContent.id = `slide-content-${slideCount}`;
+                newSlideContent.classList.add('slide-content');
+                newSlideContent.innerHTML = `
+                    <div class="mb-3">
+                        <input type="text" name="slides[${slideCount}][question]" class="form-control question-input" placeholder="Ingresa Aquí tu Pregunta">
                     </div>
-                    <div class="answer-box" data-color="blue">
-                        <input type="checkbox" name="slides[${totalSlides}][correct_answers][]" value="1" class="checkbox">
-                        <input type="text" name="slides[${totalSlides}][answers][]" class="form-control answer-input" placeholder="Segunda respuesta" style="border: none; background: transparent;">
+                    <div class="mb-3 text-center">
+                        <label for="slides_${slideCount}_image" class="btn btn-light border">Cargar Imagen</label>
+                        <input type="file" name="slides[${slideCount}][image]" id="slides_${slideCount}_image" class="d-none">
                     </div>
-                    <div class="answer-box" data-color="yellow">
-                        <input type="checkbox" name="slides[${totalSlides}][correct_answers][]" value="2" class="checkbox">
-                        <input type="text" name="slides[${totalSlides}][answers][]" class="form-control answer-input" placeholder="Tercera respuesta" style="border: none; background: transparent;">
+                    <div class="answers">
+                        <div class="answer-box" data-color="red">
+                            <input type="checkbox" name="slides[${slideCount}][correct_answers][]" value="0" class="checkbox">
+                            <input type="text" name="slides[${slideCount}][answers][]" class="form-control answer-input" placeholder="Primera respuesta" style="border: none; background: transparent;">
+                        </div>
+                        <div class="answer-box" data-color="blue">
+                            <input type="checkbox" name="slides[${slideCount}][correct_answers][]" value="1" class="checkbox">
+                            <input type="text" name="slides[${slideCount}][answers][]" class="form-control answer-input" placeholder="Segunda respuesta" style="border: none; background: transparent;">
+                        </div>
+                        <div class="answer-box" data-color="yellow">
+                            <input type="checkbox" name="slides[${slideCount}][correct_answers][]" value="2" class="checkbox">
+                            <input type="text" name="slides[${slideCount}][answers][]" class="form-control answer-input" placeholder="Tercera respuesta" style="border: none; background: transparent;">
+                        </div>
+                        <div class="answer-box" data-color="green">
+                            <input type="checkbox" name="slides[${slideCount}][correct_answers][]" value="3" class="checkbox">
+                            <input type="text" name="slides[${slideCount}][answers][]" class="form-control answer-input" placeholder="Cuarta respuesta" style="border: none; background: transparent;">
+                        </div>
                     </div>
-                    <div class="answer-box" data-color="green">
-                        <input type="checkbox" name="slides[${totalSlides}][correct_answers][]" value="3" class="checkbox">
-                        <input type="text" name="slides[${totalSlides}][answers][]" class="form-control answer-input" placeholder="Cuarta respuesta" style="border: none; background: transparent;">
-                    </div>
-                </div>
-            `;
+                `;
+                contentArea.appendChild(newSlideContent);
 
-            document.getElementById('content-area').appendChild(newSlideContent);
-            showSlide(totalSlides);
-            document.getElementById('total-questions').value = totalSlides;
-        });
+                // Switch to the newly added slide
+                document.querySelectorAll('.slide-item').forEach(item => item.classList.remove('active'));
+                newSlideItem.classList.add('active');
+                document.querySelectorAll('.slide-content').forEach(content => content.style.display = 'none');
+                document.getElementById(`slide-content-${slideCount}`).style.display = 'block';
+            });
 
-        // Eliminar la diapositiva actual
-        document.getElementById('delete-slide').addEventListener('click', function () {
-            if (totalSlides > 1) {
-                // Eliminar la diapositiva actual
-                document.getElementById(`slide-content-${currentSlide}`).remove();
-                document.querySelector(`[data-slide="${currentSlide}"]`).remove();
+            slidesList.addEventListener('click', function (e) {
+                if (e.target.classList.contains('slide-item')) {
+                    const slideNumber = e.target.getAttribute('data-slide');
 
-                // Reorganizar el contenido
-                totalSlides--;
-                document.getElementById('total-questions').value = totalSlides;
+                    // Switch active slide
+                    document.querySelectorAll('.slide-item').forEach(item => item.classList.remove('active'));
+                    e.target.classList.add('active');
 
-                if (currentSlide > totalSlides) {
-                    currentSlide = totalSlides;
+                    // Show corresponding content
+                    document.querySelectorAll('.slide-content').forEach(content => content.style.display = 'none');
+                    document.getElementById(`slide-content-${slideNumber}`).style.display = 'block';
                 }
+            });
 
-                showSlide(currentSlide);
-            } else {
-                alert('No puedes eliminar la última diapositiva');
-            }
-        });
-
-        // Manejo de selección de respuestas
-        document.addEventListener('click', function (event) {
-            if (event.target.classList.contains('answer-box')) {
-                const answerBoxes = event.target.parentElement.querySelectorAll('.answer-box');
-                answerBoxes.forEach(box => box.classList.remove('active'));
-                event.target.classList.add('active');
-            }
+            document.getElementById('apply-to-all').addEventListener('click', function () {
+                const questionType = document.getElementById('question_type').value;
+                document.querySelectorAll('.question-input').forEach(input => input.value = questionType);
+            });
         });
     </script>
 </body>
