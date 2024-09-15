@@ -244,88 +244,99 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function () {
-            let slideCounter = 1;
+    let slideCounter = 1;
 
-            function addSlide() {
-                slideCounter++;
-                const newSlide = `
-                <li class="slide-item" data-slide="${slideCounter}">Pregunta ${slideCounter}</li>
-                `;
-                document.getElementById('slides-list').insertAdjacentHTML('beforeend', newSlide);
+    function addSlide() {
+        slideCounter++;
+        
+        // Ocultar todas las diapositivas antes de añadir una nueva
+        document.querySelectorAll('.slide-content').forEach(content => content.style.display = 'none');
+        document.querySelectorAll('.slide-item').forEach(item => item.classList.remove('active'));
 
-                const newContent = `
-                <div id="slide-content-${slideCounter}" class="slide-content">
-                    <div class="mb-3">
-                        <input type="text" name="slides[${slideCounter}][question]" class="form-control question-input"
-                            placeholder="Ingresa Aquí tu Pregunta">
-                    </div>
-                    <div class="mb-3 text-center">
-                        <!-- Campo de carga de imagen -->
-                        <label for="slides_${slideCounter}_image" class="btn btn-light border">Cargar Imagen</label>
-                        <input type="file" name="slides[${slideCounter}][image]" id="slides_${slideCounter}_image" class="d-none">
-                    </div>
-                    <div class="answers">
-                        <!-- Respuesta 1 -->
-                        <div class="answer-box" data-color="red">
-                            <input type="checkbox" name="slides[${slideCounter}][correct_answers][]" value="0" class="checkbox">
-                            <input type="text" name="slides[${slideCounter}][answers][]" class="form-control answer-input"
-                                placeholder="Primera respuesta" style="border: none; background: transparent;">
-                        </div>
-                        <!-- Respuesta 2 -->
-                        <div class="answer-box" data-color="blue">
-                            <input type="checkbox" name="slides[${slideCounter}][correct_answers][]" value="1" class="checkbox">
-                            <input type="text" name="slides[${slideCounter}][answers][]" class="form-control answer-input"
-                                placeholder="Segunda respuesta" style="border: none; background: transparent;">
-                        </div>
-                        <!-- Respuesta 3 -->
-                        <div class="answer-box" data-color="yellow">
-                            <input type="checkbox" name="slides[${slideCounter}][correct_answers][]" value="2" class="checkbox">
-                            <input type="text" name="slides[${slideCounter}][answers][]" class="form-control answer-input"
-                                placeholder="Tercera respuesta" style="border: none; background: transparent;">
-                        </div>
-                        <!-- Respuesta 4 -->
-                        <div class="answer-box" data-color="green">
-                            <input type="checkbox" name="slides[${slideCounter}][correct_answers][]" value="3" class="checkbox">
-                            <input type="text" name="slides[${slideCounter}][answers][]" class="form-control answer-input"
-                                placeholder="Cuarta respuesta" style="border: none; background: transparent;">
-                        </div>
-                    </div>
+        // Añadir la nueva diapositiva en el sidebar
+        const newSlide = `
+        <li class="slide-item active" data-slide="${slideCounter}">Pregunta ${slideCounter}</li>
+        `;
+        document.getElementById('slides-list').insertAdjacentHTML('beforeend', newSlide);
+
+        // Crear el contenido de la nueva diapositiva
+        const newContent = `
+        <div id="slide-content-${slideCounter}" class="slide-content">
+            <div class="mb-3">
+                <input type="text" name="slides[${slideCounter}][question]" class="form-control question-input"
+                    placeholder="Ingresa Aquí tu Pregunta">
+            </div>
+            <div class="mb-3 text-center">
+                <!-- Campo de carga de imagen -->
+                <label for="slides_${slideCounter}_image" class="btn btn-light border">Cargar Imagen</label>
+                <input type="file" name="slides[${slideCounter}][image]" id="slides_${slideCounter}_image" class="d-none">
+            </div>
+            <div class="answers">
+                <!-- Respuesta 1 -->
+                <div class="answer-box" data-color="red">
+                    <input type="checkbox" name="slides[${slideCounter}][correct_answers][]" value="0" class="checkbox">
+                    <input type="text" name="slides[${slideCounter}][answers][]" class="form-control answer-input"
+                        placeholder="Primera respuesta" style="border: none; background: transparent;">
                 </div>
-                `;
-                document.getElementById('content-area').insertAdjacentHTML('beforeend', newContent);
-            }
+                <!-- Respuesta 2 -->
+                <div class="answer-box" data-color="blue">
+                    <input type="checkbox" name="slides[${slideCounter}][correct_answers][]" value="1" class="checkbox">
+                    <input type="text" name="slides[${slideCounter}][answers][]" class="form-control answer-input"
+                        placeholder="Segunda respuesta" style="border: none; background: transparent;">
+                </div>
+                <!-- Respuesta 3 -->
+                <div class="answer-box" data-color="yellow">
+                    <input type="checkbox" name="slides[${slideCounter}][correct_answers][]" value="2" class="checkbox">
+                    <input type="text" name="slides[${slideCounter}][answers][]" class="form-control answer-input"
+                        placeholder="Tercera respuesta" style="border: none; background: transparent;">
+                </div>
+                <!-- Respuesta 4 -->
+                <div class="answer-box" data-color="green">
+                    <input type="checkbox" name="slides[${slideCounter}][correct_answers][]" value="3" class="checkbox">
+                    <input type="text" name="slides[${slideCounter}][answers][]" class="form-control answer-input"
+                        placeholder="Cuarta respuesta" style="border: none; background: transparent;">
+                </div>
+            </div>
+        </div>
+        `;
+        
+        document.getElementById('content-area').insertAdjacentHTML('beforeend', newContent);
+        document.getElementById(`slide-content-${slideCounter}`).style.display = 'block';
+    }
 
-            function handleSlideClick(event) {
-                if (!event.target.classList.contains('slide-item')) return;
+    function handleSlideClick(event) {
+        if (!event.target.classList.contains('slide-item')) return;
 
-                const slideNumber = event.target.getAttribute('data-slide');
-                document.querySelectorAll('.slide-item').forEach(item => item.classList.remove('active'));
-                event.target.classList.add('active');
+        const slideNumber = event.target.getAttribute('data-slide');
+        document.querySelectorAll('.slide-item').forEach(item => item.classList.remove('active'));
+        event.target.classList.add('active');
 
-                document.querySelectorAll('.slide-content').forEach(content => content.style.display = 'none');
-                document.getElementById(`slide-content-${slideNumber}`).style.display = 'block';
-            }
+        document.querySelectorAll('.slide-content').forEach(content => content.style.display = 'none');
+        document.getElementById(`slide-content-${slideNumber}`).style.display = 'block';
+    }
 
-            function removeSlide() {
-                const activeSlide = document.querySelector('.slide-item.active');
-                if (!activeSlide) return;
+    function removeSlide() {
+        const activeSlide = document.querySelector('.slide-item.active');
+        if (!activeSlide) return;
 
-                const slideNumber = activeSlide.getAttribute('data-slide');
-                document.getElementById(`slide-content-${slideNumber}`).remove();
-                activeSlide.remove();
+        const slideNumber = activeSlide.getAttribute('data-slide');
+        document.getElementById(`slide-content-${slideNumber}`).remove();
+        activeSlide.remove();
 
-                // Reset to the first slide if the active one was removed
-                if (document.querySelectorAll('.slide-item').length > 0) {
-                    document.querySelector('.slide-item').classList.add('active');
-                    document.getElementById('slide-content-1').style.display = 'block';
-                }
-            }
+        // Resetear a la primera diapositiva si la activa fue eliminada
+        if (document.querySelectorAll('.slide-item').length > 0) {
+            document.querySelector('.slide-item').classList.add('active');
+            document.querySelector('.slide-content').style.display = 'block';
+        }
+    }
 
-            document.getElementById('add-slide').addEventListener('click', addSlide);
-            document.getElementById('remove-slide').addEventListener('click', removeSlide);
-            document.getElementById('slides-list').addEventListener('click', handleSlideClick);
-        });
+    document.getElementById('add-slide').addEventListener('click', addSlide);
+    document.getElementById('remove-slide').addEventListener('click', removeSlide);
+    document.getElementById('slides-list').addEventListener('click', handleSlideClick);
+});
+
     </script>
+    <script></script>
 </body>
 
 </html>
