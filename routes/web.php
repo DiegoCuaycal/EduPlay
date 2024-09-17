@@ -6,8 +6,6 @@ use App\Http\Controllers\InfoUserController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\ResetController;
 use App\Http\Controllers\SessionsController;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\QuizController;
 
@@ -21,7 +19,6 @@ use App\Http\Controllers\QuizController;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
 
 Route::group(['middleware' => 'auth'], function () {
 
@@ -68,9 +65,11 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/login', function () {
 		return view('dashboard');
 	})->name('sign-up');
+
+    // Mover las rutas de quiz aquí si solo quieres permitir a usuarios autenticados usarlas
+    Route::post('/save-quiz', [QuizController::class, 'save'])->name('save.quiz');
+    Route::get('/quiz', [QuizController::class, 'index'])->name('quiz.index');
 });
-
-
 
 Route::group(['middleware' => 'guest'], function () {
     Route::get('/register', [RegisterController::class, 'create']);
@@ -81,12 +80,9 @@ Route::group(['middleware' => 'guest'], function () {
 	Route::post('/forgot-password', [ResetController::class, 'sendEmail']);
 	Route::get('/reset-password/{token}', [ResetController::class, 'resetPass'])->name('password.reset');
 	Route::post('/reset-password', [ChangePasswordController::class, 'changePassword'])->name('password.update');
-	Route::post('/save-quiz', [QuizController::class, 'save'])->name('save.quiz');
-	Route::get('/quiz', [QuizController::class, 'index'])->name('quiz.index');
-
-
 });
 
+// Elimina esta ruta si ya tienes el login controlado por `SessionsController`
 Route::get('/login', function () {
     return view('session/login-session');
 })->name('login');
