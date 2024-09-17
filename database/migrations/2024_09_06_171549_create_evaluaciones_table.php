@@ -12,17 +12,13 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('evaluaciones', function (Blueprint $table) {
-            // Definimos las columnas
-            $table->integer('id_evaluacion')->primary(); // PRIMARY KEY
-            $table->string('id_usuario', 50)->nullable(); // Puede ser nulo
+            $table->increments('id_evaluacion'); // Auto-incremental
+            $table->string('id_usuario', 50)->nullable(); // Puede ser nulo, relacionado con otra tabla si es necesario
             $table->string('titulo', 50); // No nulo
             $table->text('descripcion'); // No nulo
-            $table->date('fecha_creacion'); // No nulo
-            $table->date('fecha_modificacion'); // No nulo
-            
-            // Si se requiere agregar alguna relación o constraint adicional
-            // se podría incluir aquí, pero según tu SQL, no hay FK directo.
+            $table->timestamps(); // Esto reemplaza a 'fecha_creacion' y 'fecha_modificacion'
         });
+        
     }
 
     /**
