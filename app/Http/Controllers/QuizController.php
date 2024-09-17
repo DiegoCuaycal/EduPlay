@@ -47,8 +47,14 @@ class QuizController extends Controller
 
         // Guardar la imagen si existe
         if (!empty($slide['image'])) {
-            $imagePath = $slide['image']->store('questions_images', 'public');
-            $pregunta->image_path = $imagePath;
+            // Definir el nombre del archivo
+            $imageName = time() . '-' . $slide['image']->getClientOriginalName();
+
+            // Mover la imagen a la carpeta 'public/assets/img/questions_images'
+            $slide['image']->move(public_path('assets/img/questions_images'), $imageName);
+
+            // Guardar la ruta de la imagen en la base de datos
+            $pregunta->image_path = 'assets/img/questions_images/' . $imageName;
             $pregunta->save();
         }
     }
@@ -56,6 +62,7 @@ class QuizController extends Controller
     // Redirigir a la lista de evaluaciones después de guardar
     return redirect()->route('quiz.index')->with('success', 'Prueba guardada exitosamente.');
 }
+
 
     // Método para listar las evaluaciones guardadas
     public function index()
