@@ -12,13 +12,14 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('preguntas', function (Blueprint $table) {
-            $table->id('id_pregunta'); // Usar id como clave primaria
-            $table->foreignId('id_evaluacion')->nullable()->constrained('evaluaciones')->onDelete('cascade'); // Clave foránea
-            $table->string('tipo_pregunta', 50);
-            $table->string('texto_pregunta', 255); // Extender el tamaño de la pregunta
-            $table->string('imagen', 255)->nullable(); // La imagen es opcional
-            $table->timestamps(); // created_at y updated_at
+            $table->integer('id_pregunta')->primary(); // Mantener INT(4)
+            $table->foreignId('id_evaluacion')->nullable()->constrained('evaluaciones')->onDelete('cascade'); // Clave foránea con cascada
+            $table->string('tipo_pregunta', 50); // VARCHAR(50)
+            $table->string('texto_pregunta', 50); // VARCHAR(50), ajustado a la base de datos
+            $table->string('imagen', 50)->nullable(); // VARCHAR(50), opcional
+            $table->timestamps(); // Fechas de creación y modificación
         });
+        
     }
 
     /**

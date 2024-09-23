@@ -20,6 +20,7 @@ return new class extends Migration
             $table->integer('tiempo_respuesta'); // Tiempo en responder
             $table->timestamps(); // created_at y updated_at
         });
+        
     }
 
     /**
