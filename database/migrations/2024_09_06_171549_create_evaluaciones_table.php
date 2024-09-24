@@ -12,12 +12,11 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('evaluaciones', function (Blueprint $table) {
-            $table->increments('id_evaluacion'); // Auto-incremental
-            $table->string('id_usuario', 50)->nullable(); // Puede ser nulo, relacionado con otra tabla si es necesario
-            $table->string('titulo', 50); // No nulo
-            $table->text('descripcion'); // No nulo
-            $table->timestamps(); // Esto reemplaza a 'fecha_creacion' y 'fecha_modificacion'
+            $table->id(); // Esta línea crea la columna 'id' como clave primaria.
+            $table->string('nombre', 100); // Ejemplo de otra columna
+            $table->timestamps();
         });
+        
         
     }
 

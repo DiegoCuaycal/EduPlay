@@ -12,16 +12,11 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('participaciones', function (Blueprint $table) {
-            // Definimos las columnas
-            $table->integer('id_participacion')->primary(); // PRIMARY KEY
-            $table->integer('id_evaluacion')->nullable(); // Puede ser nulo
-            $table->string('id_usuario', 50)->nullable(); // Puede ser nulo
-            $table->date('fecha_participacion'); // No nulo
-            $table->integer('puntaje_total'); // No nulo
-            $table->integer('tiempo_total'); // No nulo
-
-            // Si 'id_evaluacion' hace referencia a otra tabla, podemos definir una clave foránea aquí
-            // $table->foreign('id_evaluacion')->references('id')->on('evaluaciones');
+            $table->id(); // Clave primaria
+            $table->foreignId('id_evaluacion')->constrained('evaluaciones')->onDelete('cascade');
+            $table->unsignedBigInteger('user_id'); // Asegúrate de tener una columna para la relación
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->timestamps();
         });
     }
 

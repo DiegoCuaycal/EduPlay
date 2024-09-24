@@ -11,10 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('opciones', function (Blueprint $table) {
-            $table->id(); // Clave primaria para 'opciones'
-            $table->foreignId('id_pregunta')->constrained('preguntas')->onDelete('cascade'); // Llave foránea hacia 'preguntas'
-            $table->string('opcion', 255); // Ejemplo de otra columna
+        Schema::create('preguntas', function (Blueprint $table) {
+            $table->id(); // Esta línea crea la columna 'id' como clave primaria.
+            $table->foreignId('id_evaluacion')->constrained('evaluaciones')->onDelete('cascade'); // Llave foránea hacia 'evaluaciones'
+            $table->string('pregunta', 255); // Ejemplo de otra columna
             $table->timestamps();
         });
     }
@@ -24,7 +24,7 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('opciones');
+        Schema::dropIfExists('preguntas');
     }
 };
 
