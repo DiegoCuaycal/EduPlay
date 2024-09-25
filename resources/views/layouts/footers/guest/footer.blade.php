@@ -24,6 +24,8 @@
           </a>
       </div>
       <-->
+      </div>
+      <div>
         @if (!auth()->user() || \Request::is('static-sign-up')) 
           <div class="col-lg-8 mx-auto text-center mb-4 mt-2">
               <a href="https://x.com/UTN_Ibarra" target="_blank" class="text-secondary me-xl-4 me-4">
@@ -42,7 +44,7 @@
         @endif
       </div>
       @if (!auth()->user() || \Request::is('static-sign-up')) 
-        <div class="row">
+        <div class="row footer">
           <div class="col-8 mx-auto text-center mt-1">
             <p class="mb-0 text-secondary">
             Copyright 2024 ©  | Designed by UNIVERSIDAD TÉCNICA DEL NORTE<script>
@@ -59,3 +61,9 @@
     </div>
   </footer>
   <!-- -------- END FOOTER 3 w/ COMPANY DESCRIPTION WITH LINKS & SOCIAL ICONS & COPYRIGHT ------- -->
+
+  <style>
+    .footer{
+      
+    }
+  </style>

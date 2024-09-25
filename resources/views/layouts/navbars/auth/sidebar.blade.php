@@ -106,6 +106,7 @@
         </a>
       </li>
       <li class="nav-item">
+        <!--
         <a class="nav-link {{ (Request::is('virtual-reality') ? 'active' : '') }}" href="{{ url('virtual-reality') }}">
           <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
             <svg width="12px" height="100%" viewBox="0 0 42 42" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -125,8 +126,10 @@
           </div>
           <span class="nav-link-text ms-1">Ayuda</span>
         </a>
+-->
       </li>
       <li class="nav-item">
+        <!--
         <a class="nav-link {{ (Request::is('rtl') ? 'active' : '') }}" href="{{ url('rtl') }}">
           <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
             <svg width="12px" height="100%" viewBox="0 0 40 40" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -146,6 +149,7 @@
           </div>
           <span class="nav-link-text ms-1">RTL</span>
         </a>
+-->
       </li>
       <li class="nav-item mt-3">
         <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">Account pages</h6>
@@ -172,6 +176,7 @@
         </a>
       </li>
       <li class="nav-item">
+        <!--
         <a class="nav-link  " href="{{ url('static-sign-in') }}">
           <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
             <svg width="12px" height="100%" viewBox="0 0 40 44" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -190,8 +195,10 @@
           </div>
           <span class="nav-link-text ms-1">Sign In</span>
         </a>
+-->
       </li>
       <li class="nav-item">
+        <!--
         <a class="nav-link  " href="{{ url('static-sign-up') }}">
           <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
             <svg width="12px" height="100%" viewBox="0 0 40 40" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -212,6 +219,7 @@
           </div>
           <span class="nav-link-text ms-1">Sign Up</span>
         </a>
+-->
       </li>
       <!--
       <li class="nav-link mb-0">
