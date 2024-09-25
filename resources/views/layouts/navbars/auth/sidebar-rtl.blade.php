@@ -1,3 +1,7 @@
+
+
+
+<!--
 <aside class="sidenav navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-end me-3 rotate-caret " id="sidenav-main">
   <div class="sidenav-header">
     <i class="fas fa-times p-3 cursor-pointer text-secondary opacity-5 position-absolute start-0 top-0 d-none d-xl-none" aria-hidden="true" id="iconSidenav"></i>
@@ -26,7 +30,7 @@
               </g>
             </svg>
           </div>
-         <!-- <span class="nav-link-text me-1">لوحة القيادة</span> -->
+         !-- <span class="nav-link-text me-1">لوحة القيادة</span> --
         </a>
       </li>
       <li class="nav-item">
@@ -46,7 +50,7 @@
               </g>
             </svg>
           </div>
-         <!-- <span class="nav-link-text me-1">الجداول</span> -->
+         <!-- <span class="nav-link-text me-1">الجداول</span> --
         </a>
       </li>
       <li class="nav-item">
@@ -66,7 +70,7 @@
               </g>
             </svg>
           </div>
-        <!--  <span class="nav-link-text me-1">الفواتير</span> -->
+        <!--  <span class="nav-link-text me-1">الفواتير</span> --
         </a>
       </li>
       <li class="nav-item">
@@ -87,7 +91,7 @@
               </g>
             </svg>
           </div>
-        <!--  <span class="nav-link-text me-1">الواقع الافتراضي</span> -->
+        <!--  <span class="nav-link-text me-1">الواقع الافتراضي</span> --
         </a>
       </li>
       <li class="nav-item">
@@ -129,7 +133,7 @@
               </g>
             </svg>
           </div>
-        <!--  <span class="nav-link-text me-1">حساب تعريفي</span> -->
+        <!--  <span class="nav-link-text me-1">حساب تعريفي</span> --
         </a>
       </li>
       <li class="nav-item">
@@ -149,7 +153,7 @@
               </g>
             </svg>
           </div>
-         <!-- <span class="nav-link-text me-1">تسجيل الدخول</span> -->
+         <!-- <span class="nav-link-text me-1">تسجيل الدخول</span> --
         </a>
       </li>
       <li class="nav-item">
@@ -193,3 +197,4 @@
     <a class="btn bg-gradient-primary mt-4 w-100" href="https://www.creative-tim.com/product/soft-ui-dashboard-pro-laravel" target="_blank" type="button">Upgrade to pro</a>
   </div>
 </aside>
+-->
