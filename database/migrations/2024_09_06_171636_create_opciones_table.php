@@ -12,9 +12,9 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('opciones', function (Blueprint $table) {
-            $table->id(); // Clave primaria para 'opciones'
-            $table->foreignId('id_pregunta')->constrained('preguntas')->onDelete('cascade'); // Llave foránea hacia 'preguntas'
-            $table->string('opcion', 255); // Ejemplo de otra columna
+            $table->id();
+            $table->text('texto'); // Texto de la opción
+            $table->boolean('es_correcta')->default(false); // Checkbox para marcar si es correcta
             $table->timestamps();
         });
     }

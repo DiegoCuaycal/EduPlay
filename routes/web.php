@@ -8,6 +8,7 @@ use App\Http\Controllers\ResetController;
 use App\Http\Controllers\SessionsController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\QuizController;
+use App\Http\Controllers\OpcionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -69,6 +70,10 @@ Route::group(['middleware' => 'auth'], function () {
     // Mover las rutas de quiz aquí si solo quieres permitir a usuarios autenticados usarlas
     Route::post('/save-quiz', [QuizController::class, 'save'])->name('save.quiz');
     Route::get('/quiz', [QuizController::class, 'index'])->name('quiz.index');
+
+	Route::get('/opciones/create', [OpcionController::class, 'create'])->name('opciones.create');
+	Route::post('/opciones/store', [OpcionController::class, 'store'])->name('opciones.store');
+
 });
 
 Route::group(['middleware' => 'guest'], function () {
