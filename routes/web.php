@@ -9,6 +9,7 @@ use App\Http\Controllers\SessionsController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\QuizController;
 use App\Http\Controllers\OpcionController;
+use App\Http\Controllers\RespuestaController;
 
 /*
 |--------------------------------------------------------------------------
@@ -72,8 +73,10 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/quiz', [QuizController::class, 'index'])->name('quiz.index');
 
 	Route::get('/opciones/create', [OpcionController::class, 'create'])->name('opciones.create');
-	Route::post('/opciones/store', [OpcionController::class, 'store'])->name('opciones.store');
+	Route::post('/opciones/store', [OpcionController::class, 'store'])->name('opciones.store');	
 
+	Route::get('respuestas/create', [RespuestaController::class, 'create'])->name('respuestas.create');
+	Route::post('respuestas', [RespuestaController::class, 'store'])->name('respuestas.store');
 });
 
 Route::group(['middleware' => 'guest'], function () {

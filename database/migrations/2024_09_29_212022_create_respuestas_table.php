@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('respuestas', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('id_participacion')->constrained('participaciones')->onDelete('cascade');
-            $table->string('respuesta'); // Asegúrate de agregar las columnas adicionales según sea necesario
+            $table->string('texto'); // Campo para el texto de la respuesta
+            $table->boolean('es_correcta')->default(false); 
             $table->timestamps();
         });
     }
@@ -27,5 +27,3 @@ return new class extends Migration
         Schema::dropIfExists('respuestas');
     }
 };
-
-
