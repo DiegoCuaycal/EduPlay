@@ -1,12 +1,15 @@
 
 
-  <aside class="sidenav navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-3 " id="sidenav-main" style="width: 250px;">
-<div class="sidenav-header">
-    <i class="fas fa-times p-3 cursor-pointer text-secondary opacity-5 position-absolute end-0 top-0 d-none d-xl-none" aria-hidden="true" id="iconSidenav"></i>
-    <a class="align-items-center d-flex m-0 navbar-brand text-wrap" href="{{ route('dashboard') }}">
-        <img src="../assets/img/Fecyt/Fecyt.jpg" class="navbar-brand-img h-100" alt="..." style="width: 150px; height: 100vh;">
-    </a>
-</div>
+<aside class="sidenav navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-3 " id="sidenav-main" style="width: 250px;">
+    <div class="sidenav-header">
+        <i class="fas fa-times p-3 cursor-pointer text-secondary opacity-5 position-absolute end-0 top-0 d-none d-xl-none" aria-hidden="true" id="iconSidenav"></i>
+        <a class="align-items-center d-flex m-0 navbar-brand text-wrap" href="{{ route('dashboard') }}">
+            <!-- Ajuste de tamaño del logo -->
+            <img src="../assets/img/Fecyt/Fecyt.png" class="navbar-brand-img h-100" alt="..." style="width: 400px; height: 400; max-height: 250px;">
+        </a>
+    </div>
+
+
 
   <hr class="horizontal dark mt-0">
   
