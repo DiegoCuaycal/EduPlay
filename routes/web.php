@@ -11,6 +11,7 @@ use App\Http\Controllers\QuizController;
 use App\Http\Controllers\OpcionController;
 use App\Http\Controllers\RespuestaController;
 use App\Http\Controllers\PreguntaController;
+use App\Http\Controllers\PruebaController;
 
 /*
 |--------------------------------------------------------------------------
@@ -77,12 +78,14 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::post('/opciones/store', [OpcionController::class, 'store'])->name('opciones.store');	
 
 	Route::get('respuestas/create', [RespuestaController::class, 'create'])->name('respuestas.create');
-	Route::post('respuestas', [RespuestaController::class, 'store'])->name('respuestas.store');
-
-	
+	Route::post('respuestas', [RespuestaController::class, 'store'])->name('respuestas.store');	
 
 	Route::get('preguntas/create', [PreguntaController::class, 'create'])->name('preguntas.create');
 	Route::post('preguntas', [PreguntaController::class, 'store'])->name('preguntas.store');
+
+	Route::get('pruebas/create', [PruebaController::class, 'create'])->name('pruebas.create');
+	Route::post('pruebas', [PruebaController::class, 'store'])->name('pruebas.store');
+
 });
 
 Route::group(['middleware' => 'guest'], function () {
