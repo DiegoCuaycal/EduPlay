@@ -1,47 +1,60 @@
-@extends('layouts.app')
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crear Prueba</title>
+</head>
+<body>
+    <h1>Crear Nueva Prueba</h1>
 
-@section('title', 'Crear Prueba')
+    <!-- Mostrar mensajes de éxito -->
+    @if(session('success'))
+        <div>{{ session('success') }}</div>
+    @endif
 
-@section('content')
-    <div class="container mt-5">
-        <h1>Crear Prueba</h1>
+    <!-- Formulario para crear una prueba con 3 preguntas y sus respectivas respuestas -->
+    <form action="{{ route('pruebas.store') }}" method="POST">
+        @csrf
 
-        <form action="{{ route('pruebas.store') }}" method="POST">
-            @csrf
+        <!-- Título de la prueba -->
+        <label for="titulo">Título de la Prueba:</label>
+        <input type="text" name="titulo" id="titulo" required>
+        <br><br>
 
-            <!-- Título de la prueba -->
-            <div class="form-group mb-3">
-                <label for="titulo">Título de la prueba:</label>
-                <input type="text" name="titulo" class="form-control" required>
-            </div>
+        <!-- Preguntas y Respuestas -->
+        @for ($i = 0; $i < 3; $i++)
+            <h2>Pregunta {{ $i + 1 }}</h2>
+            <label for="preguntas[{{ $i }}][texto_pregunta]">Texto de la Pregunta:</label>
+            <input type="text" name="preguntas[{{ $i }}][texto_pregunta]" required>
+            <br><br>
 
-            <!-- Preguntas -->
-            @for ($i = 0; $i < 3; $i++)
-                <div class="card mt-4">
-                    <div class="card-body">
-                        <h5>Pregunta {{ $i + 1 }}</h5>
-                        <div class="form-group mb-3">
-                            <label for="preguntas[{{ $i }}][texto_pregunta]">Texto de la pregunta:</label>
-                            <input type="text" name="preguntas[{{ $i }}][texto_pregunta]" class="form-control" required>
-                        </div>
+            <!-- Respuestas -->
+            @for ($j = 0; $j < 4; $j++)
+                <h3>Respuesta {{ $j + 1 }}</h3>
+                <label for="preguntas[{{ $i }}][respuestas][{{ $j }}][texto]">Texto:</label>
+                <input type="text" name="preguntas[{{ $i }}][respuestas][{{ $j }}][texto]" required>
+                <br><br>
 
-                        <!-- Respuestas -->
-                        @for ($j = 0; $j < 4; $j++)
-                            <div class="form-group mb-2">
-                                <label for="preguntas[{{ $i }}][respuestas][{{ $j }}][texto]">Texto de la respuesta {{ $j + 1 }}:</label>
-                                <input type="text" name="preguntas[{{ $i }}][respuestas][{{ $j }}][texto]" class="form-control" required>
-                                <div class="form-check">
-                                    <input type="checkbox" name="preguntas[{{ $i }}][respuestas][{{ $j }}][es_correcta]" class="form-check-input">
-                                    <label class="form-check-label">Es correcta</label>
-                                </div>
-                            </div>
-                        @endfor
-                    </div>
-                </div>
+                <label for="preguntas[{{ $i }}][respuestas][{{ $j }}][es_correcta]">Es correcta:</label>
+                <input type="checkbox" name="preguntas[{{ $i }}][respuestas][{{ $j }}][es_correcta]">
+                <br><br>
             @endfor
+        @endfor
 
-            <!-- Botón de guardar -->
-            <button type="submit" class="btn btn-primary mt-4">Guardar Prueba</button>
-        </form>
-    </div>
-@endsection
+        <!-- Botón de guardar -->
+        <button type="submit">Guardar Prueba</button>
+    </form>
+
+    <!-- Mostrar errores de validación -->
+    @if($errors->any())
+        <div>
+            <ul>
+                @foreach($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+</body>
+</html>
