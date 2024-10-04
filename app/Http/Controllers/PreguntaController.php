@@ -12,9 +12,11 @@ class PreguntaController extends Controller
      * Display a listing of the resource.
      */
     public function index()
-    {
-        //
-    }
+{
+    $preguntas = Pregunta::with('respuestas')->get();
+    return view('preguntas.index', compact('preguntas'));
+}
+
 
     /**
      * Show the form for creating a new resource.

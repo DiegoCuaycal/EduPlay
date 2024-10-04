@@ -9,11 +9,15 @@ class Pregunta extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['texto'];
+    protected $fillable = ['texto', 'prueba_id'];
 
-    // Relación: una pregunta tiene muchas respuestas
     public function respuestas()
     {
         return $this->hasMany(Respuesta::class);
+    }
+
+    public function prueba()
+    {
+        return $this->belongsTo(Prueba::class);
     }
 }

@@ -13,9 +13,14 @@ class PruebaController extends Controller
      * Display a listing of the resource.
      */
     public function index()
-    {
-        //
-    }
+{
+    // Cargar las pruebas con las preguntas y respuestas relacionadas
+    $pruebas = Prueba::with('preguntas.respuestas')->get();
+    
+    return view('pruebas.index', compact('pruebas'));
+}
+
+
 
     public function create()
     {

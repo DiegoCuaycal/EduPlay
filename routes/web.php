@@ -79,12 +79,17 @@ Route::group(['middleware' => 'auth'], function () {
 
 	Route::get('respuestas/create', [RespuestaController::class, 'create'])->name('respuestas.create');
 	Route::post('respuestas', [RespuestaController::class, 'store'])->name('respuestas.store');	
+	Route::get('/respuestas', [RespuestaController::class, 'index'])->name('respuestas.index');
+
 
 	Route::get('preguntas/create', [PreguntaController::class, 'create'])->name('preguntas.create');
 	Route::post('preguntas', [PreguntaController::class, 'store'])->name('preguntas.store');
+	Route::get('/preguntas', [PreguntaController::class, 'index'])->name('preguntas.index');
+
 
 	Route::get('pruebas/create', [PruebaController::class, 'create'])->name('pruebas.create');
 	Route::post('pruebas', [PruebaController::class, 'store'])->name('pruebas.store');
+	Route::get('/pruebas', [PruebaController::class, 'index'])->name('pruebas.index');
 
 });
 

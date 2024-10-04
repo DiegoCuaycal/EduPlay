@@ -16,6 +16,11 @@ return new class extends Migration
             $table->string('titulo');
             $table->timestamps();
         });
+        // Añadir la columna de clave foránea en la tabla de preguntas
+        Schema::table('preguntas', function (Blueprint $table) {
+            $table->foreignId('prueba_id')->constrained('pruebas')->onDelete('cascade');
+        });
+
     }
 
     /**

@@ -11,9 +11,10 @@ class RespuestaController extends Controller
      * Display a listing of the resource.
      */
     public function index()
-    {
-        //
-    }
+{
+    $respuestas = Respuesta::all();
+    return view('respuestas.index', compact('respuestas'));
+}
 
     /**
      * Show the form for creating a new resource.
