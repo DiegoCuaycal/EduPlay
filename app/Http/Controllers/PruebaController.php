@@ -29,36 +29,27 @@ class PruebaController extends Controller
 
     public function store(Request $request)
     {
-        $request->validate([
-            'titulo' => 'required|string|max:255',
-            'preguntas.*.texto_pregunta' => 'required|string|max:255',
-            'preguntas.*.respuestas.*.texto' => 'required|string|max:255',
-        ]);
-
         // Crear la prueba
-        $prueba = Prueba::create([
-            'titulo' => $request->input('titulo'),
-        ]);
-
-        // Crear las preguntas y respuestas asociadas
-        foreach ($request->input('preguntas') as $preguntaInput) {
-            $pregunta = Pregunta::create([
-                'texto' => $preguntaInput['texto_pregunta'],
-                'prueba_id' => $prueba->id,
-            ]);
-
-            // Crear las respuestas asociadas a cada pregunta
-            foreach ($preguntaInput['respuestas'] as $respuestaInput) {
-                Respuesta::create([
-                    'texto' => $respuestaInput['texto'],
-                    'es_correcta' => isset($respuestaInput['es_correcta']) ? true : false,
-                    'pregunta_id' => $pregunta->id,
+        $prueba = Prueba::create(['titulo' => $request->titulo]);
+    
+        // Guardar las preguntas
+        foreach ($request->pregunta as $index => $preguntaTexto) {
+            $pregunta = $prueba->preguntas()->create(['texto' => $preguntaTexto]);
+    
+            // Guardar las respuestas
+            foreach ($request->input("respuesta-" . ($index + 1)) as $i => $respuestaTexto) {
+                $esCorrecta = isset($request->input("correcta-" . ($index + 1))[$i + 1]);  // Usamos $i+1 porque los checkboxes empiezan en 1
+                $pregunta->respuestas()->create([
+                    'texto' => $respuestaTexto,
+                    'es_correcta' => $esCorrecta ? 1 : 0
                 ]);
             }
         }
-
-        return redirect()->route('pruebas.create')->with('success', 'Prueba creada exitosamente.');
+    
+        return redirect()->route('pruebas.index')->with('success', 'Prueba creada exitosamente.');
     }
+    
+
     /**
      * Display the specified resource.
      */
