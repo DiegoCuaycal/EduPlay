@@ -5,7 +5,7 @@
 <div>
     <div class="alert alert-secondary mx-4" role="alert">
         <span class="text-white">
-            <strong>Add, Edit, Delete features are not functional!</strong> This is a
+            <strong>¡Las funciones Agregar, Editar y Eliminar no están funcionales!</strong> This is a
             <strong>PRO</strong> feature! Click <strong>
             <a href="https://www.creative-tim.com/live/soft-ui-dashboard-pro-laravel" target="_blank" class="text-white">here</a></strong>
             to see the PRO product!
