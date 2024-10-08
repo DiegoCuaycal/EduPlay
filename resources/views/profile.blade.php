@@ -105,40 +105,40 @@
                 <li class="list-group-item border-0 px-0">
                   <div class="form-check form-switch ps-0">
                     <input class="form-check-input ms-auto" type="checkbox" id="flexSwitchCheckDefault" checked>
-                    <label class="form-check-label text-body ms-3 text-truncate w-80 mb-0" for="flexSwitchCheckDefault">Email me when someone follows me</label>
+                    <label class="form-check-label text-body ms-3 text-truncate w-80 mb-0" for="flexSwitchCheckDefault">Envíame un correo electrónico cuando alguien me siga</label>
                   </div>
                 </li>
                 <li class="list-group-item border-0 px-0">
                   <div class="form-check form-switch ps-0">
                     <input class="form-check-input ms-auto" type="checkbox" id="flexSwitchCheckDefault1">
-                    <label class="form-check-label text-body ms-3 text-truncate w-80 mb-0" for="flexSwitchCheckDefault1">Email me when someone answers on my post</label>
+                    <label class="form-check-label text-body ms-3 text-truncate w-80 mb-0" for="flexSwitchCheckDefault1">Envíame un correo electrónico cuando alguien responda a mi publicación</label>
                   </div>
                 </li>
                 <li class="list-group-item border-0 px-0">
                   <div class="form-check form-switch ps-0">
                     <input class="form-check-input ms-auto" type="checkbox" id="flexSwitchCheckDefault2" checked>
-                    <label class="form-check-label text-body ms-3 text-truncate w-80 mb-0" for="flexSwitchCheckDefault2">Email me when someone mentions me</label>
+                    <label class="form-check-label text-body ms-3 text-truncate w-80 mb-0" for="flexSwitchCheckDefault2">Envíame un correo electrónico cuando alguien me mencione</label>
                   </div>
                 </li>
               </ul>
-              <h6 class="text-uppercase text-body text-xs font-weight-bolder mt-4">Application</h6>
+              <h6 class="text-uppercase text-body text-xs font-weight-bolder mt-4">Aplicación</h6>
               <ul class="list-group">
                 <li class="list-group-item border-0 px-0">
                   <div class="form-check form-switch ps-0">
                     <input class="form-check-input ms-auto" type="checkbox" id="flexSwitchCheckDefault3">
-                    <label class="form-check-label text-body ms-3 text-truncate w-80 mb-0" for="flexSwitchCheckDefault3">New launches and projects</label>
+                    <label class="form-check-label text-body ms-3 text-truncate w-80 mb-0" for="flexSwitchCheckDefault3">Nuevos lanzamientos y proyectos</label>
                   </div>
                 </li>
                 <li class="list-group-item border-0 px-0">
                   <div class="form-check form-switch ps-0">
                     <input class="form-check-input ms-auto" type="checkbox" id="flexSwitchCheckDefault4" checked>
-                    <label class="form-check-label text-body ms-3 text-truncate w-80 mb-0" for="flexSwitchCheckDefault4">Monthly product updates</label>
+                    <label class="form-check-label text-body ms-3 text-truncate w-80 mb-0" for="flexSwitchCheckDefault4">Actualizaciones mensuales de productos</label>
                   </div>
                 </li>
                 <li class="list-group-item border-0 px-0 pb-0">
                   <div class="form-check form-switch ps-0">
                     <input class="form-check-input ms-auto" type="checkbox" id="flexSwitchCheckDefault5">
-                    <label class="form-check-label text-body ms-3 text-truncate w-80 mb-0" for="flexSwitchCheckDefault5">Subscribe to newsletter</label>
+                    <label class="form-check-label text-body ms-3 text-truncate w-80 mb-0" for="flexSwitchCheckDefault5">Suscríbete al boletín informativo</label>
                   </div>
                 </li>
               </ul>
@@ -150,7 +150,7 @@
             <div class="card-header pb-0 p-3">
               <div class="row">
                 <div class="col-md-8 d-flex align-items-center">
-                  <h6 class="mb-0">Profile Information</h6>
+                  <h6 class="mb-0">Información del perfil</h6>
                 </div>
                 <div class="col-md-4 text-end">
                   <a href="javascript:;">
