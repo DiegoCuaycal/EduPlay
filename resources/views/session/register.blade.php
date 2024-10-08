@@ -21,8 +21,8 @@
             <div class="card-header text-center pt-4">
               <h5>Registrese con</h5>
             </div>
-            <div class="row px-xl-5 px-sm-4 px-3">
-              <div class="col-3 ms-auto px-1">
+            <div class="row px-xl-5 px-sm-4 px-3 justify-content-center"> <!-- Aseguramos que el contenido esté centrado -->
+              <div class="col-3 text-center"> <!-- Centramos el botón dentro de su columna -->
                 <a class="btn btn-outline-light w-100" href="javascript:;">
                   <svg width="24px" height="32px" viewBox="0 0 64 64" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink32">
                     <g id="Artboard" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
@@ -83,4 +83,5 @@
   </section>
 
 @endsection
+
 
