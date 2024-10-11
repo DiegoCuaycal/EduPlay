@@ -5,78 +5,141 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Crear Prueba</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        /* Estilos para la barra lateral de preguntas */
+        .sidebar {
+            width: 200px;
+            float: left;
+            margin-right: 20px;
+        }
+        .sidebar button {
+            width: 100%;
+            margin-bottom: 10px;
+            text-align: left;
+        }
+        /* Ocultar preguntas por defecto */
+        .pregunta-container {
+            display: none;
+        }
+        /* Mostrar la pregunta activa */
+        .pregunta-activa {
+            display: block;
+        }
+    </style>
 </head>
 <body>
     <div class="container mt-4">
         <h1>Crear Prueba</h1>
 
-        <!-- Formulario para enviar las preguntas y respuestas -->
-        <form action="{{ route('pruebas.store') }}" method="POST">
-            @csrf
-
-            <!-- Título de la Prueba -->
-            <div class="form-group">
-                <label for="titulo">Título de la Prueba:</label>
-                <input type="text" class="form-control" id="titulo" name="titulo" placeholder="Escribe el título de la prueba">
-            </div>
-
-            <!-- Contenedor dinámico para preguntas -->
-            <div id="preguntas-container">
-                <!-- Primera pregunta por defecto -->
-                <div class="pagina">
-                    <h3>Pregunta 1</h3>
-                    <div class="form-group">
-                        <label for="pregunta-1">Pregunta:</label>
-                        <input type="text" class="form-control" id="pregunta-1" name="pregunta[]" placeholder="Escribe la pregunta">
-                    </div>
-                    <!-- Respuestas para la pregunta -->
-                    <div class="form-group">
-                        <label>Respuestas:</label>
-                        @for ($i = 1; $i <= 4; $i++)
-                        <div class="form-inline mb-2">
-                            <input type="text" class="form-control mr-2" name="respuesta-1[]" placeholder="Escribe la respuesta {{ $i }}">
-                            <!-- Cambié el nombre del checkbox para que sea único y específico a cada opción -->
-                            <input type="checkbox" name="correcta-1[{{ $i }}]" value="1" class="mr-2"> Correcta
-                        </div>
-                        @endfor
-                    </div>
-                    <hr>
+        <div class="row">
+            <!-- Barra lateral con las preguntas -->
+            <div class="sidebar">
+                <h4>Preguntas</h4>
+                <div id="sidebar-preguntas">
+                    <button class="btn btn-secondary pregunta-tab" data-target="pregunta-1">Pregunta 1</button>
                 </div>
+                <button class="btn btn-success mt-3" id="añadir-pagina">Añadir Pregunta</button>
             </div>
 
-            <!-- Botones -->
-            <div class="form-group">
-                <button type="submit" class="btn btn-primary" id="guardar-todo">Guardar Todo</button>
-                <button class="btn btn-success" id="añadir-pagina">Añadir Página</button>
-                <button class="btn btn-danger" id="borrar-pagina" disabled>Borrar Página (Próximamente)</button>
+            <!-- Formulario para enviar las preguntas y respuestas -->
+            <div class="col">
+                <form action="{{ route('pruebas.store') }}" method="POST" id="form-prueba">
+                    @csrf
+
+                    <!-- Título de la Prueba -->
+                    <div class="form-group">
+                        <label for="titulo">Título de la Prueba:</label>
+                        <input type="text" class="form-control" id="titulo" name="titulo" placeholder="Escribe el título de la prueba">
+                    </div>
+
+                    <!-- Contenedor dinámico para preguntas -->
+                    <div id="preguntas-container">
+                        <!-- Primera pregunta por defecto -->
+                        <div class="pregunta-container pregunta-activa" id="pregunta-1">
+                            <h3>Pregunta 1</h3>
+                            <div class="form-group">
+                                <label for="pregunta-texto-1">Pregunta:</label>
+                                <input type="text" class="form-control" id="pregunta-texto-1" name="pregunta[]" placeholder="Escribe la pregunta">
+                            </div>
+                            <div class="form-group">
+                                <label>Respuestas:</label>
+                                @for ($i = 1; $i <= 4; $i++)
+                                <div class="form-inline mb-2">
+                                    <input type="text" class="form-control mr-2" name="respuesta-1[]" placeholder="Escribe la respuesta {{ $i }}">
+                                    <input type="checkbox" name="correcta-1[{{ $i }}]" value="1" class="mr-2"> Correcta
+                                </div>
+                                @endfor
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Botones -->
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary" id="guardar-todo">Guardar Todo</button>
+                    </div>
+                </form>
             </div>
-        </form>
+        </div>
     </div>
 
     <!-- Script para manejar el contenido dinámico -->
     <script>
         let contadorPreguntas = 1;
 
+        // Función para manejar el cambio de preguntas al hacer clic en los botones de la barra lateral
+        function actualizarEventosBotones() {
+            document.querySelectorAll('.pregunta-tab').forEach(function(button) {
+                button.addEventListener('click', function() {
+                    const target = this.getAttribute('data-target');
+                    mostrarPregunta(target);
+                });
+            });
+        }
+
+        // Mostrar la pregunta correspondiente y ocultar las demás
+        function mostrarPregunta(targetId) {
+            document.querySelectorAll('.pregunta-container').forEach(function(pregunta) {
+                pregunta.classList.remove('pregunta-activa');
+            });
+            document.getElementById(targetId).classList.add('pregunta-activa');
+        }
+
+        // Añadir una nueva pregunta
         document.getElementById('añadir-pagina').addEventListener('click', function(e) {
             e.preventDefault();
             contadorPreguntas++;
 
+            // Crear un nuevo botón en la barra lateral
+            const sidebarPreguntas = document.getElementById('sidebar-preguntas');
+            const nuevoBoton = document.createElement('button');
+            nuevoBoton.classList.add('btn', 'btn-secondary', 'pregunta-tab');
+            nuevoBoton.setAttribute('data-target', `pregunta-${contadorPreguntas}`);
+            nuevoBoton.innerText = `Pregunta ${contadorPreguntas}`;
+            sidebarPreguntas.appendChild(nuevoBoton);
+
+            // Crear una nueva pregunta en el contenedor principal
             const contenedorPreguntas = document.getElementById('preguntas-container');
-            const nuevaPagina = document.createElement('div');
-            nuevaPagina.classList.add('pagina');
-            nuevaPagina.innerHTML = `
+            const nuevaPregunta = document.createElement('div');
+            nuevaPregunta.classList.add('pregunta-container');
+            nuevaPregunta.setAttribute('id', `pregunta-${contadorPreguntas}`);
+            nuevaPregunta.innerHTML = `
                 <h3>Pregunta ${contadorPreguntas}</h3>
                 <div class="form-group">
-                    <label for="pregunta-${contadorPreguntas}">Pregunta:</label>
-                    <input type="text" class="form-control" id="pregunta-${contadorPreguntas}" name="pregunta[]" placeholder="Escribe la pregunta">
+                    <label for="pregunta-texto-${contadorPreguntas}">Pregunta:</label>
+                    <input type="text" class="form-control" id="pregunta-texto-${contadorPreguntas}" name="pregunta[]" placeholder="Escribe la pregunta">
                 </div>
                 <div class="form-group">
                     <label>Respuestas:</label>
                     ${crearRespuestasHTML(contadorPreguntas)}
                 </div>
-                <hr>
             `;
-            contenedorPreguntas.appendChild(nuevaPagina);
+            contenedorPreguntas.appendChild(nuevaPregunta);
+
+            // Actualizar los eventos de clic para todos los botones
+            actualizarEventosBotones();
+
+            // Mostrar la nueva pregunta recién añadida
+            mostrarPregunta(`pregunta-${contadorPreguntas}`);
         });
 
         // Función para generar los inputs de las respuestas
@@ -92,7 +155,9 @@
             }
             return respuestasHTML;
         }
-    </script>
 
+        // Iniciar eventos para los botones existentes al cargar la página
+        actualizarEventosBotones();
+    </script>
 </body>
 </html>
