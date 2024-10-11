@@ -11,10 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('opciones', function (Blueprint $table) {
-            $table->id(); // Clave primaria para 'opciones'
-            $table->foreignId('id_pregunta')->constrained('preguntas')->onDelete('cascade'); // Llave foránea hacia 'preguntas'
-            $table->string('opcion', 255); // Ejemplo de otra columna
+        Schema::create('respuestas', function (Blueprint $table) {
+            $table->id();
+            $table->string('texto'); // Campo para el texto de la respuesta
+            $table->boolean('es_correcta')->default(false); 
             $table->timestamps();
         });
     }
@@ -24,9 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('opciones');
+        Schema::dropIfExists('respuestas');
     }
 };
-
-
-

@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Evaluacion; // Modelo para 'evaluaciones'
 use App\Models\Pregunta;   // Modelo para 'preguntas'
-use App\Models\Opcion;     // Modelo para 'opciones'
 use Illuminate\Support\Facades\DB; // Asegúrate de importar DB
 
 class QuizController extends Controller
@@ -31,13 +30,13 @@ class QuizController extends Controller
                 $pregunta = Pregunta::create(['evaluacion_id' => $evaluacion->id, 'question_text' => $slide['question']]);
     
                 // Guardar las opciones de respuesta
-                foreach ($slide['answers'] as $index => $answer) {
-                    Opcion::create([
-                        'pregunta_id' => $pregunta->id,
-                        'answer_text' => $answer,
-                        'is_correct' => in_array($index, $slide['correct_answers']) ? 1 : 0,
-                    ]);
-                }
+                //foreach ($slide['answers'] as $index => $answer) {
+                    //Opcion::create([
+                        //'pregunta_id' => $pregunta->id,
+                        //'answer_text' => $answer,
+                        //'is_correct' => in_array($index, $slide['correct_answers']) ? 1 : 0,
+                    //]);
+                //}
     
                 // Guardar la imagen si existe
                 if (!empty($slide['image'])) {

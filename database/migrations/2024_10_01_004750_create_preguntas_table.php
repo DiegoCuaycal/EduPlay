@@ -12,10 +12,14 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('preguntas', function (Blueprint $table) {
-            $table->id(); // Esta línea crea la columna 'id' como clave primaria.
-            $table->foreignId('id_evaluacion')->constrained('evaluaciones')->onDelete('cascade'); // Llave foránea hacia 'evaluaciones'
-            $table->string('pregunta', 255); // Ejemplo de otra columna
-            $table->timestamps();
+            $table->id(); // ID automático para la pregunta
+            $table->string('texto'); // Campo para el texto de la pregunta
+            $table->timestamps(); // Campos created_at y updated_at
+        });
+
+        // Añadir columna de clave foránea en respuestas para asociarlas con preguntas
+        Schema::table('respuestas', function (Blueprint $table) {
+            $table->foreignId('pregunta_id')->constrained('preguntas')->onDelete('cascade');
         });
     }
 
@@ -27,6 +31,3 @@ return new class extends Migration
         Schema::dropIfExists('preguntas');
     }
 };
-
-
-

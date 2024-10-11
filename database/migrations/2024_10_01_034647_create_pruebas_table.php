@@ -11,12 +11,16 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('respuestas', function (Blueprint $table) {
+        Schema::create('pruebas', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('id_participacion')->constrained('participaciones')->onDelete('cascade');
-            $table->string('respuesta'); // Asegúrate de agregar las columnas adicionales según sea necesario
+            $table->string('titulo');
             $table->timestamps();
         });
+        // Añadir la columna de clave foránea en la tabla de preguntas
+        Schema::table('preguntas', function (Blueprint $table) {
+            $table->foreignId('prueba_id')->constrained('pruebas')->onDelete('cascade');
+        });
+
     }
 
     /**
@@ -24,8 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('respuestas');
+        Schema::dropIfExists('pruebas');
     }
 };
-
-
