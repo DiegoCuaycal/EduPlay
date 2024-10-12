@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pruebas</title>
+    <!-- Agregar Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
     <script>
         function togglePreguntas(pruebaId) {
             const preguntasDivs = document.querySelectorAll('.preguntas');
@@ -30,11 +33,12 @@
         }
     </script>
 </head>
-<body>
-    <h1>Listado de Pruebas</h1>
+<body class="container mt-4">
 
-    <table border="1">
-        <thead>
+    <h1 class="mb-4">Listado de Pruebas</h1>
+
+    <table class="table table-striped table-bordered">
+        <thead class="thead-dark">
             <tr>
                 <th>ID</th>
                 <th>Título de la Prueba</th>
@@ -47,14 +51,17 @@
                     <td>{{ $prueba->id }}</td>
                     <td>{{ $prueba->titulo }}</td>
                     <td>
-                        <button onclick="togglePreguntas({{ $prueba->id }})">Ver Preguntas</button>
+                        <button class="btn btn-primary btn-sm" onclick="togglePreguntas({{ $prueba->id }})">
+                            Ver Preguntas
+                        </button>
                     </td>
                 </tr>
+
                 <!-- Contenedor de Preguntas -->
                 <tr class="preguntas" id="preguntas-{{ $prueba->id }}" style="display: none;">
                     <td colspan="3">
-                        <table border="1">
-                            <thead>
+                        <table class="table table-sm table-bordered">
+                            <thead class="thead-light">
                                 <tr>
                                     <th>ID</th>
                                     <th>Texto</th>
@@ -65,16 +72,19 @@
                                 @foreach($prueba->preguntas as $pregunta)
                                     <tr>
                                         <td>{{ $pregunta->id }}</td>
-                                        <td>{{ $pregunta->texto }}</td> <!-- Usar 'texto' ya que es el nombre correcto en la migración -->
+                                        <td>{{ $pregunta->texto }}</td>
                                         <td>
-                                            <button onclick="toggleRespuestas({{ $pregunta->id }})">Ver Respuestas</button>
+                                            <button class="btn btn-info btn-sm" onclick="toggleRespuestas({{ $pregunta->id }})">
+                                                Ver Respuestas
+                                            </button>
                                         </td>
                                     </tr>
+
                                     <!-- Contenedor de Respuestas -->
                                     <tr class="respuestas" id="respuestas-{{ $pregunta->id }}" style="display: none;">
                                         <td colspan="3">
-                                            <table border="1">
-                                                <thead>
+                                            <table class="table table-sm table-bordered">
+                                                <thead class="thead-light">
                                                     <tr>
                                                         <th>ID</th>
                                                         <th>Texto</th>
@@ -101,5 +111,12 @@
             @endforeach
         </tbody>
     </table>
+
+    <!-- Agregar Bootstrap JS y Popper.js -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
 </body>
 </html>
+
