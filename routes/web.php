@@ -62,6 +62,9 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('static-sign-up', function () {
 		return view('static-sign-up');
 	})->name('sign-up');
+	Route::get('/ayuda', function () {
+		return view('ayuda');
+	});
 
     Route::get('/logout', [SessionsController::class, 'destroy']);
 	Route::get('/user-profile', [InfoUserController::class, 'create']);
@@ -90,6 +93,8 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::get('pruebas/create', [PruebaController::class, 'create'])->name('pruebas.create');
 	Route::post('pruebas', [PruebaController::class, 'store'])->name('pruebas.store');
 	Route::get('/pruebas', [PruebaController::class, 'index'])->name('pruebas.index');
+	
+	
 
 });
 
