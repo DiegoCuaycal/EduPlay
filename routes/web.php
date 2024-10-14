@@ -77,9 +77,6 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('/save-quiz', [QuizController::class, 'save'])->name('save.quiz');
     Route::get('/quiz', [QuizController::class, 'index'])->name('quiz.index');
 
-	Route::get('/opciones/create', [OpcionController::class, 'create'])->name('opciones.create');
-	Route::post('/opciones/store', [OpcionController::class, 'store'])->name('opciones.store');	
-
 	Route::get('respuestas/create', [RespuestaController::class, 'create'])->name('respuestas.create');
 	Route::post('respuestas', [RespuestaController::class, 'store'])->name('respuestas.store');	
 	Route::get('/respuestas', [RespuestaController::class, 'index'])->name('respuestas.index');
@@ -94,6 +91,13 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::post('pruebas', [PruebaController::class, 'store'])->name('pruebas.store');
 	Route::get('/pruebas', [PruebaController::class, 'index'])->name('pruebas.index');
 	
+	
+	Route::get('/pruebas/cuadros', [PruebaController::class, 'verPruebasCuadros'])->name('pruebas.cuadros');
+	Route::get('/pruebas/{id}', [PruebaController::class, 'show'])->name('pruebas.show');
+
+	Route::get('/pruebas/{id}/edit', [PruebaController::class, 'edit'])->name('pruebas.edit');
+	Route::put('/pruebas/{prueba}', [PruebaController::class, 'update'])->name('pruebas.update');
+
 	
 
 });

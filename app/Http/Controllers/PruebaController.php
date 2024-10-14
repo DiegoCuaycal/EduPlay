@@ -53,26 +53,45 @@ class PruebaController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
-    {
-        //
-    }
+    public function show($id)
+{
+    $prueba = Prueba::with('preguntas.respuestas')->findOrFail($id);
+    return view('pruebas.show', compact('prueba'));
+}
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+
+    public function edit($id)
     {
-        //
+        $prueba = Prueba::with('preguntas.respuestas')->findOrFail($id);
+        return view('pruebas.edit', compact('prueba'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
+
+    public function update(Request $request, $id)
+{
+    $prueba = Prueba::findOrFail($id);
+    $prueba->update([
+        'titulo' => $request->input('titulo'),
+    ]);
+
+    foreach ($request->input('preguntas') as $preguntaId => $textoPregunta) {
+        $pregunta = Pregunta::findOrFail($preguntaId);
+        $pregunta->update(['texto' => $textoPregunta]);
+
+        foreach ($request->input('respuestas') as $respuestaId => $textoRespuesta) {
+            $respuesta = Respuesta::findOrFail($respuestaId);
+            $respuesta->update([
+                'texto' => $textoRespuesta,
+                'es_correcta' => in_array($respuestaId, array_keys($request->input('correctas', []))),
+            ]);
+        }
     }
+
+    return redirect()->route('pruebas.show', $prueba->id)->with('success', 'Prueba actualizada correctamente');
+}
 
     /**
      * Remove the specified resource from storage.
@@ -81,4 +100,11 @@ class PruebaController extends Controller
     {
         //
     }
+
+    public function verPruebasCuadros()
+{
+    $pruebas = Prueba::with('preguntas')->get();
+    return view('pruebas.cuadros', compact('pruebas'));
+}
+
 }
