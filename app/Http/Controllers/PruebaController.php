@@ -67,31 +67,34 @@ class PruebaController extends Controller
     {
         $prueba = Prueba::with('preguntas.respuestas')->findOrFail($id);
         return view('pruebas.edit', compact('prueba'));
-    }
-
-
+    }  
     public function update(Request $request, $id)
-{
-    $prueba = Prueba::findOrFail($id);
-    $prueba->update([
-        'titulo' => $request->input('titulo'),
-    ]);
-
-    foreach ($request->input('preguntas') as $preguntaId => $textoPregunta) {
-        $pregunta = Pregunta::findOrFail($preguntaId);
-        $pregunta->update(['texto' => $textoPregunta]);
-
-        foreach ($request->input('respuestas') as $respuestaId => $textoRespuesta) {
-            $respuesta = Respuesta::findOrFail($respuestaId);
-            $respuesta->update([
-                'texto' => $textoRespuesta,
-                'es_correcta' => in_array($respuestaId, array_keys($request->input('correctas', []))),
-            ]);
+    {
+        $prueba = Prueba::findOrFail($id);
+        $prueba->update([
+            'titulo' => $request->input('titulo'),
+        ]);
+    
+        // Iterar sobre preguntas y actualizar
+        foreach ($request->input('preguntas') as $preguntaId => $textoPregunta) {
+            $pregunta = Pregunta::findOrFail($preguntaId);
+            $pregunta->update(['texto' => $textoPregunta]);
+    
+            // Restablecer todas las respuestas como incorrectas
+            $correctas = $request->input("correctas.$preguntaId", []);  // Checkboxes seleccionadas para esta pregunta
+    
+            foreach ($request->input('respuestas') as $respuestaId => $textoRespuesta) {
+                $respuesta = Respuesta::findOrFail($respuestaId);
+                $respuesta->update([
+                    'texto' => $textoRespuesta,
+                    'es_correcta' => in_array($respuestaId, $correctas), // Verificar si la respuesta está marcada como correcta
+                ]);
+            }
         }
+    
+        return redirect()->route('pruebas.show', $prueba->id)->with('success', 'Prueba actualizada correctamente');
     }
-
-    return redirect()->route('pruebas.show', $prueba->id)->with('success', 'Prueba actualizada correctamente');
-}
+    
 
     /**
      * Remove the specified resource from storage.

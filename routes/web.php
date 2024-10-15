@@ -96,8 +96,7 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::get('/pruebas/{id}', [PruebaController::class, 'show'])->name('pruebas.show');
 
 	Route::get('/pruebas/{id}/edit', [PruebaController::class, 'edit'])->name('pruebas.edit');
-	Route::put('/pruebas/{prueba}', [PruebaController::class, 'update'])->name('pruebas.update');
-
+	Route::put('/pruebas/{id}', [PruebaController::class, 'update'])->name('pruebas.update');
 	
 
 });
