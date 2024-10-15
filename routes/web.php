@@ -12,6 +12,7 @@ use App\Http\Controllers\OpcionController;
 use App\Http\Controllers\RespuestaController;
 use App\Http\Controllers\PreguntaController;
 use App\Http\Controllers\PruebaController;
+use App\Http\Controllers\DashboardController;
 
 /*
 |--------------------------------------------------------------------------
@@ -98,6 +99,10 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::get('/pruebas/{id}/edit', [PruebaController::class, 'edit'])->name('pruebas.edit');
 	Route::put('/pruebas/{id}', [PruebaController::class, 'update'])->name('pruebas.update');
 	
+	//Route::get('/dashboard', [PruebaController::class, 'dashboard'])->name('dashboard');
+	Route::get('/dashboard', [DashboardController::class, 'dashboard'])->name('dashboard');
+
+
 
 });
 

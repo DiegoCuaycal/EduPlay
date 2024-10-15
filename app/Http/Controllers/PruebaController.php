@@ -105,9 +105,20 @@ class PruebaController extends Controller
     }
 
     public function verPruebasCuadros()
-{
-    $pruebas = Prueba::with('preguntas')->get();
-    return view('pruebas.cuadros', compact('pruebas'));
-}
+    {
+        $pruebas = Prueba::with('preguntas')->get();
+        return view('pruebas.cuadros', compact('pruebas'));
+    }
+
+    // Controlador para el Dashboard
+    public function dashboard()
+    {
+        // Obtén las 3 pruebas más recientes
+        $pruebasCreadas = Prueba::orderBy('created_at', 'desc')->take(3)->get();
+
+        // Pasa las pruebas a la vista del dashboard
+        return view('dashboard', compact('pruebasCreadas'));
+    }
+
 
 }
