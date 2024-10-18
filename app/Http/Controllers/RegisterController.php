@@ -22,13 +22,22 @@ class RegisterController extends Controller
             'password' => ['required', 'min:5', 'max:20'],
             'agreement' => ['accepted']
         ]);
-        $attributes['password'] = bcrypt($attributes['password'] );
+        $attributes['password'] = bcrypt($attributes['password']);
 
-        
-
-        session()->flash('success', 'Your account has been created.');
+        // Crear el usuario
         $user = User::create($attributes);
-        Auth::login($user); 
+
+        // Asignar rol de "user" al nuevo usuario
+        $user->assignRole('user');  // Asegúrate de que 'user' es un rol existente en tu base de datos
+
+        // Iniciar sesión al usuario recién registrado
+        Auth::login($user);
+
+        // Mensaje de confirmación
+        session()->flash('success', 'Your account has been created.');
+
+        // Redireccionar al dashboard
         return redirect('/dashboard');
     }
 }
+
