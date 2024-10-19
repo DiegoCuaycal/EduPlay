@@ -11,9 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->integer('rol') // 1 == ADMIN 2 == USER
-
+        Schema::table('roles', function (Blueprint $table) {
+            //
         });
     }
 
@@ -22,8 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->dropColumn('rol');
+        Schema::table('roles', function (Blueprint $table) {
+            //
         });
     }
 };
