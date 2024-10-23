@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->integer('rol') // 1 == ADMIN 2 == USER
+            $table->integer('rol'); // 1 == ADMIN 2 == USER
 
         });
     }
