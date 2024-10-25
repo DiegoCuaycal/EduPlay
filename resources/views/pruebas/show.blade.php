@@ -13,6 +13,10 @@
         @endforeach
     </div>
 
+    <h3>URL para realizar esta prueba:</h3>
+    <input type="text" value="{{ route('realizar.prueba', $prueba->id) }}" readonly onclick="this.select();" class="form-control">
+
+
     <div class="contenido-pregunta">
         @foreach($prueba->preguntas as $index => $pregunta)
             <div class="pregunta-container" id="pregunta-{{ $index }}" style="display: none;">

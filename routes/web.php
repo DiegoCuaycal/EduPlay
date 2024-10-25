@@ -13,6 +13,7 @@ use App\Http\Controllers\RespuestaController;
 use App\Http\Controllers\PreguntaController;
 use App\Http\Controllers\PruebaController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\RealizarPruebaController;
 
 /*
 |--------------------------------------------------------------------------
@@ -102,6 +103,7 @@ Route::group(['middleware' => 'auth'], function () {
 	//Route::get('/dashboard', [PruebaController::class, 'dashboard'])->name('dashboard');
 	Route::get('/dashboard', [DashboardController::class, 'dashboard'])->name('dashboard');
 
+	Route::get('/realizar-prueba/{id}', [RealizarPruebaController::class, 'show'])->name('realizar.prueba');
 
 
 });
