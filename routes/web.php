@@ -103,7 +103,20 @@ Route::group(['middleware' => 'auth'], function () {
 	//Route::get('/dashboard', [PruebaController::class, 'dashboard'])->name('dashboard');
 	Route::get('/dashboard', [DashboardController::class, 'dashboard'])->name('dashboard');
 
+
+	//Route::get('prueba/{id}/realizar', [RealizarPruebaController::class, 'show'])->name('realizar.show');
+	//Route::post('prueba/{id}/guardar', [RealizarPruebaController::class, 'guardarResultados'])->name('realizar.guardar');	
 	Route::get('/realizar-prueba/{id}', [RealizarPruebaController::class, 'show'])->name('realizar.prueba');
+	
+	
+	//Route::get('/realizar-prueba/{id}', [RealizarPruebaController::class, 'show'])->name('realizar-prueba.show');
+
+	// Ruta para guardar el resultado de una prueba realizada
+	Route::post('/realizar-prueba/{id}/store', [RealizarPruebaController::class, 'store'])->name('realizar-prueba.store');
+
+	// Ruta para ver las pruebas realizadas y sus puntajes
+	Route::get('/pruebas-realizadas', [RealizarPruebaController::class, 'index'])->name('pruebas.realizadas');
+
 
 
 });
