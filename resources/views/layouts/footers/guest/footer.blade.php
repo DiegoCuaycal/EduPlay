@@ -3,64 +3,33 @@
     text-align: justify;
   }
 
-  .contact-info {
-    text-align: left;
-  }
-
-  .footer .row {
-    display: flex;
-    justify-content: space-between;
-    /* Asegura que las columnas estén separadas a ambos lados */
-    align-items: flex-start;
-    /* Alinea las columnas al inicio verticalmente */
-  }
-
-  .footer .col-lg-5 {
-    flex-basis: 45%;
-    /* Asegura que ambas columnas ocupen espacio equilibrado */
-  }
-
-  /* Para mejorar la alineación del texto de contacto */
-  .contact-info p {
-    margin-bottom: 0.5rem;
-    /* Espaciado entre los elementos de contacto */
-  }
-
   /* Ajuste adicional para dispositivos más pequeños */
   @media (max-width: 768px) {
-    .footer .row {
-      flex-direction: column;
-      /* Hace que las columnas sean verticales en pantallas pequeñas */
-    }
-
-    .footer .col-lg-5 {
-      flex-basis: 100%;
-      /* Ocupa todo el ancho en pantallas pequeñas */
-      text-align: center;
-      /* Centra el texto en pantallas pequeñas */
-    }
-
     .contact-info {
-      text-align: center;
-      /* También centra los contactos en pantallas pequeñas */
+      text-align: center; /* Centra los contactos en pantallas pequeñas */
     }
+  }
+
+  /* Estilo adicional para aumentar el margen izquierdo en la sección de contacto */
+  .contact-info p {
+    margin-left: 1.5rem; /* Aumenta el margen izquierdo para cada párrafo */
   }
 </style>
 
-<footer class="footer py-5" style="background-color: #e9ecef; margin-top: 3rem;">
+<footer class="footer py-5 bg-light mt-3">
   <div class="container">
     <div class="row">
       <!-- Sección de Descripción -->
-      <div class="col-lg-5 mb-4 text-justify"> <!-- Añadido text-justify -->
+      <div class="col-lg-5 mb-4 text-justify pe-lg-4"> <!-- Espaciado a la derecha -->
         <h5 class="text-center">Gamificación en la Enseñanza TIC</h5>
         <p>Este proyecto tiene como objetivo desarrollar una herramienta educativa interactiva que permita evaluar los
           conocimientos de los estudiantes de forma dinámica y entretenida. La plataforma ofrecerá a los profesores la
           capacidad de crear preguntas y realizar evaluaciones en tiempo real, promoviendo un aprendizaje más
-          participativo y atractivo</p>
+          participativo y atractivo.</p>
       </div>
 
       <!-- Sección de Contacto -->
-      <div class="col-lg-5 mb-4 contact-info"> <!-- Añadido contact-info -->
+      <div class="col-lg-5 mb-4 contact-info ms-lg-5"> <!-- Añadido ms-lg-5 para separación -->
         <h5 class="text-center">Contáctanos</h5>
         <p><i class="fas fa-envelope"></i> info@utn.edu.ec</p>
         <p><i class="fas fa-phone"></i> +593 06 2997800</p>
@@ -70,25 +39,28 @@
 
     <!-- Redes Sociales -->
     <div class="col-lg-8 mx-auto text-center mb-4 mt-2">
-      <a href="https://x.com/UTN_Ibarra" target="_blank" class="text-secondary me-xl-4 me-4">
-        <span class="text-lg fab fa-twitter" aria-hidden="true"></span>
+      <a href="https://x.com/UTN_Ibarra" target="_blank" class="text-secondary me-3">
+        <span class="fab fa-twitter" aria-hidden="true"></span>
       </a>
-      <a href="https://www.facebook.com/FECYTUTN/" target="_blank" class="text-secondary me-xl-4 me-4">
-        <span class="text-lg fab fa-facebook" aria-hidden="true"></span>
+      <a href="https://www.facebook.com/FECYTUTN/" target="_blank" class="text-secondary me-3">
+        <span class="fab fa-facebook" aria-hidden="true"></span>
       </a>
-      <a href="https://www.instagram.com/utn_ec/" target="_blank" class="text-secondary me-xl-4 me-4">
-        <span class="text-lg fab fa-instagram" aria-hidden="true"></span>
+      <a href="https://www.instagram.com/utn_ec/" target="_blank" class="text-secondary me-3">
+        <span class="fab fa-instagram" aria-hidden="true"></span>
       </a>
-      <a href="https://www.youtube.com/user/canalutnuniversity" target="_blank" class="text-secondary me-xl-4 me-4">
-        <span class="text-lg fab fa-youtube" aria-hidden="true"></span>
+      <a href="https://www.youtube.com/user/canalutnuniversity" target="_blank" class="text-secondary me-3">
+        <span class="fab fa-youtube" aria-hidden="true"></span>
       </a>
     </div>
   </div>
 </footer>
 
 <!-- Sección de Copyright -->
-<div class="copyright-section" style="background-color: #adb5bd; width: 100%; padding: 10px 0; margin-top: 0;">
+<div class="copyright-section bg-secondary w-100 py-2">
   <div class="container text-center">
-    <p class="mb-0 text-dark">&copy; 2024 Gamificación TIC. Todos los derechos reservados.</p>
+    <p class="mb-0 text-white">&copy; 2024 Gamificación TIC. Todos los derechos reservados.</p>
   </div>
 </div>
+
+
+
