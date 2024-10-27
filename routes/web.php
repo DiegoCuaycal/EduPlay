@@ -13,6 +13,7 @@ use App\Http\Controllers\RespuestaController;
 use App\Http\Controllers\PreguntaController;
 use App\Http\Controllers\PruebaController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\TestController;
 
 /*
 |--------------------------------------------------------------------------
@@ -75,6 +76,8 @@ Route::group(['middleware' => 'auth'], function () {
 });
 Route::group(['middleware' => ['auth', 'role:admin']], function () {
     
+
+    
     // Administración de usuarios
     Route::get('user-management', function () {
         return view('laravel-examples/user-management');
@@ -89,6 +92,7 @@ Route::group(['middleware' => ['auth', 'role:admin']], function () {
     
 });
 Route::group(['middleware' => ['auth', 'role:user']], function () {
+
 
     // Acceso a ver pruebas en formato de cuadros
     Route::get('/pruebas/cuadros', [PruebaController::class, 'verPruebasCuadros'])->name('pruebas.cuadros');

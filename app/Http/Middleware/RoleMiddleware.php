@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Support\Facades\Auth;
+use App\Models\User; // Asegúrate de importar el modelo correcto
 
 class RoleMiddleware
 {
@@ -15,13 +16,14 @@ class RoleMiddleware
 
         $user = Auth::user();
 
-        // Verifica si el usuario tiene el rol requerido
-        if ($user->hasRole($role)) {
+        // Asegúrate de que el usuario es una instancia de App\Models\User
+        if ($user instanceof User && $user->hasRole($role)) {
             return $next($request);
         }
 
-        // Si no tiene el rol, redirige a una página sin acceso
         return redirect('/');
     }
 }
+
+
 

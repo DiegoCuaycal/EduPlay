@@ -23,8 +23,10 @@ class CreateUsersTable extends Migration
             $table->string('about_me')->nullable();
             $table->rememberToken();
             $table->timestamps();
+            $table->integer('rol');
         });
     }
+
 
     /**
      * Reverse the migrations.
