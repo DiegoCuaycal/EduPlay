@@ -43,10 +43,30 @@ class RealizarPruebaController extends Controller
         return redirect()->route('pruebas.realizadas')->with('success', 'Prueba completada con éxito.');
     }
 
-    public function index()
+    /* public function index()
     {
         $pruebasRealizadas = PruebaRealizada::with('prueba')->get();
         return view('pruebas_realizadas', compact('pruebasRealizadas'));
+    } */
+
+    public function index()
+    {
+        // Obtener pruebas realizadas sin duplicados, con sus detalles más recientes
+        $pruebasRealizadas = PruebaRealizada::with('prueba')
+            ->select('prueba_id')
+            ->groupBy('prueba_id')
+            ->get();
+
+        return view('pruebas_realizadas.index', compact('pruebasRealizadas'));
+    }
+
+    public function showDetails($id)
+    {
+        // Cargar todos los intentos de la prueba específica
+        $intentos = PruebaRealizada::where('prueba_id', $id)->orderBy('created_at', 'desc')->get();
+        $prueba = Prueba::findOrFail($id);
+
+        return view('pruebas_realizadas.show', compact('intentos', 'prueba'));
     }
 
 }

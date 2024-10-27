@@ -117,6 +117,8 @@ Route::group(['middleware' => 'auth'], function () {
 	// Ruta para ver las pruebas realizadas y sus puntajes
 	Route::get('/pruebas-realizadas', [RealizarPruebaController::class, 'index'])->name('pruebas.realizadas');
 
+	Route::get('/pruebas-realizadas/{id}', [RealizarPruebaController::class, 'showDetails'])->name('pruebas.realizadas.show');
+
 
 
 });
