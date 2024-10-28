@@ -26,6 +26,7 @@ class User extends Authenticatable
         'phone',
         'location',
         'about_me',
+        'rol',
     ];
 
     /**
@@ -50,7 +51,7 @@ class User extends Authenticatable
     /*
     public function roles()
     {
-        return $this->belongsToMany(Role::class);
+        return $this->belongsTo(Role::class, 'role_id'); // Especifica el campo de la clave foránea
     }
         */
     
@@ -58,7 +59,7 @@ class User extends Authenticatable
         /*
     public function hasRole($role)
     {
-        return $this->roles()->where('slug', $role)->exists();
+        return $this->role == $role;
     }
         */
     
