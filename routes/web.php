@@ -66,12 +66,28 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/quiz', [QuizController::class, 'index'])->name('quiz.index');
     
     Route::get('respuestas/create', [RespuestaController::class, 'create'])->name('respuestas.create');
-    Route::post('respuestas', [RespuestaController::class, 'store'])->name('respuestas.store');
-    Route::get('/respuestas', [RespuestaController::class, 'index'])->name('respuestas.index');
+	Route::post('respuestas', [RespuestaController::class, 'store'])->name('respuestas.store');	
+	Route::get('/respuestas', [RespuestaController::class, 'index'])->name('respuestas.index');
 
-    Route::get('preguntas/create', [PreguntaController::class, 'create'])->name('preguntas.create');
-    Route::post('preguntas', [PreguntaController::class, 'store'])->name('preguntas.store');
-    Route::get('/preguntas', [PreguntaController::class, 'index'])->name('preguntas.index');
+
+	Route::get('preguntas/create', [PreguntaController::class, 'create'])->name('preguntas.create');
+	Route::post('preguntas', [PreguntaController::class, 'store'])->name('preguntas.store');
+	Route::get('/preguntas', [PreguntaController::class, 'index'])->name('preguntas.index');
+
+
+	Route::get('pruebas/create', [PruebaController::class, 'create'])->name('pruebas.create');
+	Route::post('pruebas', [PruebaController::class, 'store'])->name('pruebas.store');
+	Route::get('/pruebas', [PruebaController::class, 'index'])->name('pruebas.index');
+	
+    Route::get('/pruebas/{id}/edit', [PruebaController::class, 'edit'])->name('pruebas.edit');
+    Route::put('/pruebas/{id}', [PruebaController::class, 'update'])->name('pruebas.update');
+    
+    Route::get('/pruebas/cuadros', [PruebaController::class, 'verPruebasCuadros'])->name('pruebas.cuadros');
+	Route::get('/pruebas/{id}', [PruebaController::class, 'show'])->name('pruebas.show');
+
+	Route::get('/pruebas/{id}/edit', [PruebaController::class, 'edit'])->name('pruebas.edit');
+	Route::put('/pruebas/{id}', [PruebaController::class, 'update'])->name('pruebas.update');
+	
 
 });
 Route::group(['middleware' => ['auth', 'role:admin']], function () {
@@ -84,21 +100,41 @@ Route::group(['middleware' => ['auth', 'role:admin']], function () {
     })->name('user-management');
     
     // Gestión de pruebas (crear, editar, ver todas)
-    Route::get('pruebas/create', [PruebaController::class, 'create'])->name('pruebas.create');
+   /*  Route::get('pruebas/create', [PruebaController::class, 'create'])->name('pruebas.create');
     Route::post('pruebas', [PruebaController::class, 'store'])->name('pruebas.store');
     Route::get('/pruebas', [PruebaController::class, 'index'])->name('pruebas.index');
     Route::get('/pruebas/{id}/edit', [PruebaController::class, 'edit'])->name('pruebas.edit');
     Route::put('/pruebas/{id}', [PruebaController::class, 'update'])->name('pruebas.update');
     
+    Route::get('/pruebas/cuadros', [PruebaController::class, 'verPruebasCuadros'])->name('pruebas.cuadros');
+	Route::get('/pruebas/{id}', [PruebaController::class, 'show'])->name('pruebas.show');
+
+	Route::get('/pruebas/{id}/edit', [PruebaController::class, 'edit'])->name('pruebas.edit');
+	Route::put('/pruebas/{id}', [PruebaController::class, 'update'])->name('pruebas.update');
+	 */
+	//Route::get('/dashboard', [DashboardController::class, 'dashboard'])->name('dashboard');
+
+
+    /* 	Route::get('/realizar-prueba/{id}', [RealizarPruebaController::class, 'show'])->name('realizar.prueba');
+	
+    Route::post('/realizar-prueba/{id}/store', [RealizarPruebaController::class, 'store'])->name('realizar-prueba.store');
+
+	// Ruta para ver las pruebas realizadas y sus puntajes
+	Route::get('/pruebas-realizadas', [RealizarPruebaController::class, 'index'])->name('pruebas.realizadas');
+
+	Route::get('/pruebas-realizadas/{id}', [RealizarPruebaController::class, 'showDetails'])->name('pruebas.realizadas.show');
+
+ */
+
 });
 Route::group(['middleware' => ['auth', 'role:user']], function () {
 
 
     // Acceso a ver pruebas en formato de cuadros
-    Route::get('/pruebas/cuadros', [PruebaController::class, 'verPruebasCuadros'])->name('pruebas.cuadros');
+    //Route::get('/pruebas/cuadros', [PruebaController::class, 'verPruebasCuadros'])->name('pruebas.cuadros');
     
     // Ver detalles de una prueba específica
-    Route::get('/pruebas/{id}', [PruebaController::class, 'show'])->name('pruebas.show');
+    //Route::get('/pruebas/{id}', [PruebaController::class, 'show'])->name('pruebas.show');
 
 });
 Route::group(['middleware' => 'guest'], function () {
