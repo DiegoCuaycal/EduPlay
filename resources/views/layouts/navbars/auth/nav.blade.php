@@ -24,8 +24,7 @@
                         <i class="fa fa-user me-1"></i> Perfil
                     </a>
                     <ul class="dropdown-menu dropdown-menu-end">
-                        <li><a class="dropdown-item" href="{{ url('/profile-settings') }}">Configuración del perfil</a></li>
-                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" href="{{ route('user-profile') }}">Configuración del perfil</a></li>
                         <li><a class="dropdown-item" href="{{ url('/logout') }}">Cerrar sesión</a></li>
                     </ul>
                 </li>
