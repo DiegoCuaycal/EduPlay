@@ -29,6 +29,11 @@ class PruebaController extends Controller
 
     public function store(Request $request)
     {
+        // Validación
+    $request->validate([
+        'titulo' => 'required'
+
+        ]);
         // Crear la prueba
         $prueba = Prueba::create(['titulo' => $request->titulo]);
     

@@ -13,9 +13,9 @@
 <body class="bg-light">
     <div class="container-fluid py-4">
         <div class="text-center mb-4">
-            <h1 class="display-4 text-primary">Crear Prueba</h1>
+            <h1 class="display-6 text-primary">Crear Prueba</h1>
         </div>
-
+    
         <div class="row">
             <!-- Barra lateral con las preguntas -->
             <div class="col-md-3">
@@ -30,20 +30,28 @@
                     <button class="btn btn-success w-100 mt-3" id="añadir-pagina">Añadir Pregunta</button>
                 </div>
             </div>
-
+    
             <!-- Contenido principal -->
             <div class="col-md-9">
                 <div class="bg-white rounded shadow-sm p-4">
                     <form action="{{ route('pruebas.store') }}" method="POST" id="form-prueba">
                         @csrf
-
+    
                         <!-- Título de la Prueba -->
                         <div class="form-group">
                             <label for="titulo" class="h5 text-primary">Título de la Prueba:</label>
                             <input type="text" class="form-control form-control-lg" id="titulo" name="titulo" 
-                                placeholder="Escribe el título de la prueba">
+                                placeholder="Escribe el título de la prueba" 
+                                @error('titulo') 
+                                    is-invalid
+                                @enderror"
+                                  value="{{ old('titulo') }}"
+                                >
+                            @error('titulo')
+                                <p class="alert alert-danger text-center text-white my-2">{{$message}}</p>
+                            @enderror
                         </div>
-
+    
                         <!-- Contenedor de preguntas -->
                         <div id="preguntas-container">
                             <div class="pregunta-container pregunta-activa" id="pregunta-1">
@@ -53,26 +61,30 @@
                                         <label for="pregunta-texto-1">Pregunta:</label>
                                         <input type="text" class="form-control" id="pregunta-texto-1" name="pregunta[]" 
                                             placeholder="Escribe la pregunta">
+                                        @error('pregunta[]')
+                                            <p class="alert alert-danger text-center text-white my-2">{{$message}}</p>
+                                        @enderror
                                     </div>
                                     <div class="form-group">
                                         <label class="text-primary">Respuestas:</label>
                                         @for ($i = 1; $i <= 4; $i++)
-                                            <div class="input-group mb-3">
-                                                <input type="text" class="form-control" name="respuesta-1[]" 
+                                            <div class="input-group mb-3"> 
+                                                    <input type="text" class="form-control" name="respuesta-1[]" 
                                                     placeholder="Escribe la respuesta {{ $i }}">
-                                                <div class="input-group-append">
-                                                    <div class="input-group-text bg-white">
-                                                        <input type="checkbox" name="correcta-1[{{ $i }}]" value="1" class="mr-2">
-                                                        <span>Correcta</span>
+                                                    <div class="input-group-append">
+                                                        <div class="input-group-text bg-white">
+                                                            <input type="checkbox" name="correcta-1[{{ $i }}]" value="1" class="mr-2">
+                                                            <span>Correcta</span>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                        @endfor
+                                            @endfor
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-
+    
                         <!-- Botón guardar -->
                         <div class="text-center">
                             <button type="submit" class="btn btn-primary btn-lg px-5" id="guardar-todo">Guardar Todo</button>
@@ -81,7 +93,8 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> <!-- Aquí está el cierre adicional de container-fluid -->
+    
 
     <script>
         // Mantener el JavaScript existente sin cambios
