@@ -12,6 +12,8 @@ use App\Http\Controllers\OpcionController;
 use App\Http\Controllers\RespuestaController;
 use App\Http\Controllers\PreguntaController;
 use App\Http\Controllers\PruebaController;
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\TestController;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,60 +29,43 @@ use App\Http\Controllers\PruebaController;
 Route::group(['middleware' => 'auth'], function () {
 
     Route::get('/', [HomeController::class, 'home']);
-	Route::get('dashboard', function () {
-		return view('dashboard');
-	})->name('dashboard');
-
-	Route::get('billing', function () {
-		return view('billing');
-	})->name('billing');
-
-	Route::get('profile', function () {
-		return view('profile');
-	})->name('profile');
-
-	Route::get('rtl', function () {
-		return view('rtl');
-	})->name('rtl');
-
-	Route::get('user-management', function () {
-		return view('laravel-examples/user-management');
-	})->name('user-management');
-
-	Route::get('tables', function () {
-		return view('tables');
-	})->name('tables');
-
+    
+    // Accesible por todos los usuarios autenticados
+    Route::get('dashboard', [DashboardController::class, 'dashboard'])->name('dashboard');
+    
+    Route::get('billing', function () {
+        return view('billing');
+    })->name('billing');
+    
+    Route::get('profile', function () {
+        return view('profile');
+    })->name('profile');
+    
+    Route::get('rtl', function () {
+        return view('rtl');
+    })->name('rtl');
+    
+    Route::get('tables', function () {
+        return view('tables');
+    })->name('tables');
+    
     Route::get('virtual-reality', function () {
-		return view('virtual-reality');
-	})->name('virtual-reality');
+        return view('virtual-reality');
+    })->name('virtual-reality');
 
-    Route::get('static-sign-in', function () {
-		return view('static-sign-in');
-	})->name('sign-in');
-
-    Route::get('static-sign-up', function () {
-		return view('static-sign-up');
-	})->name('sign-up');
-	Route::get('/ayuda', function () {
-		return view('ayuda');
-	});
-
+    Route::get('/ayuda', function () {
+        return view('ayuda');
+    });
+    
     Route::get('/logout', [SessionsController::class, 'destroy']);
-	Route::get('/user-profile', [InfoUserController::class, 'create']);
-	Route::post('/user-profile', [InfoUserController::class, 'store']);
-    Route::get('/login', function () {
-		return view('dashboard');
-	})->name('sign-up');
-
-    // Mover las rutas de quiz aquí si solo quieres permitir a usuarios autenticados usarlas
+    
+    Route::get('/user-profile', [InfoUserController::class, 'create']);
+    Route::post('/user-profile', [InfoUserController::class, 'store']);
+    
     Route::post('/save-quiz', [QuizController::class, 'save'])->name('save.quiz');
     Route::get('/quiz', [QuizController::class, 'index'])->name('quiz.index');
-
-	Route::get('/opciones/create', [OpcionController::class, 'create'])->name('opciones.create');
-	Route::post('/opciones/store', [OpcionController::class, 'store'])->name('opciones.store');	
-
-	Route::get('respuestas/create', [RespuestaController::class, 'create'])->name('respuestas.create');
+    
+    Route::get('respuestas/create', [RespuestaController::class, 'create'])->name('respuestas.create');
 	Route::post('respuestas', [RespuestaController::class, 'store'])->name('respuestas.store');	
 	Route::get('/respuestas', [RespuestaController::class, 'index'])->name('respuestas.index');
 
@@ -94,22 +79,82 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::post('pruebas', [PruebaController::class, 'store'])->name('pruebas.store');
 	Route::get('/pruebas', [PruebaController::class, 'index'])->name('pruebas.index');
 	
+    Route::get('/pruebas/{id}/edit', [PruebaController::class, 'edit'])->name('pruebas.edit');
+    Route::put('/pruebas/{id}', [PruebaController::class, 'update'])->name('pruebas.update');
+    
+    Route::get('/pruebas/cuadros', [PruebaController::class, 'verPruebasCuadros'])->name('pruebas.cuadros');
+	Route::get('/pruebas/{id}', [PruebaController::class, 'show'])->name('pruebas.show');
+
+	Route::get('/pruebas/{id}/edit', [PruebaController::class, 'edit'])->name('pruebas.edit');
+	Route::put('/pruebas/{id}', [PruebaController::class, 'update'])->name('pruebas.update');
 	
 
 });
+Route::group(['middleware' => ['auth', 'role:admin']], function () {
+    
 
+    
+    // Administración de usuarios
+    Route::get('user-management', function () {
+        return view('laravel-examples/user-management');
+    })->name('user-management');
+    
+    // Gestión de pruebas (crear, editar, ver todas)
+   /*  Route::get('pruebas/create', [PruebaController::class, 'create'])->name('pruebas.create');
+    Route::post('pruebas', [PruebaController::class, 'store'])->name('pruebas.store');
+    Route::get('/pruebas', [PruebaController::class, 'index'])->name('pruebas.index');
+    Route::get('/pruebas/{id}/edit', [PruebaController::class, 'edit'])->name('pruebas.edit');
+    Route::put('/pruebas/{id}', [PruebaController::class, 'update'])->name('pruebas.update');
+    
+    Route::get('/pruebas/cuadros', [PruebaController::class, 'verPruebasCuadros'])->name('pruebas.cuadros');
+	Route::get('/pruebas/{id}', [PruebaController::class, 'show'])->name('pruebas.show');
+
+	Route::get('/pruebas/{id}/edit', [PruebaController::class, 'edit'])->name('pruebas.edit');
+	Route::put('/pruebas/{id}', [PruebaController::class, 'update'])->name('pruebas.update');
+	 */
+	//Route::get('/dashboard', [DashboardController::class, 'dashboard'])->name('dashboard');
+
+
+    /* 	Route::get('/realizar-prueba/{id}', [RealizarPruebaController::class, 'show'])->name('realizar.prueba');
+	
+    Route::post('/realizar-prueba/{id}/store', [RealizarPruebaController::class, 'store'])->name('realizar-prueba.store');
+
+	// Ruta para ver las pruebas realizadas y sus puntajes
+	Route::get('/pruebas-realizadas', [RealizarPruebaController::class, 'index'])->name('pruebas.realizadas');
+
+	Route::get('/pruebas-realizadas/{id}', [RealizarPruebaController::class, 'showDetails'])->name('pruebas.realizadas.show');
+
+ */
+
+});
+Route::group(['middleware' => ['auth', 'role:user']], function () {
+
+
+    // Acceso a ver pruebas en formato de cuadros
+    //Route::get('/pruebas/cuadros', [PruebaController::class, 'verPruebasCuadros'])->name('pruebas.cuadros');
+    
+    // Ver detalles de una prueba específica
+    //Route::get('/pruebas/{id}', [PruebaController::class, 'show'])->name('pruebas.show');
+
+});
 Route::group(['middleware' => 'guest'], function () {
+
+    // Registro de usuario
     Route::get('/register', [RegisterController::class, 'create']);
     Route::post('/register', [RegisterController::class, 'store']);
-   /* Route::get('/login', [SessionsController::class, 'create']); */
+    
+    // Sesión de usuario (login)
     Route::post('/session', [SessionsController::class, 'store']);
-	Route::get('/login/forgot-password', [ResetController::class, 'create']);
-	Route::post('/forgot-password', [ResetController::class, 'sendEmail']);
-	Route::get('/reset-password/{token}', [ResetController::class, 'resetPass'])->name('password.reset');
-	Route::post('/reset-password', [ChangePasswordController::class, 'changePassword'])->name('password.update');
+    
+    // Olvido de contraseña
+    Route::get('/login/forgot-password', [ResetController::class, 'create']);
+    Route::post('/forgot-password', [ResetController::class, 'sendEmail']);
+    Route::get('/reset-password/{token}', [ResetController::class, 'resetPass'])->name('password.reset');
+    Route::post('/reset-password', [ChangePasswordController::class, 'changePassword'])->name('password.update');
+    
 });
 
-// Elimina esta ruta si ya tienes el login controlado por `SessionsController`
+// Vista de login
 Route::get('/login', function () {
     return view('session/login-session');
 })->name('login');

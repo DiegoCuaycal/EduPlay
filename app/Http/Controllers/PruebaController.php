@@ -53,26 +53,48 @@ class PruebaController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
-    {
-        //
-    }
+    public function show($id)
+{
+    $prueba = Prueba::with('preguntas.respuestas')->findOrFail($id);
+    return view('pruebas.show', compact('prueba'));
+}
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
-    {
-        //
-    }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
+    public function edit($id)
     {
-        //
+        $prueba = Prueba::with('preguntas.respuestas')->findOrFail($id);
+        return view('pruebas.edit', compact('prueba'));
+    }  
+    public function update(Request $request, $id)
+    {
+        $prueba = Prueba::findOrFail($id);
+        $prueba->update([
+            'titulo' => $request->input('titulo'),
+        ]);
+    
+        // Iterar sobre preguntas y actualizar
+        foreach ($request->input('preguntas') as $preguntaId => $textoPregunta) {
+            $pregunta = Pregunta::findOrFail($preguntaId);
+            $pregunta->update(['texto' => $textoPregunta]);
+    
+            // Restablecer todas las respuestas como incorrectas
+            $correctas = $request->input("correctas.$preguntaId", []);  // Checkboxes seleccionadas para esta pregunta
+    
+            foreach ($request->input('respuestas') as $respuestaId => $textoRespuesta) {
+                $respuesta = Respuesta::findOrFail($respuestaId);
+                $respuesta->update([
+                    'texto' => $textoRespuesta,
+                    'es_correcta' => in_array($respuestaId, $correctas), // Verificar si la respuesta está marcada como correcta
+                ]);
+            }
+        }
+    
+        return redirect()->route('pruebas.show', $prueba->id)->with('success', 'Prueba actualizada correctamente');
     }
+    
 
     /**
      * Remove the specified resource from storage.
@@ -81,4 +103,22 @@ class PruebaController extends Controller
     {
         //
     }
+
+    public function verPruebasCuadros()
+    {
+        $pruebas = Prueba::with('preguntas')->get();
+        return view('pruebas.cuadros', compact('pruebas'));
+    }
+
+    // Controlador para el Dashboard
+    public function dashboard()
+    {
+        // Obtén las 3 pruebas más recientes
+        $pruebasCreadas = Prueba::orderBy('created_at', 'desc')->take(3)->get();
+
+        // Pasa las pruebas a la vista del dashboard
+        return view('dashboard', compact('pruebasCreadas'));
+    }
+
+
 }
