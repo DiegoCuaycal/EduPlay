@@ -56,6 +56,11 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/ayuda', function () {
         return view('ayuda');
     });
+
+    Route::get('/inicio', function () {
+        return view('user.inicio'); 
+    })->name('inicio'); 
+
     
     
     Route::get('/logout', [SessionsController::class, 'destroy']);

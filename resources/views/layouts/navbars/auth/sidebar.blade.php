@@ -15,7 +15,7 @@
     <!-- Opciones para el rol 'usuario' -->
     @if (Auth::check() && Auth::user()->hasRole('User'))
     <li class="nav-item">
-      <a class="nav-link {{ Request::is('dashboard') ? 'active' : '' }}" href="{{ url('dashboard') }}">
+      <a class="nav-link {{ Request::is('inicio') ? 'active' : '' }}" href="{{ url('inicio') }}">
       <div
         class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
         <!-- Icono SVG aquí -->
@@ -46,6 +46,26 @@
       <span class="nav-link-text ms-1">Inicio</span>
       </a>
     </li>
+
+    <li class="nav-item mt-3">
+      <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">Mayor información</h6>
+      </li>
+      <li class="nav-item">
+      <a class="nav-link {{ (Request::is('ayuda') ? 'active' : '') }}" href="{{ url('ayuda') }}">
+      <div
+        class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
+        <svg xmlns="http://www.w3.org/2000/svg" width="12" height="100%" fill="#FFFFFF" class="bi bi-question-circle"
+        viewBox="0 0 16 16">
+        <path d="M8 1a7 7 0 1 0 0 14A7 7 0 0 0 8 1zm0 13A6 6 0 1 1 8 2a6 6 0 0 1 0 12z" />
+        <path
+        d="M5.255 5.786a.237.237 0 0 0-.247.247c0 .305.25.247.5.247.157 0 .333-.096.333-.247 0-.166-.166-.333-.333-.333H5.5a.237.237 0 0 0-.247.247z" />
+        <path
+        d="M8 12.93c-.2 0-.393-.12-.474-.327-.082-.205.024-.461.23-.541a.536.536 0 0 1 .61.105.626.626 0 0 1 .217.49c0 .39-.316.273-.683.273zm.317-6.779a.54.54 0 0 0-.396-.482 2.31 2.31 0 0 0-.893-.145c-.516 0-.959.223-1.267.607-.17.223-.267.526-.267.853 0 .128.116.267.267.267h1.134c.016-.057.267-.497.384-.497.117 0 .267.098.267.392 0 .116-.184.174-.294.174-.308 0-.308.524 0 .524.197 0 .353.111.353.353 0 .057-.016.097-.033.144-.25.083-.42.147-.553.243a.554.554 0 0 1-.382.097.653.653 0 0 1-.53-.186c-.197-.195-.325-.544-.325-.853 0-.29.084-.59.217-.853.224-.465.667-.607 1.25-.607a.54.54 0 0 1 .535.607c0 .128-.116.267-.267.267-.167 0-.267-.128-.267-.267 0-.166.1-.267.267-.267.167 0 .267.128.267.267 0 .157-.132.157-.267.157z" />
+        </svg>
+      </div>
+      <span class="nav-link-text ms-1">Ayuda</span>
+      </a>
+      </li>
   @endif
 
     <!-- Opciones para el rol 'admin' -->
