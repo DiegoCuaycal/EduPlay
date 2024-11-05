@@ -5,22 +5,32 @@
 
 <nav class="navbar navbar-expand-lg shadow-none border-radius-xl" id="navbarBlur" navbar-scroll="true">
     <div class="container-fluid">
-        <nav aria-label="breadcrumb">
-            <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1">
-                <li class="breadcrumb-item"><a class="opacity-5 text-dark" href="javascript:;">Pages</a></li>
-                <li class="breadcrumb-item text-dark active text-capitalize">{{ str_replace('-', ' ', Request::path()) }}</li>
-            </ol>
-            <h6 class="font-weight-bolder text-capitalize">{{ str_replace('-', ' ', Request::path()) }}</h6>
-        </nav>
+        <div class="d-flex justify-content-between w-100">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1">
+                    <li class="breadcrumb-item"><a class="opacity-5 text-dark" href="javascript:;">Pages</a></li>
+                    <li class="breadcrumb-item text-dark active text-capitalize">{{ str_replace('-', ' ', Request::path()) }}</li>
+                </ol>
+                <h6 class="font-weight-bolder text-capitalize">{{ str_replace('-', ' ', Request::path()) }}</h6>
+            </nav>
 
-        <div class="d-flex align-items-center">
-            <div class="input-group">
-                <span class="input-group-text text-body"><i class="fas fa-search"></i></span>
-                <input type="text" class="form-control" placeholder="Type here...">
+            <div class="d-flex align-items-center justify-content-center flex-grow-1">
+                <input type="text" class="form-control" placeholder="Type here..." style="width: 100%; max-width: 500px;">
             </div>
-            <ul class="navbar-nav ms-3">
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle text-body" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown">
+
+            <ul class="navbar-nav d-flex align-items-center ms-auto mb-2 mb-lg-0">
+                <!-- Botón de Jugar con ícono de play -->
+                <li class="nav-item me-3">
+                    <a href="javascript:;" class="nav-link p-0">
+                        <button class="btn btn-lg px-3 d-flex align-items-center font-weight-bolder text-white" style="background: linear-gradient(310deg, #1d47c1, #a848d0);">
+                            <i class="fa fa-play me-2 text-white"></i> Jugar
+                        </button>
+                    </a>
+                </li>
+
+                <!-- Menú de Perfil -->
+                <li class="nav-item me-3">
+                    <a class="nav-link dropdown-toggle d-flex align-items-center text-body" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown">
                         <i class="fa fa-user me-1"></i> Perfil
                     </a>
                     <ul class="dropdown-menu dropdown-menu-end">
@@ -28,19 +38,14 @@
                         <li><a class="dropdown-item" href="{{ url('/logout') }}">Cerrar sesión</a></li>
                     </ul>
                 </li>
-                <li class="nav-item dropdown">
-                    <a href="javascript:;" class="nav-link text-body" id="dropdownMenuButton" data-bs-toggle="dropdown">
+
+                <!-- Notificaciones -->
+                <li class="nav-item me-3">
+                    <a href="javascript:;" class="nav-link text-body d-flex align-items-center">
                         <i class="fa fa-bell"></i>
                     </a>
-                    <ul class="dropdown-menu dropdown-menu-end">
-                        <li><a class="dropdown-item" href="javascript:;">New message from Laur</a></li>
-                        <li><a class="dropdown-item" href="javascript:;">New album by Travis Scott</a></li>
-                        <li><a class="dropdown-item" href="javascript:;">Payment successfully completed</a></li>
-                    </ul>
                 </li>
             </ul>
         </div>
     </div>
 </nav>
-
-<!-- End Navbar -->
