@@ -14,6 +14,7 @@ use App\Http\Controllers\PreguntaController;
 use App\Http\Controllers\PruebaController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\TestController;
+use App\Http\Controllers\DashboardUserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,6 +33,9 @@ Route::group(['middleware' => 'auth'], function () {
     
     // Accesible por todos los usuarios autenticados
     Route::get('dashboard', [DashboardController::class, 'dashboard'])->name('dashboard');
+
+    //User
+   // Route::get('dashboard', [DashboardUserController::class, 'dashboard'])->name('dashboarduser');
     
     Route::get('billing', function () {
         return view('billing');
@@ -60,6 +64,18 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/inicio', function () {
         return view('user.inicio'); 
     })->name('inicio'); 
+
+    Route::get('/dashboarduser', function () {
+        return view('user.dashboard'); 
+    })->name('dashboarduser'); 
+
+    Route::get('/historial', function () {
+        return view('user.historial'); 
+    })->name('historial'); 
+
+    Route::get('/pruebasdisponibles', function () {
+        return view('user.pruebasDisponibles'); 
+    })->name('pruebasdisponibles'); 
 
     
     
