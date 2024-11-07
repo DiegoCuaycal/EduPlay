@@ -21,23 +21,27 @@
       <div class="col-xl-4 col-lg-5 col-md-7 mx-auto">
         <div class="card z-index-0">
           <div class="card-header text-center pt-4">
-            <h5>Registrese con</h5>
+            <h5>Registrese </h5>
           </div>
-          <div class="row px-xl-5 px-sm-4 px-3 justify-content-center">
+
+          <!--<div class="row px-xl-5 px-sm-4 px-3 justify-content-center"> -->
             <!-- Botón de Microsoft con logo -->
-            <div class="col-3 text-center"> <!-- Centramos el botón dentro de su columna -->
+            <!--
+            <div class="col-3 text-center"> 
               <a class="btn btn-outline-light w-100 d-flex justify-content-center align-items-center"
                 href="javascript:;">
+            -->
                 <!-- Logo de Microsoft (cuatro cuadros de colores) -->
+                <!--
                 <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none">
-                  <rect width="10" height="10" x="1" y="1" fill="#F25022"></rect> <!-- Cuadro rojo -->
-                  <rect width="10" height="10" x="13" y="1" fill="#7FBA00"></rect> <!-- Cuadro verde -->
-                  <rect width="10" height="10" x="1" y="13" fill="#00A4EF"></rect> <!-- Cuadro azul -->
-                  <rect width="10" height="10" x="13" y="13" fill="#FFB900"></rect> <!-- Cuadro amarillo -->
+                  <rect width="10" height="10" x="1" y="1" fill="#F25022"></rect>
+                  <rect width="10" height="10" x="13" y="1" fill="#7FBA00"></rect>
+                  <rect width="10" height="10" x="1" y="13" fill="#00A4EF"></rect>
+                  <rect width="10" height="10" x="13" y="13" fill="#FFB900"></rect>
                 </svg>
               </a>
             </div>
-          </div>
+          -->
 
           <div class="card-body">
             <form role="form text-left" method="POST" action="/register">
