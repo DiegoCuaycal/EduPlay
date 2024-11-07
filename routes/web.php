@@ -15,6 +15,7 @@ use App\Http\Controllers\PruebaController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\TestController;
 use App\Http\Controllers\DashboardUserController;
+use App\Http\Controllers\RealizarPruebaController;
 
 /*
 |--------------------------------------------------------------------------
@@ -88,30 +89,40 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/quiz', [QuizController::class, 'index'])->name('quiz.index');
     
     Route::get('respuestas/create', [RespuestaController::class, 'create'])->name('respuestas.create');
-	Route::post('respuestas', [RespuestaController::class, 'store'])->name('respuestas.store');	
-	Route::get('/respuestas', [RespuestaController::class, 'index'])->name('respuestas.index');
+    Route::post('respuestas', [RespuestaController::class, 'store'])->name('respuestas.store'); 
+    Route::get('/respuestas', [RespuestaController::class, 'index'])->name('respuestas.index');
 
+    Route::get('preguntas/create', [PreguntaController::class, 'create'])->name('preguntas.create');
+    Route::post('preguntas', [PreguntaController::class, 'store'])->name('preguntas.store');
+    Route::get('/preguntas', [PreguntaController::class, 'index'])->name('preguntas.index');
 
-	Route::get('preguntas/create', [PreguntaController::class, 'create'])->name('preguntas.create');
-	Route::post('preguntas', [PreguntaController::class, 'store'])->name('preguntas.store');
-	Route::get('/preguntas', [PreguntaController::class, 'index'])->name('preguntas.index');
-
-
-	Route::get('pruebas/create', [PruebaController::class, 'create'])->name('pruebas.create');
-	Route::post('pruebas', [PruebaController::class, 'store'])->name('pruebas.store');
-	Route::get('/pruebas', [PruebaController::class, 'index'])->name('pruebas.index');
-	
+    Route::get('pruebas/create', [PruebaController::class, 'create'])->name('pruebas.create');
+    Route::post('pruebas', [PruebaController::class, 'store'])->name('pruebas.store');
+    Route::get('/pruebas', [PruebaController::class, 'index'])->name('pruebas.index');
+    
+    
+    Route::get('/pruebas/cuadros', [PruebaController::class, 'verPruebasCuadros'])->name('pruebas.cuadros');
+    Route::get('/pruebas/{id}', [PruebaController::class, 'show'])->name('pruebas.show');
     Route::get('/pruebas/{id}/edit', [PruebaController::class, 'edit'])->name('pruebas.edit');
     Route::put('/pruebas/{id}', [PruebaController::class, 'update'])->name('pruebas.update');
     
-    Route::get('/pruebas/cuadros', [PruebaController::class, 'verPruebasCuadros'])->name('pruebas.cuadros');
-	Route::get('/pruebas/{id}', [PruebaController::class, 'show'])->name('pruebas.show');
+    //Route::get('/dashboard', [PruebaController::class, 'dashboard'])->name('dashboard');
+    Route::get('/dashboard', [DashboardController::class, 'dashboard'])->name('dashboard');
 
-	Route::get('/pruebas/{id}/edit', [PruebaController::class, 'edit'])->name('pruebas.edit');
-	Route::put('/pruebas/{id}', [PruebaController::class, 'update'])->name('pruebas.update');
-
+    //Route::get('prueba/{id}/realizar', [RealizarPruebaController::class, 'show'])->name('realizar.show');
+    //Route::post('prueba/{id}/guardar', [RealizarPruebaController::class, 'guardarResultados'])->name('realizar.guardar'); 
+    Route::get('/realizar-prueba/{id}', [RealizarPruebaController::class, 'show'])->name('realizar.prueba');
     
     
+    //Route::get('/realizar-prueba/{id}', [RealizarPruebaController::class, 'show'])->name('realizar-prueba.show');
+    // Ruta para guardar el resultado de una prueba realizada
+    Route::post('/realizar-prueba/{id}/store', [RealizarPruebaController::class, 'store'])->name('realizar-prueba.store');
+    // Ruta para ver las pruebas realizadas y sus puntajes
+    Route::get('/pruebas-realizadas', [RealizarPruebaController::class, 'index'])->name('pruebas.realizadas');
+    Route::get('/pruebas-realizadas/{id}', [RealizarPruebaController::class, 'showDetails'])->name('pruebas.realizadas.show');
+
+
+
  // Ruta para el perfil de usuario
  Route::get('/laravel-examples/user-profile', function () {
     return view('laravel-examples.user-profile');
