@@ -21,3 +21,4 @@ class Pregunta extends Model
         return $this->belongsTo(Prueba::class);
     }
 }
+// tests to merge lets hope
