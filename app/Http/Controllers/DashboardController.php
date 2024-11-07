@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Prueba;
-use App\Models\PruebaRealizada;
 
 class DashboardController extends Controller
 {
@@ -24,11 +23,8 @@ class DashboardController extends Controller
         // Obtener las 10 pruebas más recientes
         $pruebas = Prueba::latest()->take(10)->get();
         
-        // Obtener todas las pruebas realizadas
-        $pruebasRealizadas = PruebaRealizada::with('prueba')->get();
-        
-        // Pasar las pruebas creadas y realizadas a la vista del dashboard
-        return view('dashboard', compact('pruebas', 'pruebasRealizadas'));
+        // Pasar las pruebas a la vista del dashboard
+        return view('dashboard', compact('pruebas'));
     }
 
 

@@ -16,10 +16,4 @@ class Prueba extends Model
     {
         return $this->hasMany(Pregunta::class);
     }
-
-    public function pruebasRealizadas()
-    {
-        return $this->hasMany(PruebaRealizada::class);
-    }
-
 }
