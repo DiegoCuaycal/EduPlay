@@ -63,7 +63,18 @@ class User extends Authenticatable
     }
         */
     
-
+        public function isAdmin()
+        {
+            // Verificar si el campo 'rol' es igual a 2 (administrador)
+            return $this->rol === 2;
+        }
+        
+        public function isUser()
+        {
+            // Verificar si el campo 'rol' es igual a 1 (usuario normal)
+            return $this->rol === 1;
+        }
+        
 
 
 }
