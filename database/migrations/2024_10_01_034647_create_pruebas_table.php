@@ -14,13 +14,14 @@ return new class extends Migration
         Schema::create('pruebas', function (Blueprint $table) {
             $table->id();
             $table->string('titulo');
+            $table->string('url_token', 20)->unique();
             $table->timestamps();
         });
         // Añadir la columna de clave foránea en la tabla de preguntas
         Schema::table('preguntas', function (Blueprint $table) {
             $table->foreignId('prueba_id')->constrained('pruebas')->onDelete('cascade');
         });
-
+        
     }
 
     /**

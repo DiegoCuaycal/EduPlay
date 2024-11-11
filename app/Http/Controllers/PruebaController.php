@@ -29,8 +29,11 @@ class PruebaController extends Controller
 
     public function store(Request $request)
     {
-        // Crear la prueba
-        $prueba = Prueba::create(['titulo' => $request->titulo]);
+        // Crear la prueba, incluyendo el tiempo y el token URL
+        $prueba = Prueba::create([
+            'titulo' => $request->titulo,
+            'url_token' => bin2hex(random_bytes(10)), // Generación del token único
+        ]);
     
         // Guardar las preguntas
         foreach ($request->pregunta as $index => $preguntaTexto) {
@@ -38,7 +41,7 @@ class PruebaController extends Controller
     
             // Guardar las respuestas
             foreach ($request->input("respuesta-" . ($index + 1)) as $i => $respuestaTexto) {
-                $esCorrecta = isset($request->input("correcta-" . ($index + 1))[$i + 1]);  // Usamos $i+1 porque los checkboxes empiezan en 1
+                $esCorrecta = isset($request->input("correcta-" . ($index + 1))[$i + 1]);
                 $pregunta->respuestas()->create([
                     'texto' => $respuestaTexto,
                     'es_correcta' => $esCorrecta ? 1 : 0
@@ -48,6 +51,7 @@ class PruebaController extends Controller
     
         return redirect()->route('pruebas.index')->with('success', 'Prueba creada exitosamente.');
     }
+    
     
 
     /**
