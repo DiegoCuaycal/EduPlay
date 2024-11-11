@@ -22,4 +22,14 @@ class Prueba extends Model
         return $this->hasMany(PruebaRealizada::class);
     }
 
+    protected static function boot()
+    {
+        parent::boot();
+        static::creating(function ($prueba) {            
+            $prueba->url_token = bin2hex(random_bytes(10));
+
+        });
+    }
+
+
 }

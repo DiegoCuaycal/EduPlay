@@ -5,16 +5,27 @@ use App\Models\Prueba;
 use App\Models\PruebaRealizada;
 class RealizarPruebaController extends Controller
 {
-    public function show($id)
+    /* public function show($id)
     {
         // Cargar la prueba y sus preguntas y respuestas
         $prueba = Prueba::with('preguntas.respuestas')->findOrFail($id);
         return view('realizar', compact('prueba'));
-    }
-    public function store(Request $request, $pruebaId)
+    } */
+
+    public function show($url_token)
     {
-        // Cargar la prueba y sus preguntas
-        $prueba = Prueba::with('preguntas.respuestas')->findOrFail($pruebaId);
+        // Buscar la prueba usando el `url_token` como `string`
+        $prueba = Prueba::where('url_token', $url_token)->firstOrFail();
+
+        return view('realizar', compact('prueba'));
+    }
+
+
+    public function store(Request $request, $url_token)
+    {
+        // Buscar la prueba usando el `url_token` como `string`
+        $prueba = Prueba::with('preguntas.respuestas')->where('url_token', $url_token)->firstOrFail();
+
         $puntaje = 0;
         // Calcular el puntaje
         foreach ($prueba->preguntas as $pregunta) {

@@ -11,7 +11,7 @@
         @endforeach
     </div>
     <h3>URL para realizar esta prueba:</h3>
-    <input type="text" value="{{ route('realizar.prueba', $prueba->id) }}" readonly onclick="this.select();" class="form-control">
+    <input type="text" value="{{ url('realizar-prueba/'.$prueba->url_token) }}" readonly onclick="this.select();" class="form-control">
 
     <div class="contenido-pregunta">
         @foreach($prueba->preguntas as $index => $pregunta)
@@ -34,14 +34,11 @@
 </div>
 <script>
 function showPregunta(index) {
-    // Ocultar todas las preguntas
     document.querySelectorAll('.pregunta-container').forEach(container => {
         container.style.display = 'none';
     });
-    // Mostrar la pregunta seleccionada
     document.getElementById('pregunta-' + index).style.display = 'block';
 }
-// Mostrar la primera pregunta por defecto
 showPregunta(0);
 </script>
 @endsection
