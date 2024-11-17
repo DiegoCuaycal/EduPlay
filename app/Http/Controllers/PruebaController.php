@@ -30,25 +30,27 @@ class PruebaController extends Controller
     public function store(Request $request)
     {
         // Validación
-    $request->validate([
-        'titulo' => 'required'
-        ]);
-        // Crear la prueba, incluyendo el tiempo y el token URL
-        $prueba = Prueba::create([
-            'titulo' => $request->titulo,
-            'url_token' => bin2hex(random_bytes(10)), // Generación del token único
+        $request->validate([
+            'titulo' => 'required',
+            'tiempo_limite' => 'nullable|integer|min:1', // Validación del tiempo límite
         ]);
     
-        // Guardar las preguntas
+        // Crear la prueba
+        $prueba = Prueba::create([
+            'titulo' => $request->titulo,
+            'url_token' => bin2hex(random_bytes(10)),
+            'tiempo_limite' => $request->tiempo_limite, // Guardar el tiempo límite
+        ]);
+    
+        // Guardar las preguntas y respuestas
         foreach ($request->pregunta as $index => $preguntaTexto) {
             $pregunta = $prueba->preguntas()->create(['texto' => $preguntaTexto]);
     
-            // Guardar las respuestas
             foreach ($request->input("respuesta-" . ($index + 1)) as $i => $respuestaTexto) {
                 $esCorrecta = isset($request->input("correcta-" . ($index + 1))[$i + 1]);
                 $pregunta->respuestas()->create([
                     'texto' => $respuestaTexto,
-                    'es_correcta' => $esCorrecta ? 1 : 0
+                    'es_correcta' => $esCorrecta ? 1 : 0,
                 ]);
             }
         }

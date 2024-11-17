@@ -52,6 +52,12 @@
                             @enderror
                         </div>
     
+                        <div class="form-group">
+                            <label for="tiempo_limite" class="h5 text-primary">Tiempo Límite (en minutos):</label>
+                            <input type="number" class="form-control form-control-lg" id="tiempo_limite" name="tiempo_limite" 
+                                   placeholder="Ejemplo: 30">
+                        </div>                        
+
                         <!-- Contenedor de preguntas -->
                         <div id="preguntas-container">
                             <div class="pregunta-container pregunta-activa" id="pregunta-1">
