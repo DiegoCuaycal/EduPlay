@@ -21,11 +21,38 @@
             <ul class="navbar-nav d-flex align-items-center ms-auto mb-2 mb-lg-0">
                 <!-- Botón de Jugar con ícono de play -->
                 <li class="nav-item me-3">
-                    <a href="javascript:;" class="nav-link p-0">
-                        <button class="btn btn-lg px-3 d-flex align-items-center font-weight-bolder text-white" style="background: linear-gradient(310deg, #1d47c1, #a848d0);">
-                            <i class="fa fa-play me-2 text-white"></i> Jugar
-                        </button>
+                    <a class="nav-link dropdown-toggle d-flex align-items-center text-white" 
+                       href="#" 
+                       id="jugarDropdown" 
+                       role="button" 
+                       data-bs-toggle="dropdown"
+                       style="background: linear-gradient(310deg, #1d47c1, #a848d0); padding: 8px 16px; border-radius: 6px;">
+                        <i class="fa fa-play me-2"></i> Jugar
                     </a>
+                    <ul class="dropdown-menu dropdown-menu-end p-3" style="min-width: 300px;">
+                        <li>
+                            <form action="{{ route('tuRuta') }}" method="POST">
+                                @csrf
+                                <div class="mb-3">
+                                    <label for="gameUrl" class="form-label">URL del juego:</label>
+                                    <input type="url" 
+                                           class="form-control" 
+                                           id="gameUrl" 
+                                           name="gameUrl" 
+                                           placeholder="Ingrese URL del juego" 
+                                           required>
+                                    @error('gameUrl')
+                                        <div class="text-danger small">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                                <button type="submit" 
+                                        class="btn btn-primary w-100"
+                                        style="background: linear-gradient(310deg, #1d47c1, #a848d0); border: none;">
+                                    Jugar
+                                </button>
+                            </form>
+                        </li>
+                    </ul>
                 </li>
 
                 <!-- Menú de Perfil -->

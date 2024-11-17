@@ -16,6 +16,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\TestController;
 use App\Http\Controllers\DashboardUserController;
 use App\Http\Controllers\RealizarPruebaController;
+use App\Http\Controllers\JuegoController;
 
 /*
 |--------------------------------------------------------------------------
@@ -77,6 +78,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/pruebasdisponibles', function () {
         return view('user.pruebasDisponibles'); 
     })->name('pruebasdisponibles'); 
+
+    Route::post('/jugar', [JuegoController::class, 'jugar'])->name('tuRuta');   
 
     
     
