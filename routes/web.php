@@ -17,6 +17,7 @@ use App\Http\Controllers\TestController;
 use App\Http\Controllers\DashboardUserController;
 use App\Http\Controllers\RealizarPruebaController;
 use App\Http\Controllers\JuegoController;
+use App\Http\Controllers\DashboardUserVersionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -67,9 +68,7 @@ Route::group(['middleware' => 'auth'], function () {
         return view('user.inicio'); 
     })->name('inicio'); 
 
-    Route::get('/dashboarduser', function () {
-        return view('user.dashboard'); 
-    })->name('dashboarduser'); 
+
 
     Route::get('/historial', function () {
         return view('user.historial'); 
@@ -111,6 +110,7 @@ Route::group(['middleware' => 'auth'], function () {
     
     //Route::get('/dashboard', [PruebaController::class, 'dashboard'])->name('dashboard');
     Route::get('/dashboard', [DashboardController::class, 'dashboard'])->name('dashboard');
+    Route::get('/dashboarduser', [DashboardUserVersionController::class, 'dashboard'])->name('dashboarduser');
 
     //Route::get('prueba/{id}/realizar', [RealizarPruebaController::class, 'show'])->name('realizar.show');
     //Route::post('prueba/{id}/guardar', [RealizarPruebaController::class, 'guardarResultados'])->name('realizar.guardar'); 
@@ -175,6 +175,8 @@ Route::group(['middleware' => ['auth', 'role:admin']], function () {
 
 });
 Route::group(['middleware' => ['auth', 'role:user']], function () {
+
+
 
 
     // Acceso a ver pruebas en formato de cuadros
