@@ -18,6 +18,7 @@ use App\Http\Controllers\DashboardUserController;
 use App\Http\Controllers\RealizarPruebaController;
 use App\Http\Controllers\JuegoController;
 use App\Http\Controllers\DashboardUserVersionController;
+use App\Http\Controllers\HistorialController;
 
 /*
 |--------------------------------------------------------------------------
@@ -70,9 +71,7 @@ Route::group(['middleware' => 'auth'], function () {
 
 
 
-    Route::get('/historial', function () {
-        return view('user.historial'); 
-    })->name('historial'); 
+
 
     Route::get('/pruebasdisponibles', function () {
         return view('user.pruebasDisponibles'); 
@@ -111,6 +110,8 @@ Route::group(['middleware' => 'auth'], function () {
     //Route::get('/dashboard', [PruebaController::class, 'dashboard'])->name('dashboard');
     Route::get('/dashboard', [DashboardController::class, 'dashboard'])->name('dashboard');
     Route::get('/dashboarduser', [DashboardUserVersionController::class, 'dashboard'])->name('dashboarduser');
+    Route::get('/historial', [HistorialController::class, 'dashboard'])->name('historial');
+  
 
     //Route::get('prueba/{id}/realizar', [RealizarPruebaController::class, 'show'])->name('realizar.show');
     //Route::post('prueba/{id}/guardar', [RealizarPruebaController::class, 'guardarResultados'])->name('realizar.guardar'); 
