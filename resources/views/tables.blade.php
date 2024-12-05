@@ -19,7 +19,8 @@
         <div class="row">
             <!-- Barra lateral con las preguntas -->
             <div class="col-md-3">
-                <div class="bg-white rounded shadow-sm p-3">
+                <div class="bg-white rounded shadow-sm p-3" 
+                    style="position: sticky; top: 20px; max-height: 80vh; overflow-y: auto;">
                     <h4 class="text-primary mb-3">Preguntas</h4>
                     <div id="sidebar-preguntas">
                         <div class="d-flex justify-content-between align-items-center mb-2">
@@ -30,6 +31,7 @@
                     <button class="btn btn-success w-100 mt-3" id="añadir-pagina">Añadir Pregunta</button>
                 </div>
             </div>
+
     
             <!-- Contenido principal -->
             <div class="col-md-9">
