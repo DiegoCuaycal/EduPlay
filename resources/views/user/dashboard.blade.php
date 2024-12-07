@@ -3,8 +3,13 @@
 @section('content')
 <div class="container">
     <!-- Sección de Carrusel de Gamificación -->
-    <div class="container text-center">
-        <h2 class="mb-4 display-4 text-primary">Gamificación</h2>
+    <div class="container text-center my-5 py-4 bg-light rounded shadow-sm">
+        <h2 class="mb-4 display-4 text-primary" style="text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3); font-family: 'Comic Sans MS', cursive, sans-serif;">
+            Transforma el aprendizaje con diversión y competencia.
+        </h2>
+        <p class="lead text-secondary" style="font-family: 'Comic Sans MS', cursive, sans-serif;">
+        Nuestra herramienta gamificada revoluciona la evaluación educativa, motivando a estudiantes y facilitando la enseñanza a los profesores."
+        </p>
     </div>
     <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
         <div class="carousel-indicators">
