@@ -3,63 +3,27 @@
 @section('content')
 <div class="container">
     <!-- Sección de Carrusel de Gamificación -->
-    <div class="container text-center my-5 py-4 bg-light rounded shadow-sm">
-        <h2 class="mb-4 display-4 text-primary" style="text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3); font-family: 'Comic Sans MS', cursive, sans-serif;">
-            Transforma el aprendizaje con diversión y competencia.
-        </h2>
-        <p class="lead text-secondary" style="font-family: 'Comic Sans MS', cursive, sans-serif;">
-        Nuestra herramienta gamificada revoluciona la evaluación educativa, motivando a estudiantes y facilitando la enseñanza a los profesores."
-        </p>
-    </div>
-    <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
-        <div class="carousel-indicators">
-            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active"
-                aria-current="true" aria-label="Slide 1"></button>
-            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1"
-                aria-label="Slide 2"></button>
-            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2"
-                aria-label="Slide 3"></button>
+    <div class="position-relative">
+        <!-- Imagen de fondo -->
+        <img 
+            src="assets/img/Inicio/FondoPaginaPrincipal.jpg" 
+            class="img-fluid w-100 h-auto border-radius-lg" 
+            alt="Imagen de fondo">
+
+        <!-- Texto encima de la imagen -->
+        <div class="position-absolute top-50 start-50 translate-middle text-center w-100">
+            <!-- Título -->
+            <h2 class="text-primary h1" style="text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3); font-family: 'Comic Sans MS', cursive, sans-serif; line-height: 1.5;">
+                Transforma el aprendizaje con <br>diversión y competencia.
+            </h2>
+            <!-- Frase -->
+            <p class="lead text-secondary" style="font-family: 'Comic Sans MS', cursive, sans-serif; line-height: 1.5;">
+                Nuestra herramienta gamificada revoluciona la evaluación educativa, <br> motivando a estudiantes y facilitando la enseñanza a los profesores.
+            </p>
         </div>
-        <div class="carousel-inner">
-            <div class="carousel-item active">
-                <img src="https://images.unsplash.com/photo-1537511446984-935f663eb1f4?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80"
-                    class="d-block w-100" alt="...">
-                <div class="carousel-caption d-none d-md-block">
-                    <h5>¡Estudia y gana!</h5>
-                    <p>“La práctica hace al maestro. ¡Aprovecha cada oportunidad!”</p>
-                    <p><strong>Desafío:</strong> Completa la prueba en menos de 10 minutos y obtén un badge especial.
-                    </p>
-                </div>
-            </div>
-            <div class="carousel-item">
-                <img src="https://images.unsplash.com/photo-1543269865-cbf427effbad?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80"
-                    class="d-block w-100" alt="...">
-                <div class="carousel-caption d-none d-md-block">
-                    <h5>Prepárate para el éxito</h5>
-                    <p>“Cada error es una oportunidad para aprender. ¡No te rindas!”</p>
-                    <p><strong>Tip:</strong> Revisa tus notas antes de comenzar la prueba.</p>
-                </div>
-            </div>
-            <div class="carousel-item">
-                <img src="https://images.unsplash.com/photo-1552793494-111afe03d0ca?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80"
-                    class="d-block w-100" alt="...">
-                <div class="carousel-caption d-none d-md-block">
-                    <h5>¡Hazlo por ti!</h5>
-                    <p>“El éxito es la suma de pequeños esfuerzos repetidos día tras día.”</p>
-                </div>
-            </div>
-        </div>
-        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators"
-            data-bs-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Previous</span>
-        </button>
-        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators"
-            data-bs-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Next</span>
-        </button>
     </div>
+
+
   
  
     <!-- Sección de Pruebas Realizadas -->
