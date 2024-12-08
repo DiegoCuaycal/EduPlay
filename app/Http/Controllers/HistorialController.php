@@ -12,8 +12,13 @@ class HistorialController extends Controller
         // Obtener las 3 pruebas más recientes
         $pruebas = Prueba::orderBy('created_at', 'desc')->take(3)->get();
 
-        // Pasar las pruebas a la vista del dashboard
-        return view('user.historial', compact('pruebas'));
+        // Obtener las pruebas realizadas paginadas (6 por página)
+        $pruebasRealizadas = PruebaRealizada::with('prueba')
+                                             ->orderBy('created_at', 'desc')
+                                             ->paginate(6);
+
+        // Pasar las pruebas y las pruebas realizadas a la vista
+        return view('user.historial', compact('pruebas', 'pruebasRealizadas'));
     }
 
     public function dashboard()
@@ -21,10 +26,12 @@ class HistorialController extends Controller
         // Obtener las 10 pruebas más recientes
         $pruebas = Prueba::latest()->take(10)->get();
         
-        // Obtener todas las pruebas realizadas
-        $pruebasRealizadas = PruebaRealizada::with('prueba')->get();
+        // Obtener todas las pruebas realizadas con paginación (6 por página)
+        $pruebasRealizadas = PruebaRealizada::with('prueba')
+                                             ->orderBy('created_at', 'desc')
+                                             ->paginate(6);
         
-        // Pasar las pruebas creadas y realizadas a la vista del dashboard
+        // Pasar las pruebas y pruebas realizadas a la vista
         return view('user.historial', compact('pruebas', 'pruebasRealizadas'));
     }
 }

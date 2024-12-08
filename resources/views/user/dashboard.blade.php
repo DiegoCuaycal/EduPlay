@@ -22,141 +22,100 @@
             </p>
         </div>
     </div>
+    <div class="d-flex align-items-center bg-light p-4" style="border-radius: 8px;">
+    <!-- Texto a la izquierda -->
+    <div class="flex-grow-1 me-4">
+        <h2 class="mb-3" style="color: #2a2a2a;">Transforma el aprendizaje con diversión y competencia</h2>
+        <p style="color: #2a2a2a;">
+            Descubre cómo la gamificación revoluciona la educación. Aprende, compite y crece con herramientas diseñadas para motivar y conectar.
+        </p>
+    </div>
+    <!-- Video a la derecha -->
+    <div class="flex-shrink-0" style="width: 45%;">
+        <iframe src="https://www.youtube.com/embed/T5SGqP_h_lE?si=9ZsoYsrIrFVmzEir" 
+                title="Video de Gamificación" 
+                class="w-100" 
+                style="height: 300px; border-radius: 8px; border: none;" 
+                allowfullscreen>
+        </iframe>
+    </div>
+</div>
+
+<div class="container my-5">
+    <h2 class="text-center mb-4" style="color: #2a2a2a;">¿Cómo la gamificación transforma el aprendizaje?</h2>
+    <div class="row align-items-center mb-4">
+        <!-- Tarjeta izquierda -->
+        <div class="col-md-6">
+            <div class="card h-100">
+                <div class="card-body text-center">
+                    <h5 class="card-title">Participación activa</h5>
+                    <p class="card-text">
+                    La gamificación anima a los estudiantes a comprometerse activamente con los contenidos a través de retos, competiciones y recompensas.
+                    </p>
+                </div>
+            </div>
+        </div>
+        <!-- Espacio para la imagen -->
+        <div class="col-md-6 text-center">
+            <img src="assets/img/Inicio/ParticipacionActiva.png" alt="Active Participation" class="img-fluid" style="max-height: 200px;">
+        </div>
+    </div>
+    <div class="row align-items-center mb-4">
+        <!-- Espacio para la imagen -->
+        <div class="col-md-6 text-center order-md-2">
+            <img src="assets/img/Inicio/MayorMotivacion.png" alt="Increased Motivation" class="img-fluid" style="max-height: 200px;">
+        </div>
+        <!-- Tarjeta derecha -->
+        <div class="col-md-6 order-md-1">
+            <div class="card h-100">
+                <div class="card-body text-center">
+                    <h5 class="card-title">Mayor motivación</h5>
+                    <p class="card-text">
+                    Gracias a las recompensas y los logros, los alumnos se sienten más inspirados para alcanzar sus objetivos y disfrutan del proceso.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row align-items-center mb-4">
+        <!-- Tarjeta izquierda -->
+        <div class="col-md-6">
+            <div class="card h-100">
+                <div class="card-body text-center">
+                    <h5 class="card-title">Mayor retención de conocimientos</h5>
+                    <p class="card-text">
+                    Los juegos interactivos ayudan a reforzar los conceptos, mejorando la memoria y la comprensión a lo largo del tiempo.
+                    </p>
+                </div>
+            </div>
+        </div>
+        <!-- Espacio para la imagen -->
+        <div class="col-md-6 text-center">
+            <img src="assets/img/Inicio/MayorRetencionConocimientos.png" alt="Enhanced Knowledge Retention" class="img-fluid" style="max-height: 200px;">
+        </div>
+    </div>
+    <div class="row align-items-center mb-4">
+        <!-- Espacio para la imagen -->
+        <div class="col-md-6 text-center order-md-2">
+            <img src="assets/img/Inicio/ImpulsoCreatividad.png" alt="Creativity Boost" class="img-fluid" style="max-height: 200px;">
+        </div>
+        <!-- Tarjeta derecha -->
+        <div class="col-md-6 order-md-1">
+            <div class="card h-100">
+                <div class="card-body text-center">
+                    <h5 class="card-title">Impulso de la creatividad</h5>
+                    <p class="card-text">
+                    Los alumnos piensan con originalidad y desarrollan habilidades de resolución de problemas mientras exploran contenidos gamificados.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 
 
   
- 
-    <!-- Sección de Pruebas Realizadas -->
-    <h2 class="mb-4 mt-5 text-center">Pruebas Completadas</h2>
-
-    <div class="scroll-container position-relative">
-      <button class="scroll-btn left-btn">&#10094;</button>
-      <div class="scrollable-content d-flex">
-      @foreach ($pruebasRealizadas as $pruebaRealizada)
-        <div class="card m-2 flex-shrink-0" style="width: 18rem;">
-        <div class="card-body pt-2">
-          <span class="text-gradient text-primary text-uppercase text-xs font-weight-bold my-2">
-          {{ $pruebaRealizada->created_at->diffForHumans() }}
-          </span>
-          <a href="javascript:;" class="card-title h5 d-block text-darker">
-          {{ $pruebaRealizada->prueba->titulo }}
-          </a>
-          <p class="card-description mb-4">
-          Último Puntaje: {{ $pruebaRealizada->puntaje }}
-          </p>
-          <div class="author align-items-center">
-          <div class="name ps-3">
-            <span>Autor</span>
-            <div class="stats">
-            <small>Posted on {{ $pruebaRealizada->created_at->format('d M Y') }}</small>
-            </div>
-          </div>
-          </div>
-          <a href="{{ route('pruebas.realizadas.show', $pruebaRealizada->prueba->id) }}" class="btn btn-primary mt-3">Ver Detalles</a>
-        </div>
-        </div>
-      @endforeach
-      </div>
-      <button class="scroll-btn right-btn">&#10095;</button>
-    </div>
-
 </div>
-
-<!-- CSS -->
-<style>
-    .scroll-container {
-        overflow: hidden;
-        white-space: nowrap;
-        position: relative;
-    }
-
-    .scrollable-content {
-        display: inline-block;
-        overflow-x: scroll;
-        scroll-behavior: smooth;
-        width: calc(100% - 40px);
-        /* Ajusta según el tamaño de las flechas */
-        scrollbar-width: none;
-        /* Oculta la barra en Firefox */
-        -ms-overflow-style: none;
-        /* Oculta la barra en IE y Edge */
-    }
-
-    .scrollable-content::-webkit-scrollbar {
-        display: none;
-        /* Oculta la barra en Chrome, Safari y Opera */
-    }
-
-    .scroll-btn {
-        position: absolute;
-        top: 50%;
-        transform: translateY(-50%);
-        background-color: rgba(0, 0, 0, 0.5);
-        /* Fondo con transparencia */
-        border: none;
-        font-size: 2rem;
-        color: white;
-        /* Color de la flecha */
-        cursor: pointer;
-        z-index: 10;
-        padding: 10px;
-        /* Mejora la área clicable */
-        border-radius: 50%;
-        /* Hacer las flechas redondas */
-        display: none;
-        /* Oculta las flechas inicialmente */
-    }
-
-    .scroll-btn.show {
-        display: block;
-    }
-
-    .left-btn {
-        left: 0;
-    }
-
-    .right-btn {
-        right: 0;
-    }
-</style>
-
-<!-- JavaScript -->
-<script>
-    document.querySelectorAll('.scroll-container').forEach(container => {
-        const leftBtn = container.querySelector('.left-btn');
-        const rightBtn = container.querySelector('.right-btn');
-        const content = container.querySelector('.scrollable-content');
-
-        // Función para verificar la posición y mostrar/ocultar flechas
-        function updateButtons() {
-            const maxScrollLeft = content.scrollWidth - content.clientWidth;
-            if (content.scrollLeft === 0) {
-                leftBtn.classList.remove('show');
-            } else {
-                leftBtn.classList.add('show');
-            }
-            if (content.scrollLeft >= maxScrollLeft) {
-                rightBtn.classList.remove('show');
-            } else {
-                rightBtn.classList.add('show');
-            }
-        }
-
-        // Desplazamiento a la derecha
-        rightBtn.addEventListener('click', () => {
-            content.scrollBy({ left: 200, behavior: 'smooth' });
-        });
-
-        // Desplazamiento a la izquierda
-        leftBtn.addEventListener('click', () => {
-            content.scrollBy({ left: -200, behavior: 'smooth' });
-        });
-
-        // Escuchar el evento de desplazamiento para ocultar/mostrar las flechas
-        content.addEventListener('scroll', updateButtons);
-
-        // Inicialización: Verifica las posiciones de las flechas
-        updateButtons();
-    });
-</script>
 @endsection

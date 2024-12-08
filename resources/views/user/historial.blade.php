@@ -2,8 +2,11 @@
 
 @section('content')
 <div class="container">
-    <h2 class="mb-4 mt-5 text-center bg-primary text-white p-3">Pruebas Completadas</h2>
-    
+    <div class="text-center mb-4">
+        <h2 style="color: #d63384;">Historial de Pruebas Completadas</h2>
+        <p class="text-muted">Revisa tus resultados y detalles de las pruebas realizadas.</p>
+    </div>
+
     <div class="table-responsive">
         <table class="table table-striped table-bordered">
             <thead class="thead-dark">
@@ -40,6 +43,11 @@
             @endforeach
             </tbody>
         </table>
+    </div>
+
+    <!-- Paginación de las pruebas realizadas -->
+    <div class="d-flex justify-content-center">
+        {{ $pruebasRealizadas->links('pagination::bootstrap-4') }}
     </div>
 </div>
 

@@ -15,126 +15,112 @@
     <!-- Opciones para el rol 'usuario' -->
     @if (Auth::check() && Auth::user()->hasRole('User'))
     <li class="nav-item">
-      <a class="nav-link {{ Request::is('dashboarduser') ? 'active' : '' }}" href="{{ url('dashboarduser') }}">
-      <div
-        class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
-        <!-- Icono SVG aquí -->
-        <svg width="12px" height="100%" viewBox="0 0 45 40" version="1.1" xmlns="http://www.w3.org/2000/svg"
-        xmlns:xlink="http://www.w3.org/1999/xlink">
-        <title>shop </title>
-        <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-          <g transform="translate(-1716.000000, -439.000000)" fill="#FFFFFF" fill-rule="nonzero">
-          <g transform="translate(1716.000000, 291.000000)">
-            <g transform="translate(0.000000, 148.000000)">
-            <path class="color-background opacity-6"
-              d="M46.7199583,10.7414583 L40.8449583,0.949791667 C40.4909749,0.360605034 39.8540131,0 39.1666667,0 L7.83333333,0 C7.1459869,0 6.50902508,0.360605034 6.15504167,0.949791667 L0.280041667,10.7414583 C0.0969176761,11.0460037 -1.23209662e-05,11.3946378 -1.23209662e-05,11.75 C-0.00758042603,16.0663731 3.48367543,19.5725301 7.80004167,19.5833333 L7.81570833,19.5833333 C9.75003686,19.5882688 11.6168794,18.8726691 13.0522917,17.5760417 C16.0171492,20.2556967 20.5292675,20.2556967 23.494125,17.5760417 C26.4604562,20.2616016 30.9794188,20.2616016 33.94575,17.5760417 C36.2421905,19.6477597 39.5441143,20.1708521 42.3684437,18.9103691 C45.1927731,17.649886 47.0084685,14.8428276 47.0000295,11.75 C47.0000295,11.3946378 46.9030823,11.0460037 46.7199583,10.7414583 Z">
-            </path>
-            <path class="color-background"
-              d="M39.198,22.4912623 C37.3776246,22.4928106 35.5817531,22.0149171 33.951625,21.0951667 L33.92225,21.1107282 C31.1430221,22.6838032 27.9255001,22.9318916 24.9844167,21.7998837 C24.4750389,21.605469 23.9777983,21.3722567 23.4960833,21.1018359 L23.4745417,21.1129513 C20.6961809,22.6871153 17.4786145,22.9344611 14.5386667,21.7998837 C14.029926,21.6054643 13.533337,21.3722507 13.0522917,21.1018359 C11.4250962,22.0190609 9.63246555,22.4947009 7.81570833,22.4912623 C7.16510551,22.4842162 6.51607673,22.4173045 5.875,22.2911849 L5.875,44.7220845 C5.875,45.9498589 6.7517757,46.9451667 7.83333333,46.9451667 L19.5833333,46.9451667 L19.5833333,33.6066734 L27.4166667,33.6066734 L27.4166667,46.9451667 L39.1666667,46.9451667 C40.2482243,46.9451667 41.125,45.9498589 41.125,44.7220845 L41.125,22.2822926 C40.4887822,22.4116582 39.8442868,22.4815492 39.198,22.4912623 Z">
-            </path>
-            </g>
-          </g>
-          </g>
-        </g>
-        </svg>
-        <svg width="12px" height="100%" viewBox="0 0 45 40" version="1.1" xmlns="http://www.w3.org/2000/svg"
-        xmlns:xlink="http://www.w3.org/1999/xlink">
-        <title>Inicio</title>
-        <!-- SVG Path -->
-        </svg>
-      </div>
-      <span class="nav-link-text ms-1">Inicio</span>
-      </a>
-    </li>
+    <a class="nav-link {{ Request::is('dashboarduser') ? 'active' : '' }}" href="{{ url('dashboarduser') }}" id="inicio-link">
+        <div
+            class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
+            <!-- Nuevo icono -->
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-house-door-fill" viewBox="0 0 16 16">
+                <path d="M6.5 14.5v-3.505c0-.245.25-.495.5-.495h2c.25 0 .5.25.5.5v3.5a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5" />
+            </svg>
+        </div>
+        <span class="nav-link-text ms-1">Inicio</span>
+    </a>
+</li>
+
+
+<div id="loading-overlay" style="display: none;">
+    <div class="spinner-grow text-primary" role="status">
+        <span class="visually-hidden">Loading...</span>
+    </div>
+</div>
+
+
+    <style>
+ #loading-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7); /* Fondo oscuro */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+
+.spinner-grow {
+    width: 4rem;
+    height: 4rem;
+}
+
+
+    </style>
+
+    <script>
+document.getElementById('inicio-link').addEventListener('click', function (e) {
+    e.preventDefault(); // Evita la redirección inmediata
+
+    const overlay = document.getElementById('loading-overlay');
+    overlay.style.display = 'flex'; // Muestra el overlay
+
+    // Retrasa la redirección por 2 segundos (2000 ms)
+    setTimeout(() => {
+        window.location.href = e.target.href; // Redirige después del retraso
+    }, 2000);
+});
+
+
+    </script>
 
     <li class="nav-item mt-3">
       <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">Centro de Pruebas y Reportes</h6>
     </li>
     <li class="nav-item">
-      <a class="nav-link {{ Request::is('historial') ? 'active' : '' }}" href="{{ url('historial') }}">
-      <div
-        class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
-        <!-- Icono SVG aquí -->
-        <svg width="12px" height="100%" viewBox="0 0 45 40" version="1.1" xmlns="http://www.w3.org/2000/svg"
-        xmlns:xlink="http://www.w3.org/1999/xlink">
-        <title>shop </title>
-        <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-          <g transform="translate(-1716.000000, -439.000000)" fill="#FFFFFF" fill-rule="nonzero">
-          <g transform="translate(1716.000000, 291.000000)">
-            <g transform="translate(0.000000, 148.000000)">
-            <path class="color-background opacity-6"
-              d="M46.7199583,10.7414583 L40.8449583,0.949791667 C40.4909749,0.360605034 39.8540131,0 39.1666667,0 L7.83333333,0 C7.1459869,0 6.50902508,0.360605034 6.15504167,0.949791667 L0.280041667,10.7414583 C0.0969176761,11.0460037 -1.23209662e-05,11.3946378 -1.23209662e-05,11.75 C-0.00758042603,16.0663731 3.48367543,19.5725301 7.80004167,19.5833333 L7.81570833,19.5833333 C9.75003686,19.5882688 11.6168794,18.8726691 13.0522917,17.5760417 C16.0171492,20.2556967 20.5292675,20.2556967 23.494125,17.5760417 C26.4604562,20.2616016 30.9794188,20.2616016 33.94575,17.5760417 C36.2421905,19.6477597 39.5441143,20.1708521 42.3684437,18.9103691 C45.1927731,17.649886 47.0084685,14.8428276 47.0000295,11.75 C47.0000295,11.3946378 46.9030823,11.0460037 46.7199583,10.7414583 Z">
-            </path>
-            <path class="color-background"
-              d="M39.198,22.4912623 C37.3776246,22.4928106 35.5817531,22.0149171 33.951625,21.0951667 L33.92225,21.1107282 C31.1430221,22.6838032 27.9255001,22.9318916 24.9844167,21.7998837 C24.4750389,21.605469 23.9777983,21.3722567 23.4960833,21.1018359 L23.4745417,21.1129513 C20.6961809,22.6871153 17.4786145,22.9344611 14.5386667,21.7998837 C14.029926,21.6054643 13.533337,21.3722507 13.0522917,21.1018359 C11.4250962,22.0190609 9.63246555,22.4947009 7.81570833,22.4912623 C7.16510551,22.4842162 6.51607673,22.4173045 5.875,22.2911849 L5.875,44.7220845 C5.875,45.9498589 6.7517757,46.9451667 7.83333333,46.9451667 L19.5833333,46.9451667 L19.5833333,33.6066734 L27.4166667,33.6066734 L27.4166667,46.9451667 L39.1666667,46.9451667 C40.2482243,46.9451667 41.125,45.9498589 41.125,44.7220845 L41.125,22.2822926 C40.4887822,22.4116582 39.8442868,22.4815492 39.198,22.4912623 Z">
-            </path>
-            </g>
-          </g>
-          </g>
-        </g>
-        </svg>
-        <svg width="12px" height="100%" viewBox="0 0 45 40" version="1.1" xmlns="http://www.w3.org/2000/svg"
-        xmlns:xlink="http://www.w3.org/1999/xlink">
-        <title>Historial</title>
-        <!-- SVG Path -->
-        </svg>
-      </div>
-      <span class="nav-link-text ms-1">Historial</span>
-      </a>
-    </li>
+  <a class="nav-link {{ Request::is('historial') ? 'active' : '' }}" href="{{ url('historial') }}">
+    <div
+      class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
+      <!-- Icono SVG nuevo -->
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-record-btn-fill" viewBox="0 0 16 16">
+        <path d="M0 12V4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2m8-1a3 3 0 1 0 0-6 3 3 0 0 0 0 6"/>
+      </svg>
+    </div>
+    <span class="nav-link-text ms-1">Historial</span>
+  </a>
+</li>
 
-    <li class="nav-item">
-      <a class="nav-link {{ Request::is('pruebasdisponibles') ? 'active' : '' }}" href="{{ url('pruebasdisponibles') }}">
-      <div
-        class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
-        <!-- Icono SVG aquí -->
-        <svg width="12px" height="100%" viewBox="0 0 45 40" version="1.1" xmlns="http://www.w3.org/2000/svg"
-        xmlns:xlink="http://www.w3.org/1999/xlink">
-        <title>shop </title>
-        <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-          <g transform="translate(-1716.000000, -439.000000)" fill="#FFFFFF" fill-rule="nonzero">
-          <g transform="translate(1716.000000, 291.000000)">
-            <g transform="translate(0.000000, 148.000000)">
-            <path class="color-background opacity-6"
-              d="M46.7199583,10.7414583 L40.8449583,0.949791667 C40.4909749,0.360605034 39.8540131,0 39.1666667,0 L7.83333333,0 C7.1459869,0 6.50902508,0.360605034 6.15504167,0.949791667 L0.280041667,10.7414583 C0.0969176761,11.0460037 -1.23209662e-05,11.3946378 -1.23209662e-05,11.75 C-0.00758042603,16.0663731 3.48367543,19.5725301 7.80004167,19.5833333 L7.81570833,19.5833333 C9.75003686,19.5882688 11.6168794,18.8726691 13.0522917,17.5760417 C16.0171492,20.2556967 20.5292675,20.2556967 23.494125,17.5760417 C26.4604562,20.2616016 30.9794188,20.2616016 33.94575,17.5760417 C36.2421905,19.6477597 39.5441143,20.1708521 42.3684437,18.9103691 C45.1927731,17.649886 47.0084685,14.8428276 47.0000295,11.75 C47.0000295,11.3946378 46.9030823,11.0460037 46.7199583,10.7414583 Z">
-            </path>
-            <path class="color-background"
-              d="M39.198,22.4912623 C37.3776246,22.4928106 35.5817531,22.0149171 33.951625,21.0951667 L33.92225,21.1107282 C31.1430221,22.6838032 27.9255001,22.9318916 24.9844167,21.7998837 C24.4750389,21.605469 23.9777983,21.3722567 23.4960833,21.1018359 L23.4745417,21.1129513 C20.6961809,22.6871153 17.4786145,22.9344611 14.5386667,21.7998837 C14.029926,21.6054643 13.533337,21.3722507 13.0522917,21.1018359 C11.4250962,22.0190609 9.63246555,22.4947009 7.81570833,22.4912623 C7.16510551,22.4842162 6.51607673,22.4173045 5.875,22.2911849 L5.875,44.7220845 C5.875,45.9498589 6.7517757,46.9451667 7.83333333,46.9451667 L19.5833333,46.9451667 L19.5833333,33.6066734 L27.4166667,33.6066734 L27.4166667,46.9451667 L39.1666667,46.9451667 C40.2482243,46.9451667 41.125,45.9498589 41.125,44.7220845 L41.125,22.2822926 C40.4887822,22.4116582 39.8442868,22.4815492 39.198,22.4912623 Z">
-            </path>
-            </g>
-          </g>
-          </g>
-        </g>
-        </svg>
-        <svg width="12px" height="100%" viewBox="0 0 45 40" version="1.1" xmlns="http://www.w3.org/2000/svg"
-        xmlns:xlink="http://www.w3.org/1999/xlink">
-        <title>Pruebas Disponibles</title>
-        <!-- SVG Path -->
-        </svg>
-      </div>
-      <span class="nav-link-text ms-1">Pruebas Disponibles</span>
-      </a>
-    </li>
+
+<li class="nav-item">
+    <a class="nav-link {{ Request::is('pruebasdisponibles') ? 'active' : '' }}" href="{{ url('pruebasdisponibles') }}">
+        <div
+            class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
+            <!-- Nuevo icono -->
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-archive-fill" viewBox="0 0 16 16">
+                <path d="M12.643 15C13.979 15 15 13.845 15 12.5V5H1v7.5C1 13.845 2.021 15 3.357 15zM5.5 7h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1 0-1M.8 1a.8.8 0 0 0-.8.8V3a.8.8 0 0 0 .8.8h14.4A.8.8 0 0 0 16 3V1.8a.8.8 0 0 0-.8-.8z"/>
+            </svg>
+        </div>
+        <span class="nav-link-text ms-1">Pruebas Disponibles</span>
+    </a>
+</li>
+
 
     <li class="nav-item mt-3">
       <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">Mayor información</h6>
       </li>
       <li class="nav-item">
-      <a class="nav-link {{ (Request::is('ayuda') ? 'active' : '') }}" href="{{ url('ayuda') }}">
-      <div
-        class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
-        <svg xmlns="http://www.w3.org/2000/svg" width="12" height="100%" fill="#FFFFFF" class="bi bi-question-circle"
+  <a class="nav-link {{ (Request::is('ayuda') ? 'active' : '') }}" href="{{ url('ayuda') }}">
+    <div
+      class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-patch-question-fill"
         viewBox="0 0 16 16">
-        <path d="M8 1a7 7 0 1 0 0 14A7 7 0 0 0 8 1zm0 13A6 6 0 1 1 8 2a6 6 0 0 1 0 12z" />
         <path
-        d="M5.255 5.786a.237.237 0 0 0-.247.247c0 .305.25.247.5.247.157 0 .333-.096.333-.247 0-.166-.166-.333-.333-.333H5.5a.237.237 0 0 0-.247.247z" />
-        <path
-        d="M8 12.93c-.2 0-.393-.12-.474-.327-.082-.205.024-.461.23-.541a.536.536 0 0 1 .61.105.626.626 0 0 1 .217.49c0 .39-.316.273-.683.273zm.317-6.779a.54.54 0 0 0-.396-.482 2.31 2.31 0 0 0-.893-.145c-.516 0-.959.223-1.267.607-.17.223-.267.526-.267.853 0 .128.116.267.267.267h1.134c.016-.057.267-.497.384-.497.117 0 .267.098.267.392 0 .116-.184.174-.294.174-.308 0-.308.524 0 .524.197 0 .353.111.353.353 0 .057-.016.097-.033.144-.25.083-.42.147-.553.243a.554.554 0 0 1-.382.097.653.653 0 0 1-.53-.186c-.197-.195-.325-.544-.325-.853 0-.29.084-.59.217-.853.224-.465.667-.607 1.25-.607a.54.54 0 0 1 .535.607c0 .128-.116.267-.267.267-.167 0-.267-.128-.267-.267 0-.166.1-.267.267-.267.167 0 .267.128.267.267 0 .157-.132.157-.267.157z" />
-        </svg>
-      </div>
-      <span class="nav-link-text ms-1">Ayuda</span>
-      </a>
-      </li>
+          d="M5.933.87a2.89 2.89 0 0 1 4.134 0l.622.638.89-.011a2.89 2.89 0 0 1 2.924 2.924l-.01.89.636.622a2.89 2.89 0 0 1 0 4.134l-.637.622.011.89a2.89 2.89 0 0 1-2.924 2.924l-.89-.01-.622.636a2.89 2.89 0 0 1-4.134 0l-.622-.637-.89.011a2.89 2.89 0 0 1-2.924-2.924l.01-.89-.636-.622a2.89 2.89 0 0 1 0-4.134l.637-.622-.011-.89a2.89 2.89 0 0 1 2.924-2.924l.89.01zM7.002 11a1 1 0 1 0 2 0 1 1 0 0 0-2 0m1.602-2.027c.04-.534.198-.815.846-1.26.674-.475 1.05-1.09 1.05-1.986 0-1.325-.92-2.227-2.262-2.227-1.02 0-1.792.492-2.1 1.29A1.7 1.7 0 0 0 6 5.48c0 .393.203.64.545.64.272 0 .455-.147.564-.51.158-.592.525-.915 1.074-.915.61 0 1.03.446 1.03 1.084 0 .563-.208.885-.822 1.325-.619.433-.926.914-.926 1.64v.111c0 .428.208.745.585.745.336 0 .504-.24.554-.627" />
+      </svg>
+    </div>
+    <span class="nav-link-text ms-1">Ayuda</span>
+  </a>
+</li>
+
   @endif
 
     <!-- Opciones para el rol 'admin' -->
