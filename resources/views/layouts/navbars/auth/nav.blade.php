@@ -69,11 +69,13 @@
                 </li>
 
                 <!-- Notificaciones -->
+                 <!--
                 <li class="nav-item me-3">
                     <a href="javascript:;" class="nav-link text-body d-flex align-items-center">
                         <i class="fa fa-bell"></i>
                     </a>
                 </li>
+                -->
             </ul>
         </div>
     </div>
