@@ -21,28 +21,8 @@
       <div class="col-xl-4 col-lg-5 col-md-7 mx-auto">
         <div class="card z-index-0">
           <div class="card-header text-center pt-4">
-            <h5>Registrese </h5>
+            <h5>Regístrese</h5>
           </div>
-
-          <!--<div class="row px-xl-5 px-sm-4 px-3 justify-content-center"> -->
-            <!-- Botón de Microsoft con logo -->
-            <!--
-            <div class="col-3 text-center"> 
-              <a class="btn btn-outline-light w-100 d-flex justify-content-center align-items-center"
-                href="javascript:;">
-            -->
-                <!-- Logo de Microsoft (cuatro cuadros de colores) -->
-                <!--
-                <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none">
-                  <rect width="10" height="10" x="1" y="1" fill="#F25022"></rect>
-                  <rect width="10" height="10" x="13" y="1" fill="#7FBA00"></rect>
-                  <rect width="10" height="10" x="1" y="13" fill="#00A4EF"></rect>
-                  <rect width="10" height="10" x="13" y="13" fill="#FFB900"></rect>
-                </svg>
-              </a>
-            </div>
-          -->
-
           <div class="card-body">
             <form role="form text-left" method="POST" action="/register">
               @csrf
@@ -50,37 +30,47 @@
                 <input type="text" class="form-control" placeholder="Nombre" name="name" id="name" aria-label="Name"
                   aria-describedby="name" value="{{ old('name') }}">
                 @error('name')
-          <p class="text-danger text-xs mt-2">{{ $message }}</p>
-        @enderror
+                  <p class="text-danger text-xs mt-2">{{ $message }}</p>
+                @enderror
               </div>
               <div class="mb-3">
                 <input type="email" class="form-control" placeholder="Correo electrónico" name="email" id="email"
                   aria-label="Email" aria-describedby="email-addon" value="{{ old('email') }}">
                 @error('email')
-          <p class="text-danger text-xs mt-2">{{ $message }}</p>
-        @enderror
+                  <p class="text-danger text-xs mt-2">{{ $message }}</p>
+                @enderror
               </div>
               <div class="mb-3">
                 <input type="password" class="form-control" placeholder="Contraseña" name="password" id="password"
                   aria-label="Password" aria-describedby="password-addon">
                 @error('password')
-          <p class="text-danger text-xs mt-2">{{ $message }}</p>
-        @enderror
+                  <p class="text-danger text-xs mt-2">{{ $message }}</p>
+                @enderror
               </div>
+              <div class="mb-3">
+                <input type="password" class="form-control" placeholder="Código de Verificación (Solo para Administradores)"
+                  name="admin_code" id="admin_code" aria-label="Admin Code" aria-describedby="admin-code-addon"
+                  value="{{ old('admin_code') }}">
+                @error('admin_code')
+                  <p class="text-danger text-xs mt-2">{{ $message }}</p>
+                @enderror
+              </div>
+
               <div class="form-check form-check-info text-left">
                 <input class="form-check-input" type="checkbox" name="agreement" id="flexCheckDefault" checked>
                 <label class="form-check-label" for="flexCheckDefault">
                   Acepto los <a href="javascript:;" class="text-dark font-weight-bolder">Términos y Condiciones</a>
                 </label>
                 @error('agreement')
-          <p class="text-danger text-xs mt-2">Primero, acepte los Términos y Condiciones, luego intente registrarse nuevamente.
-          </p>
-        @enderror
+                  <p class="text-danger text-xs mt-2">Primero, acepte los Términos y Condiciones, luego intente
+                    registrarse nuevamente.
+                  </p>
+                @enderror
               </div>
               <div class="text-center">
-                <button type="submit" class="btn bg-gradient-dark w-100 my-4 mb-2">únete</button>
+                <button type="submit" class="btn bg-gradient-dark w-100 my-4 mb-2">Únete</button>
               </div>
-              <p class="text-sm mt-3 mb-0">Ya tienes una cuenta? <a href="login"
+              <p class="text-sm mt-3 mb-0">¿Ya tienes una cuenta? <a href="login"
                   class="text-dark font-weight-bolder">Inicia sesión</a></p>
             </form>
           </div>
