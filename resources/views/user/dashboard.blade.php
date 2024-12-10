@@ -20,8 +20,92 @@
             <p class="lead text-secondary" style="font-family: 'Comic Sans MS', cursive, sans-serif; line-height: 1.5;">
                 Nuestra herramienta gamificada revoluciona la evaluación educativa, <br> motivando a estudiantes y facilitando la enseñanza a los profesores.
             </p>
+            <!-- Botón para jugar -->
+            <button class="btn btn-primary mt-3" id="openModalButton">¿Quieres jugar?</button>
         </div>
     </div>
+
+    <!-- Modal (formulario para ingresar la URL) -->
+    <div id="gameModal" class="modal d-none">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <!-- Botón de cierre "X" -->
+                <button type="button" class="btn-close position-absolute top-0 end-0 m-2" id="closeModalButton" aria-label="Close"></button>
+                <div class="modal-header">
+                    <h5 class="modal-title">Ingresa tu URL para jugar</h5>
+                </div>
+                <div class="modal-body">
+                <form action="{{ route('tuRuta') }}" method="POST">
+                @csrf
+                <div class="mb-3">
+                    <label for="gameUrl" class="form-label">URL del juego:</label>
+                    <input type="url" 
+                           class="form-control" 
+                           id="gameUrl" 
+                           name="gameUrl" 
+                           placeholder="Ingrese URL del juego" 
+                           required>
+                    @error('gameUrl')
+                        <div class="text-danger small">{{ $message }}</div>
+                    @enderror
+                </div>
+                <button type="submit" 
+                        class="btn btn-primary w-100"
+                        style="background: linear-gradient(310deg, #1d47c1, #a848d0); border: none;">
+                    Jugar
+                </button>
+            </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+<style>
+    .modal {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        z-index: 1050;
+    }
+
+    .modal-dialog {
+        background: white;
+        border-radius: 8px;
+        max-width: 500px;
+        padding: 20px;
+        position: relative;
+    }
+
+    .d-none {
+        display: none;
+    }
+</style>
+
+<script>
+    document.getElementById('openModalButton').addEventListener('click', function () {
+        document.getElementById('gameModal').classList.remove('d-none');
+    });
+
+    document.getElementById('closeModalButton').addEventListener('click', function () {
+        document.getElementById('gameModal').classList.add('d-none');
+    });
+
+    // Cierra el modal al hacer clic fuera del contenido
+    document.getElementById('gameModal').addEventListener('click', function (event) {
+        if (event.target === this) {
+            this.classList.add('d-none');
+        }
+    });
+</script>
+
+
     <div class="d-flex align-items-center bg-light p-4" style="border-radius: 8px;">
     <!-- Texto a la izquierda -->
     <div class="flex-grow-1 me-4">
