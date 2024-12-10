@@ -109,7 +109,7 @@
     <div class="d-flex align-items-center bg-light p-4" style="border-radius: 8px;">
     <!-- Texto a la izquierda -->
     <div class="flex-grow-1 me-4">
-        <h2 class="mb-3" style="color: #2a2a2a;">Transforma el aprendizaje con diversión y competencia</h2>
+        <h2 class="mb-3" style="color: #2a2a2a;">Aprende y compite con herramientas que motivan el éxito</h2>
         <p style="color: #2a2a2a;">
             Descubre cómo la gamificación revoluciona la educación. Aprende, compite y crece con herramientas diseñadas para motivar y conectar.
         </p>
