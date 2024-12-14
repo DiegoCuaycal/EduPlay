@@ -16,20 +16,29 @@ class SessionsController extends Controller
     public function store()
     {
         $attributes = request()->validate([
-            'email'=>'required|email',
-            'password'=>'required' 
+            'email' => 'required|email',
+            'password' => 'required'
         ]);
-
-        if(Auth::attempt($attributes))
-        {
+    
+        if (Auth::attempt($attributes)) {
             session()->regenerate();
-            return redirect('dashboard')->with(['success'=>'You are logged in.']);
+    
+            // Verificar el rol del usuario autenticado
+            $user = Auth::user();
+            if ($user->hasRole('Admin')) {
+                return redirect()->route('dashboard')->with(['success' => 'Bienvenido, Administrador.']);
+            } elseif ($user->hasRole('User')) {
+                return redirect()->route('dashboarduser')->with(['success' => 'Bienvenido, Usuario.']);
+            }
+    
+            // Si no tiene un rol válido, cerrar sesión y mostrar un error
+            Auth::logout();
+            return redirect()->route('login')->withErrors(['error' => 'Tu cuenta no tiene un rol asignado.']);
         }
-        else{
-
-            return back()->withErrors(['email'=>'Email or password invalid.']);
-        }
+    
+        return back()->withErrors(['email' => 'Correo electrónico o contraseña inválidos.']);
     }
+    
     
     public function destroy()
     {
