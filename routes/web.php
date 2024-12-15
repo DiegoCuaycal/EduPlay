@@ -54,8 +54,17 @@ Route::group(['middleware' => 'auth'], function () {
     })->name('rtl');
     
     Route::get('tables', function () {
-        return view('tables');
+        $user = auth()->user();
+    
+        // Verificar si el usuario tiene rol 'Admin'
+        if (!$user || !$user->hasRole('Admin')) {
+            auth()->logout(); // Cierra sesión si el acceso es no autorizado
+            return redirect()->route('login')->withErrors(['error' => 'No tienes permiso para acceder a esta página.']);
+        }
+    
+        return view('tables'); // Retorna la vista si es admin
     })->name('tables');
+    
     
     Route::get('virtual-reality', function () {
         return view('virtual-reality');

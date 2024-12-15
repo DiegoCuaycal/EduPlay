@@ -12,6 +12,14 @@ class QuizController extends Controller
     // Método para guardar la evaluación y las preguntas
     public function save(Request $request)
     {
+        $user = auth()->user();
+    
+        // Validar que el usuario tenga rol de 'Admin'
+        if (!$user || !$user->hasRole('Admin')) {
+            auth()->logout();
+            return redirect()->route('login')->withErrors(['error' => 'Acceso no autorizado.']);
+        }
+    
         // Validar los datos recibidos
         $request->validate([
             'title' => 'required|string|max:255',
@@ -28,15 +36,6 @@ class QuizController extends Controller
             // Guardar cada pregunta y sus respuestas
             foreach ($request->slides as $slide) {
                 $pregunta = Pregunta::create(['evaluacion_id' => $evaluacion->id, 'question_text' => $slide['question']]);
-    
-                // Guardar las opciones de respuesta
-                //foreach ($slide['answers'] as $index => $answer) {
-                    //Opcion::create([
-                        //'pregunta_id' => $pregunta->id,
-                        //'answer_text' => $answer,
-                        //'is_correct' => in_array($index, $slide['correct_answers']) ? 1 : 0,
-                    //]);
-                //}
     
                 // Guardar la imagen si existe
                 if (!empty($slide['image'])) {
@@ -59,14 +58,24 @@ class QuizController extends Controller
 
 
     // Método para listar las evaluaciones guardadas
+   
     public function index()
-    {
-        // Obtener todas las evaluaciones
-        $evaluaciones = Evaluacion::all();
+{
+    $user = auth()->user();
 
-        // Retornar la vista con las evaluaciones
-        return view('quiz.index', compact('evaluaciones'));
+    // Validar que el usuario tenga rol de 'Admin'
+    if (!$user || !$user->hasRole('Admin')) {
+        auth()->logout();
+        return redirect()->route('login')->withErrors(['error' => 'Acceso no autorizado.']);
     }
+
+    // Obtener todas las evaluaciones
+    $evaluaciones = Evaluacion::all();
+
+    // Retornar la vista con las evaluaciones
+    return view('quiz.index', compact('evaluaciones'));
+}
+
 }
 
 
