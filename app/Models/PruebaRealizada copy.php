@@ -6,22 +6,11 @@ use Illuminate\Database\Eloquent\Model;
 // app/Models/PruebaRealizada.php
 class PruebaRealizada extends Model
 {
-    use HasFactory;
-
     protected $table = 'prueba_realizadas';
-
-    protected $fillable = ['prueba_id', 'user_id', 'puntaje']; // Agregamos 'user_id' como campo rellenable
-
-    // Relación con el modelo Prueba
+    protected $fillable = ['prueba_id', 'puntaje'];
     public function prueba()
     {
         return $this->belongsTo(Prueba::class);
-    }
-
-    // Relación con el modelo User
-    public function user()
-    {
-        return $this->belongsTo(User::class);
     }
 }
 

@@ -1,13 +1,6 @@
 @extends('layouts.user_type.auth')
 
 @section('content')
-<!-- Meta Tags para desactivar caché del navegador -->
-@push('head')
-<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
-<meta http-equiv="Pragma" content="no-cache">
-<meta http-equiv="Expires" content="0">
-@endpush
-
 <div class="container">
     <div class="text-center mb-4">
         <h2 style="color: #d63384;">Historial de Pruebas Completadas</h2>
@@ -21,41 +14,38 @@
                     <th scope="col">Fecha</th>
                     <th scope="col">Título</th>
                     <th scope="col">Último Puntaje</th>
+                    <th scope="col">Autor</th>
                     <th scope="col">Acciones</th>
                 </tr>
             </thead>
             <tbody>
-            @forelse ($pruebasRealizadas as $pruebaRealizada)
+            @foreach ($pruebasRealizadas as $pruebaRealizada)
                 <tr>
+                    <td>{{ $pruebaRealizada->created_at->diffForHumans() }}</td>
+                    <td>{{ $pruebaRealizada->prueba->titulo }}</td>
+                    <td>{{ $pruebaRealizada->puntaje }}</td>
                     <td>
-                        {{ optional($pruebaRealizada->created_at)->timezone('America/Guayaquil')->format('d/m/Y H:i') }}
+                        <span>Autor</span>
+                        <div class="stats">
+                            <small>Posted on {{ $pruebaRealizada->created_at->format('d M Y') }}</small>
+                        </div>
                     </td>
                     <td>
-                        {{ optional($pruebaRealizada->prueba)->titulo ?? 'Título no disponible' }}
-                    </td>
-                    <td>
-                        {{ $pruebaRealizada->puntaje ?? 'N/A' }}
-                    </td>
-                    <td>
-                        @if(isset($pruebaRealizada->prueba->id))
-                            <a href="{{ route('pruebas.realizadas.show', $pruebaRealizada->prueba->id) }}" 
-                               class="btn btn-primary">
-                               Ver Detalles
-                            </a>
-                        @else
-                            <span class="text-muted">No disponible</span>
-                        @endif
+                        <button 
+                            class="btn btn-primary ver-detalles" 
+                            data-id="{{ $pruebaRealizada->prueba->id }}"
+                            data-url="{{ route('pruebas.realizadas.show', $pruebaRealizada->prueba->id) }}"
+                        >
+                            Ver Detalles
+                        </button>
                     </td>
                 </tr>
-            @empty
-                <tr>
-                    <td colspan="4" class="text-center">No has completado ninguna prueba aún.</td>
-                </tr>
-            @endforelse
+            @endforeach
             </tbody>
         </table>
     </div>
 
+    <!-- Paginación de las pruebas realizadas -->
     <div class="d-flex justify-content-center">
         {{ $pruebasRealizadas->links('pagination::bootstrap-4') }}
     </div>
@@ -74,14 +64,23 @@
 
 <script>
 document.addEventListener('DOMContentLoaded', function () {
+    // Ocultar el toast al cargar la página
     const toastElement = document.getElementById('info-toast');
     toastElement.classList.remove('show');
     
+    // Obtener todos los botones de ver detalles
     const botonesVerDetalles = document.querySelectorAll('.ver-detalles');
+    
+    // Agregar evento click a cada botón
     botonesVerDetalles.forEach(function(boton) {
         boton.addEventListener('click', function() {
+            // Obtener la URL de los datos del botón
             const url = this.dataset.url;
+            
+            // Mostrar el toast
             toastElement.classList.add('show');
+            
+            // Configurar el temporizador para ocultar el toast y redirigir
             setTimeout(function() {
                 toastElement.classList.remove('show');
                 window.location.href = url;
@@ -89,12 +88,15 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 
+    // Asegurarse de que el toast esté oculto cuando se usa el botón de retroceso
     window.addEventListener('pageshow', function(event) {
         if (event.persisted) {
+            // La página se cargó desde el caché del navegador (botón de retroceso)
             toastElement.classList.remove('show');
         }
     });
 
+    // Agregar evento al botón de cerrar del toast
     const closeButton = toastElement.querySelector('.btn-close');
     if (closeButton) {
         closeButton.addEventListener('click', function() {

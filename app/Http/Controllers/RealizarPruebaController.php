@@ -1,107 +1,106 @@
 <?php
+
 namespace App\Http\Controllers;
+
 use Illuminate\Http\Request;
 use App\Models\Prueba;
 use App\Models\PruebaRealizada;
+
 class RealizarPruebaController extends Controller
 {
-    /* public function show($id)
-    {
-        // Cargar la prueba y sus preguntas y respuestas
-        $prueba = Prueba::with('preguntas.respuestas')->findOrFail($id);
-        return view('realizar', compact('prueba'));
-    } */
-
+    // Mostrar una prueba usando el token
     public function show($url_token)
     {
         $user = auth()->user();
-    
-        // Validar que el usuario tenga rol de 'User'
+
+        // Validar que el usuario esté autenticado y tenga el rol 'User'
         if (!$user || !$user->hasRole('User')) {
             auth()->logout();
             return redirect()->route('login')->withErrors(['error' => 'Acceso no autorizado.']);
         }
-    
-        // Buscar la prueba usando el `url_token` como `string`
+
+        // Buscar la prueba usando el `url_token`
         $prueba = Prueba::where('url_token', $url_token)->firstOrFail();
-    
+
         return view('realizar', compact('prueba'));
     }
-    
 
-
+    // Almacenar una prueba realizada por el usuario
     public function store(Request $request, $url_token)
-{
-    $user = auth()->user();
-
-    // Validar que el usuario tenga rol de 'User'
-    if (!$user || !$user->hasRole('User')) {
-        auth()->logout();
-        return redirect()->route('login')->withErrors(['error' => 'Acceso no autorizado.']);
-    }
-
-    // Buscar la prueba usando el `url_token` como `string`
-    $prueba = Prueba::with('preguntas.respuestas')->where('url_token', $url_token)->firstOrFail();
-
-    $puntaje = 0;
-
-    // Calcular el puntaje
-    foreach ($prueba->preguntas as $pregunta) {
-        $respuestaCorrecta = $pregunta->respuestas->where('es_correcta', true)->pluck('id')->toArray();
-        $respuestaSeleccionada = $request->input("respuesta_{$pregunta->id}");
-        if ($respuestaSeleccionada && in_array($respuestaSeleccionada, $respuestaCorrecta)) {
-            $puntaje++;
-        }
-    }
-
-    PruebaRealizada::create([
-        'prueba_id' => $prueba->id,
-        'puntaje' => $puntaje,
-    ]);
-
-    return redirect()->route('pruebas.realizadas')->with('success', 'Prueba completada con éxito.');
-}
-
-    /* public function index()
     {
-        $pruebasRealizadas = PruebaRealizada::with('prueba')->get();
-        return view('pruebas_realizadas', compact('pruebasRealizadas'));
-    } */
+        $user = auth()->user();
 
+        // Validar que el usuario esté autenticado
+        if (!$user || !$user->hasRole('User')) {
+            return redirect()->route('login')->withErrors(['error' => 'Acceso no autorizado.']);
+        }
+
+        // Buscar la prueba usando el token
+        $prueba = Prueba::with('preguntas.respuestas')->where('url_token', $url_token)->firstOrFail();
+
+        $puntaje = 0;
+
+        // Calcular el puntaje
+        foreach ($prueba->preguntas as $pregunta) {
+            $respuestaCorrecta = $pregunta->respuestas->where('es_correcta', true)->pluck('id')->toArray();
+            $respuestaSeleccionada = $request->input("respuesta_{$pregunta->id}");
+            if ($respuestaSeleccionada && in_array($respuestaSeleccionada, $respuestaCorrecta)) {
+                $puntaje++;
+            }
+        }
+
+
+
+        // Guardar la prueba realizada con el user_id
+        PruebaRealizada::create([
+            'prueba_id' => $prueba->id,
+            'user_id' => $user->id, // ID del usuario autenticado
+            'puntaje' => $puntaje,
+        ]);
+        
+
+        return redirect()->route('pruebas.realizadas')->with('success', 'Prueba completada con éxito.');
+    }
+
+    // Mostrar el historial de pruebas realizadas filtrado por usuario
     public function index()
-{
-    $user = auth()->user();
+    {
+        $user = auth()->user();
 
-    // Validar que el usuario tenga rol de 'User'
-    if (!$user || !$user->hasRole('User')) {
-        auth()->logout();
-        return redirect()->route('login')->withErrors(['error' => 'Acceso no autorizado.']);
+        // Validar que el usuario esté autenticado
+        if (!$user || !$user->hasRole('User')) {
+            auth()->logout();
+            return redirect()->route('login')->withErrors(['error' => 'Acceso no autorizado.']);
+        }
+
+        // Obtener pruebas realizadas únicamente por el usuario autenticado
+        $pruebasRealizadas = PruebaRealizada::with('prueba')
+            ->where('user_id', $user->id) // Filtra por el usuario autenticado
+            ->orderBy('created_at', 'desc')
+            ->paginate(6);
+
+        return view('pruebas_realizadas.index', compact('pruebasRealizadas'));
     }
 
-    // Obtener pruebas realizadas sin duplicados, con sus detalles más recientes
-    $pruebasRealizadas = PruebaRealizada::with('prueba')
-        ->select('prueba_id')
-        ->groupBy('prueba_id')
-        ->get();
+    // Mostrar detalles de una prueba específica
+    public function showDetails($id)
+    {
+        $user = auth()->user();
 
-    return view('pruebas_realizadas.index', compact('pruebasRealizadas'));
-}
+        // Validar que el usuario esté autenticado
+        if (!$user || !$user->hasRole('User')) {
+            auth()->logout();
+            return redirect()->route('login')->withErrors(['error' => 'Acceso no autorizado.']);
+        }
 
-public function showDetails($id)
-{
-    $user = auth()->user();
+        // Cargar todos los intentos de la prueba específica
+        $intentos = PruebaRealizada::where('prueba_id', $id)
+            ->where('user_id', $user->id) // Filtrar también por el usuario autenticado
+            ->orderBy('created_at', 'desc')
+            ->get();
 
-    // Validar que el usuario tenga rol de 'User'
-    if (!$user || !$user->hasRole('User')) {
-        auth()->logout();
-        return redirect()->route('login')->withErrors(['error' => 'Acceso no autorizado.']);
+        $prueba = Prueba::findOrFail($id);
+
+        return view('pruebas_realizadas.show', compact('intentos', 'prueba'));
     }
-
-    // Cargar todos los intentos de la prueba específica
-    $intentos = PruebaRealizada::where('prueba_id', $id)->orderBy('created_at', 'desc')->get();
-    $prueba = Prueba::findOrFail($id);
-
-    return view('pruebas_realizadas.show', compact('intentos', 'prueba'));
-}
-
 }
