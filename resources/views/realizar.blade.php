@@ -99,6 +99,26 @@
         }
     }
 
+    const tiemposPorPregunta = {}; // Objeto para almacenar los tiempos de inicio por pregunta.
+
+    function iniciarPrueba() {
+        document.getElementById("inicio-mensaje").style.display = "none";
+        document.getElementById("contenido-prueba").style.display = "block";
+
+        const tiempoLimite = {{ $prueba->tiempo_limite ?? 'null' }};
+        if (tiempoLimite) {
+            iniciarTemporizador(tiempoLimite);
+        }
+
+        // Inicializa el tiempo de la primera pregunta
+        iniciarTiempoPregunta(0);
+    }
+
+    function iniciarTiempoPregunta(indicePregunta) {
+        const tiempoActual = Date.now();
+        tiemposPorPregunta[indicePregunta] = tiempoActual; // Registra el tiempo de inicio.
+    }
+
     function siguientePregunta(indiceActual) {
         const preguntaActual = document.getElementById(`pregunta-${indiceActual}`);
         const inputs = preguntaActual.querySelectorAll('input[type="radio"]');
@@ -115,13 +135,25 @@
             return;
         }
 
-        preguntaActual.style.display = "none";
+        // Registra el tiempo de respuesta de la pregunta actual.
+        const tiempoInicio = tiemposPorPregunta[indiceActual];
+        const tiempoRespuesta = (Date.now() - tiempoInicio) / 1000; // Tiempo en segundos.
 
+        // Almacena el tiempo de respuesta en un campo oculto.
+        const tiempoInput = document.createElement('input');
+        tiempoInput.type = 'hidden';
+        tiempoInput.name = `tiempo_pregunta_${indiceActual}`;
+        tiempoInput.value = tiempoRespuesta;
+        preguntaActual.appendChild(tiempoInput);
+
+        // Oculta la pregunta actual y muestra la siguiente.
+        preguntaActual.style.display = "none";
         const siguientePregunta = document.getElementById(`pregunta-${indiceActual + 1}`);
         if (siguientePregunta) {
             siguientePregunta.style.display = "block";
+            iniciarTiempoPregunta(indiceActual + 1);
         }
-    }
+    }        
 </script>
 
 <style>

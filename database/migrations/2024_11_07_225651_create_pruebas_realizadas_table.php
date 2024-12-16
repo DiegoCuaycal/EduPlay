@@ -13,6 +13,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('prueba_id')->constrained()->onDelete('cascade');
             $table->integer('puntaje');
+            $table->integer('puntaje_total')->default(0);
             $table->timestamps();
         });
         
