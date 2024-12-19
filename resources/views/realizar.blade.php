@@ -42,7 +42,7 @@
                         @if ($index < count($prueba->preguntas) - 1)
                             <button type="button" class="boton-siguiente" onclick="siguientePregunta({{ $index }})">Continuar</button>
                         @else
-                            <button type="submit" class="boton-finalizar">Finalizar</button>
+                            <button type="submit" class="boton-finalizar" onclick="finalizarPrueba({{ $index }})">Finalizar</button>
                         @endif
                     </div>
                 @endforeach
