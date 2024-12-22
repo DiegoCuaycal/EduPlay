@@ -19,6 +19,7 @@ use App\Http\Controllers\RealizarPruebaController;
 use App\Http\Controllers\JuegoController;
 use App\Http\Controllers\DashboardUserVersionController;
 use App\Http\Controllers\HistorialController;
+use App\Http\Controllers\AyudaController;
 
 /*
 |--------------------------------------------------------------------------
@@ -70,9 +71,8 @@ Route::group(['middleware' => 'auth'], function () {
         return view('virtual-reality');
     })->name('virtual-reality');
 
-    Route::get('/ayuda', function () {
-        return view('ayuda');
-    });
+    Route::get('/ayuda', [AyudaController::class, 'index'])->name('ayudaProfesor');
+
 
     Route::get('/inicio', function () {
         return view('user.inicio'); 
