@@ -153,7 +153,54 @@
             siguientePregunta.style.display = "block";
             iniciarTiempoPregunta(indiceActual + 1);
         }
-    }        
+    }   
+    
+    function finalizarPrueba(indiceActual) {
+        const preguntaActual = document.getElementById(`pregunta-${indiceActual}`);
+        const inputs = preguntaActual.querySelectorAll('input[type="radio"]');
+        let respuestaSeleccionada = false;
+
+        inputs.forEach(input => {
+            if (input.checked) {
+                respuestaSeleccionada = true;
+            }
+        });
+
+        if (!respuestaSeleccionada) {
+            alert("Debe seleccionar una respuesta para finalizar.");
+            return;
+        }
+
+        // Registra el tiempo de respuesta de la última pregunta.
+        const tiempoInicio = tiemposPorPregunta[indiceActual];
+        const tiempoRespuesta = (Date.now() - tiempoInicio) / 1000; // Tiempo en segundos.
+
+        // Almacena el tiempo de respuesta en un campo oculto.
+        const tiempoInput = document.createElement('input');
+        tiempoInput.type = 'hidden';
+        tiempoInput.name = `tiempo_pregunta_${indiceActual}`;
+        tiempoInput.value = tiempoRespuesta;
+        preguntaActual.appendChild(tiempoInput);
+
+        // Mostrar popup de puntos basado en tiempo y respuesta.
+        const respuestaCorrecta = inputs.find(input => input.checked && input.dataset.correct === "true");
+
+        if (respuestaCorrecta) {
+            mostrarPopup("Correcto! +100", "green");
+            if (tiempoRespuesta <= 15) {
+                mostrarPopup("Muy veloz! +100", "green");
+            } else if (tiempoRespuesta <= 30) {
+                mostrarPopup("Veloz! +50", "green");
+            }
+        } else {
+            mostrarPopup("Incorrecto... +0", "red");
+        }
+
+        // Enviar el formulario después de un pequeño retraso para mostrar los popups.
+        setTimeout(() => {
+            document.getElementById("formulario-prueba").submit();
+        }, 1000);
+    }
 </script>
 
 <style>
