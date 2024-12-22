@@ -115,6 +115,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/pruebas/{id}', [PruebaController::class, 'show'])->name('pruebas.show');
     Route::get('/pruebas/{id}/edit', [PruebaController::class, 'edit'])->name('pruebas.edit');
     Route::put('/pruebas/{id}', [PruebaController::class, 'update'])->name('pruebas.update');
+
+
     
     //Route::get('/dashboard', [PruebaController::class, 'dashboard'])->name('dashboard');
     Route::get('/dashboard', [DashboardController::class, 'dashboard'])->name('dashboard');
@@ -136,6 +138,8 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::get('/realizar-prueba/{url_token}', [RealizarPruebaController::class, 'show'])->name('realizar.prueba');
 	Route::post('/realizar-prueba/{token}', [RealizarPruebaController::class, 'store'])->name('realizar-prueba.store');
+
+
 
 
  // Ruta para el perfil de usuario
