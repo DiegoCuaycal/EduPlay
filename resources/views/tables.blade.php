@@ -99,25 +99,33 @@
             <!-- Contenido principal -->
             <div class="col-md-9">
                 <div class="bg-white rounded shadow-sm p-4">
-                    <form action="{{ route('pruebas.store') }}" method="POST" id="form-prueba">
+                    <form action="{{ route('pruebas.store') }}" method="POST" id="form-prueba" enctype="multipart/form-data">
                         @csrf
-
+                    
                         <!-- Título de la Prueba -->
                         <div class="form-group">
-                            <label for="titulo" class="h5 text-primary bi bi-pencil-square"">Título de la Prueba:</label>
-                            <input type=" text" class="form-control form-control-lg" id="titulo" name="titulo"
-                                placeholder="Escribe el título de la prueba" @error('titulo') is-invalid @enderror"
-                                value="{{ old('titulo') }}">
-                                @error('titulo')
-                                    <p class="alert alert-danger text-center text-white my-2">{{$message}}</p>
-                                @enderror
+                            <label for="titulo" class="h5 text-primary bi bi-pencil-square">Título de la Prueba:</label>
+                            <input type="text" class="form-control form-control-lg" id="titulo" name="titulo"
+                                   placeholder="Escribe el título de la prueba" value="{{ old('titulo') }}">
+                            @error('titulo')
+                            <p class="alert alert-danger text-center text-white my-2">{{$message}}</p>
+                            @enderror
                         </div>
-
+                    
+                        <!-- Tiempo Límite -->
                         <div class="form-group">
-                            <label for="tiempo_limite" class="h5 text-primary bi bi-clock">Tiempo Límite (en
-                                minutos):</label>
+                            <label for="tiempo_limite" class="h5 text-primary bi bi-clock">Tiempo Límite (en minutos):</label>
                             <input type="number" class="form-control form-control-lg" id="tiempo_limite"
-                                name="tiempo_limite" placeholder="Ejemplo: 30">
+                                   name="tiempo_limite" placeholder="Ejemplo: 30">
+                        </div>
+                    
+                        <!-- Imagen de la Prueba -->
+                        <div class="form-group">
+                            <label for="imagen" class="h5 text-primary bi bi-image">Imagen de la Prueba (opcional):</label>
+                            <input type="file" class="form-control form-control-lg" id="imagen" name="imagen" accept="image/*">
+                            @error('imagen')
+                            <p class="alert alert-danger text-center text-white my-2">{{$message}}</p>
+                            @enderror
                         </div>
 
                         <!-- Contenedor de preguntas -->

@@ -3,6 +3,12 @@
 
 <div id="inicio-mensaje" style="display: block;">
     <h3>¿Listo para empezar?</h3>
+
+    <div class="card mb-3">
+        <img src="{{ $prueba->imagen ? asset('storage/' . $prueba->imagen) : asset('images/default-image.png') }}" 
+             class="card-img-top" alt="Imagen de la prueba">        
+    </div>
+    
     <button onclick="iniciarPrueba()">Comenzar</button>
 </div>
 
@@ -19,12 +25,12 @@
                     <div class="pregunta" id="pregunta-{{ $index }}" style="display: {{ $index === 0 ? 'block' : 'none' }};">
                         <h5>{{ $pregunta->texto }}</h5>
                         
-                        <!-- Imagen de la pregunta -->
+                        {{-- <!-- Imagen de la pregunta -->
                         @if ($pregunta->imagen)
                             <div class="imagen-container">
                                 <img src="{{ asset('storage/' . $pregunta->imagen) }}" alt="Imagen de la pregunta">
                             </div>
-                        @endif
+                        @endif --}}
 
                         <div class="respuestas">
                             @foreach ($pregunta->respuestas as $i => $respuesta)

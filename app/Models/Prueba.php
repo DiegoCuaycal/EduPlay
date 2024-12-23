@@ -9,7 +9,7 @@ class Prueba extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['titulo','tiempo_limite'];
+    protected $fillable = ['titulo', 'tiempo_limite', 'imagen'];
 
     // Relación de una prueba con muchas preguntas
     public function preguntas()

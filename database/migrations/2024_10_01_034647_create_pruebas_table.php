@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('titulo');
             $table->string('url_token', 20)->unique();
             $table->integer('tiempo_limite')->nullable(); // Tiempo en minutos, opcional
+            $table->string('imagen')->nullable();
             $table->timestamps();
         });
         // Añadir la columna de clave foránea en la tabla de preguntas
