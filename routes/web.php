@@ -20,7 +20,7 @@ use App\Http\Controllers\JuegoController;
 use App\Http\Controllers\DashboardUserVersionController;
 use App\Http\Controllers\HistorialController;
 use App\Http\Controllers\AyudaController;
-
+use App\Http\Controllers\AyudaUserController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -72,7 +72,7 @@ Route::group(['middleware' => 'auth'], function () {
     })->name('virtual-reality');
 
     Route::get('/ayuda', [AyudaController::class, 'index'])->name('ayudaProfesor');
-
+    Route::get('/ayudaUser', [AyudaUserController::class, 'index'])->name('ayudaUser');
 
     Route::get('/inicio', function () {
         return view('user.inicio'); 

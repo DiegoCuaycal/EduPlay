@@ -97,7 +97,7 @@
       <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">Mayor información</h6>
     </li>
     <li class="nav-item">
-      <a class="nav-link {{ (Request::is('ayuda') ? 'active' : '') }}" href="{{ url('ayuda') }}">
+      <a class="nav-link {{ (Request::is('ayudaUser') ? 'active' : '') }}" href="{{ url('ayudaUser') }}">
       <div
         class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
