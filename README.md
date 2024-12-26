@@ -9,7 +9,7 @@
 
  1. Clonar el repositorio
 ```sh
-git clone https://github.com/tu-usuario-tu-repo.git GamificacionUTENE
+git clone https://github.com/DiegoCuaycal/GamificacionUTN
 cd GamificacionUTENE
 code .
 ```
@@ -30,7 +30,7 @@ npm install
 npm run dev
 ```
 
-A tener en cuenta para subir cambios
+## A tener en cuenta para subir cambios
 1. Para crear una nueva rama
 ```sh
 Copiar código
