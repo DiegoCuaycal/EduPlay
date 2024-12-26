@@ -58,24 +58,24 @@ class PruebaController extends Controller
             return redirect()->route('login')->withErrors(['error' => 'Acceso no autorizado.']);
         }
 
-    $request->validate([
-        'titulo' => 'required',
-        'tiempo_limite' => 'nullable|integer|min:1',
-        'imagen' => 'nullable|image|max:2048', // Validación para la imagen
-    ]);
+        $request->validate([
+            'titulo' => 'required',
+            'tiempo_limite' => 'nullable|integer|min:1',
+            'imagen' => 'nullable|image|max:2048', // Validación para la imagen
+        ]);
 
-    $rutaImagen = null;
+        $rutaImagen = null;
 
-    if ($request->hasFile('imagen')) {
-        $rutaImagen = $request->file('imagen')->store('imagenes_pruebas', 'public');
-    }
+        if ($request->hasFile('imagen')) {
+            $rutaImagen = $request->file('imagen')->store('imagenes_pruebas', 'public');
+        }
 
-    $prueba = Prueba::create([
-        'titulo' => $request->titulo,
-        'url_token' => bin2hex(random_bytes(10)),
-        'tiempo_limite' => $request->tiempo_limite,
-        'imagen' => $rutaImagen,
-    ]);
+        $prueba = Prueba::create([
+            'titulo' => $request->titulo,
+            'url_token' => bin2hex(random_bytes(10)),
+            'tiempo_limite' => $request->tiempo_limite,
+            'imagen' => $rutaImagen,
+        ]);
 
         // Guardar las preguntas y respuestas
         foreach ($request->pregunta as $index => $preguntaTexto) {
