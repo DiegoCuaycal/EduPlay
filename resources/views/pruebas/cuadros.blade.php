@@ -25,11 +25,13 @@
             <div class="col-md-4 mb-4">
                 <div class="card h-100 shadow-sm border-0 rounded">
                     <!-- Imagen de fondo (placeholder) -->
-                    <div class="rectangulo position-relative" style="height: 150px; background-color: #f8f9fa;">
+                    <div class="rectangulo position-relative" style="height: 150px; background-color: #f8f9fa; overflow: hidden;">
+                        <img src="{{ $prueba->imagen ? asset('storage/' . $prueba->imagen) : asset('images/default-image.png') }}" 
+                         alt="{{ $prueba->titulo }}" class="img-fluid w-100 h-100" style="object-fit: cover;">
                         <div class="position-absolute bottom-0 start-0 p-2 bg-primary text-white rounded-end">
                             <i class="bi bi-calendar-event"></i> {{ $prueba->created_at->format('d M, Y') }}
                         </div>
-                    </div>
+                    </div>                    
                     <div class="card-body">
                         <h5 class="card-title text-primary">{{ $prueba->titulo }}</h5>
                         <p class="card-text mb-2">
