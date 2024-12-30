@@ -4,7 +4,8 @@
 
 <div class="container my-5">
     <!-- Encabezado -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.5/font/bootstrap-icons.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.5/font/bootstrap-icons.min.css"
+        rel="stylesheet">
 
     <style>
         .card:hover {
@@ -47,6 +48,12 @@
             <i class="bi bi-lightbulb-fill"></i> Consejos para Crear Pruebas Interactivas
         </h1>
         <p class="text-muted">Utiliza estas recomendaciones para diseñar pruebas dinámicas y efectivas.</p>
+    </div>
+
+    <div class="text-center mb-4">
+        <a href="{{ route('tables') }}" class="btn btn-primary" style="font-size: 1.2rem; padding: 10px 20px;">
+            <i class="bi bi-plus-circle"></i> Crear Nueva Prueba
+        </a>
     </div>
 
     <!-- Tarjetas de Consejos -->

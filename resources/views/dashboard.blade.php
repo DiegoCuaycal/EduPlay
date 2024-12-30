@@ -120,7 +120,6 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
 
     <!-- Sección de Pruebas Creadas -->
-    <!-- Sección de Pruebas Creadas -->
     <div style="background-color: #e8f4fc; border-radius: 10px; padding: 20px; margin-bottom: 30px;">
         <h2 class="mb-4">
             <i class="bi bi-trophy-fill" style="color: #4A90E2; margin-right: 10px;"></i>
@@ -131,15 +130,18 @@
             <button class="scroll-btn left-btn">&#10094;</button>
             <div class="scrollable-content">
                 @foreach ($pruebas as $prueba)
-                    <div class="card shadow-lg border-0 m-2"
-                        style="background-color: #f8f9fa; width: 200px; display: inline-block;">
+                    <div class="card shadow-lg border-0 m-2" style="background-color: #f8f9fa; width: 200px; display: inline-block;">
+                        <div class="rectangulo position-relative" style="height: 100px; overflow: hidden; background-color: #e8f4fc;">
+                            <img src="{{ $prueba->imagen ? asset('storage/' . $prueba->imagen) : asset('images/default-image.png') }}" 
+                             alt="{{ $prueba->titulo }}" class="img-fluid w-100 h-100" style="object-fit: cover;">
+                        </div>
                         <div class="card-body">
                             <span class="badge badge-primary mb-2">{{ $prueba->created_at->diffForHumans() }}</span>
                             <h5 class="card-title">{{ $prueba->titulo }}</h5>
                             <p class="card-text">Descripción de la prueba</p>
                             <a href="{{ route('pruebas.show', $prueba->id) }}" class="btn btn-primary">Ver Prueba</a>
                         </div>
-                    </div>
+                    </div>            
                 @endforeach
             </div>
             <button class="scroll-btn right-btn">&#10095;</button>
