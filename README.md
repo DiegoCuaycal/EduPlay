@@ -10,7 +10,7 @@
  1. Clonar el repositorio
 ```sh
 git clone https://github.com/DiegoCuaycal/GamificacionUTN
-cd GamificacionUTENE
+cd GamificacionUTN
 code .
 ```
 
@@ -25,7 +25,6 @@ php artisan serve
 
 4. Frontend
 ```sh
-Copiar código
 npm install
 npm run dev
 ```
@@ -33,13 +32,11 @@ npm run dev
 ## A tener en cuenta para subir cambios
 1. Para crear una nueva rama
 ```sh
-Copiar código
 git branch nombre-de-la-rama
 git switch nombre-de-la-rama
 ```
 2. Para subir los cambios a la rama principal (main)
 ```sh
-Copiar código
 git switch main
 git pull origin main
 git add . 
@@ -48,6 +45,5 @@ git push origin main
 ```
 3. Si hay conflictos al realizar las migraciones, ejecutar estos comandos
 ```sh
-Copiar código
 php artisan config:clear
 php artisan migrate:fresh --seed
