@@ -3,6 +3,13 @@
 
 <div id="inicio-mensaje" style="display: block;">
 
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <!-- Bootstrap JS Bundle (incluye Popper) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
 
     <div class="d-flex justify-content-center align-items-center mt-4">
@@ -39,47 +46,103 @@
 
 <div id="contenido-prueba" style="display: none;">
     <div class="container">
-        <h2>Realizar Prueba: {{ $prueba->titulo }}</h2>
+        <!-- Título Principal -->
+        <div class="text-center mb-4">
+            <h2 class="text-primary fw-bold">
+                <i class="bi bi-pencil-square me-2"></i> Realizar Prueba: {{ $prueba->titulo }}
+            </h2>
+        </div>
+
+        <!-- Tiempo Restante -->
         @if($prueba->tiempo_limite)
-            <p><strong>Tiempo restante:</strong> <span id="tiempo-restante">{{ $prueba->tiempo_limite }}</span> minutos</p>
+            <div class="d-flex justify-content-center align-items-center mb-3">
+                <div class="bg-light border rounded p-2 shadow-sm text-center w-25">
+                    <i class="bi bi-clock-fill text-danger fs-2"></i>
+                    <h5 class="text-danger fw-bold mt-2">Tiempo restante:</h5>
+                    <p class="fs-4 text-primary mb-0" id="tiempo-restante">{{ $prueba->tiempo_limite }}</p>
+                    <span class="text-muted">minutos</span>
+                </div>
+            </div>
         @endif
-        <form id="formulario-prueba" action="{{ route('realizar-prueba.store', $prueba->url_token) }}" method="POST">
+        <form id="formulario-prueba" class="container py-4"
+            action="{{ route('realizar-prueba.store', $prueba->url_token) }}" method="POST">
             @csrf
             <div id="preguntas-container">
                 @foreach ($prueba->preguntas as $index => $pregunta)
-                    <div class="pregunta" id="pregunta-{{ $index }}"
-                        style="display: {{ $index === 0 ? 'block' : 'none' }};">
-                        <h5>{{ $pregunta->texto }}</h5>
+                            <div class="pregunta card shadow-sm mb-4" id="pregunta-{{ $index }}"
+                                style="display: {{ $index === 0 ? 'block' : 'none' }};">
 
-                        {{-- <!-- Imagen de la pregunta -->
-                        @if ($pregunta->imagen)
-                        <div class="imagen-container">
-                            <img src="{{ asset('storage/' . $pregunta->imagen) }}" alt="Imagen de la pregunta">
-                        </div>
-                        @endif --}}
+                                <div class="card-body">
+                                    <!-- Cabecera de la pregunta -->
+                                    <div class="d-flex align-items-center gap-3 mb-4">
+                                        <span
+                                            class="bg-primary text-white d-flex align-items-center justify-content-center rounded-circle"
+                                            style="width: 40px; height: 40px;">
+                                            <i class="bi bi-patch-question-fill"></i>
+                                        </span>
+                                        <h5 class="card-title mb-0">{{ $pregunta->texto }}</h5>
+                                    </div>
 
-                        <div class="respuestas">
-                            @foreach ($pregunta->respuestas as $i => $respuesta)
-                                <div class="respuesta"
-                                    style="background-color: {{ ['#ff4d4d', '#4d79ff', '#4dff4d', '#ffc34d'][$i % 4] }};"
-                                    onclick="seleccionarRespuesta(this, {{ $pregunta->id }}, {{ $respuesta->id }})">
-                                    <label>
-                                        <input type="radio" name="respuesta_{{ $pregunta->id }}" value="{{ $respuesta->id }}"
-                                            required>
-                                        {{ $respuesta->texto }}
-                                    </label>
+                                    {{-- <!-- Imagen de la pregunta -->
+                                    @if ($pregunta->imagen)
+                                    <div class="mb-4">
+                                        <img src="{{ asset('storage/' . $pregunta->imagen) }}" alt="Imagen de la pregunta"
+                                            class="img-fluid rounded">
+                                    </div>
+                                    @endif --}}
+
+                                    <!-- Respuestas -->
+                                    <div class="respuestas mb-4">
+                                        @foreach ($pregunta->respuestas as $i => $respuesta)
+                                                                @php
+                                                                    $bgColors = ['bg-danger-subtle', 'bg-primary-subtle', 'bg-success-subtle', 'bg-warning-subtle'];
+                                                                    $borderColors = ['border-danger', 'border-primary', 'border-success', 'border-warning'];
+                                                                    // Iconos más apropiados para opciones de respuesta
+                                                                    $icons = [
+                                                                        'bi bi-record-circle', // Círculo simple para opción A
+                                                                        'bi bi-check-circle',  // Círculo con check para opción B
+                                                                        'bi bi-star',          // Estrella para opción C
+                                                                        'bi bi-square'         // Cuadrado para opción D
+                                                                    ];
+                                                                    $currentBg = $bgColors[$i % 4];
+                                                                    $currentBorder = $borderColors[$i % 4];
+                                                                    $currentIcon = $icons[$i % 4];
+                                                                @endphp
+
+                                                                <div class="respuesta mb-3 p-3 rounded border {{ $currentBg }} {{ $currentBorder }}"
+                                                                    onclick="seleccionarRespuesta(this, {{ $pregunta->id }}, {{ $respuesta->id }})">
+                                                                    <label class="d-flex align-items-center gap-2 mb-0" style="cursor: pointer;">
+                                                                        <i class="{{ $currentIcon }} fs-5"></i>
+                                                                        <div class="form-check mb-0">
+                                                                            <input type="radio" class="form-check-input"
+                                                                                name="respuesta_{{ $pregunta->id }}" value="{{ $respuesta->id }}" required>
+                                                                            <span class="ms-2">{{ $respuesta->texto }}</span>
+                                                                        </div>
+                                                                    </label>
+                                                                </div>
+                                        @endforeach
+                                    </div>
+
+                                    <!-- Botones de navegación -->
+                                    <div class="d-flex justify-content-end">
+                                        @if ($index < count($prueba->preguntas) - 1)
+                                            <button type="button"
+                                                class="boton-siguiente btn btn-primary d-flex align-items-center gap-2"
+                                                onclick="siguientePregunta({{ $index }})">
+                                                Continuar
+                                                <i class="bi bi-arrow-right"></i>
+                                            </button>
+                                        @else
+                                            <button type="submit"
+                                                class="boton-finalizar btn btn-success d-flex align-items-center gap-2"
+                                                onclick="finalizarPrueba({{ $index }})">
+                                                Finalizar
+                                                <i class="bi bi-check2-circle"></i>
+                                            </button>
+                                        @endif
+                                    </div>
                                 </div>
-                            @endforeach
-                        </div>
-                        <br>
-                        @if ($index < count($prueba->preguntas) - 1)
-                            <button type="button" class="boton-siguiente"
-                                onclick="siguientePregunta({{ $index }})">Continuar</button>
-                        @else
-                            <button type="submit" class="boton-finalizar"
-                                onclick="finalizarPrueba({{ $index }})">Finalizar</button>
-                        @endif
-                    </div>
+                            </div>
                 @endforeach
             </div>
         </form>
@@ -89,7 +152,7 @@
 @endsection
 
 <script>
-    
+
     function iniciarPrueba() {
         document.getElementById("inicio-mensaje").style.display = "none";
         document.getElementById("contenido-prueba").style.display = "block";
@@ -237,7 +300,6 @@
             document.getElementById("formulario-prueba").submit();
         }, 1000);
     }
-    
 </script>
 
 <style>
