@@ -2,14 +2,39 @@
 @section('content')
 
 <div id="inicio-mensaje" style="display: block;">
-    <h3>¿Listo para empezar?</h3>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+
+    <div class="d-flex justify-content-center align-items-center mt-4">
+        <h3 class="text-primary fw-bold text-center border-bottom border-primary pb-2 d-inline-flex align-items-center">
+            <i class="bi bi-rocket-takeoff-fill me-2 text-danger"></i>
+            ¿Listo para empezar?
+        </h3>
+    </div>
+
+    <div class="text-center mb-4 p-3 border rounded shadow-sm bg-light">
+        <h5 class="text-secondary fw-normal">
+            <i class="bi bi-pen text-warning"></i> Realiza tu prueba
+        </h5>
+        <p class="text-muted">Responde cada pregunta con calma y cuidado. ¡Tú puedes lograrlo!</p>
+    </div>
 
     <div class="card mb-3">
-        <img src="{{ $prueba->imagen ? asset('storage/' . $prueba->imagen) : asset('images/default-image.png') }}" 
-             class="card-img-top" alt="Imagen de la prueba">        
+        <img src="{{ $prueba->imagen ? asset('storage/' . $prueba->imagen) : asset('images/default-image.png') }}"
+            class="card-img-top" alt="Imagen de la prueba">
     </div>
-    
-    <button onclick="iniciarPrueba()">Comenzar</button>
+    <div class="d-flex justify-content-center align-items-center mt-4">
+        <button id="startButton"
+            class="btn btn-primary btn-lg px-5 py-3 shadow rounded-pill fw-bold d-flex align-items-center justify-content-center"
+            style="font-size: 1.5rem;" onclick="iniciarPrueba()">
+            <span id="buttonText">
+                <i class="bi bi-play-circle-fill me-2"></i> Comenzar
+            </span>
+            <span id="buttonSpinner" class="spinner-border spinner-border-lg text-light ms-2 d-none" role="status"
+                aria-hidden="true">
+            </span>
+        </button>
+    </div>
 </div>
 
 <div id="contenido-prueba" style="display: none;">
@@ -22,23 +47,25 @@
             @csrf
             <div id="preguntas-container">
                 @foreach ($prueba->preguntas as $index => $pregunta)
-                    <div class="pregunta" id="pregunta-{{ $index }}" style="display: {{ $index === 0 ? 'block' : 'none' }};">
+                    <div class="pregunta" id="pregunta-{{ $index }}"
+                        style="display: {{ $index === 0 ? 'block' : 'none' }};">
                         <h5>{{ $pregunta->texto }}</h5>
-                        
+
                         {{-- <!-- Imagen de la pregunta -->
                         @if ($pregunta->imagen)
-                            <div class="imagen-container">
-                                <img src="{{ asset('storage/' . $pregunta->imagen) }}" alt="Imagen de la pregunta">
-                            </div>
+                        <div class="imagen-container">
+                            <img src="{{ asset('storage/' . $pregunta->imagen) }}" alt="Imagen de la pregunta">
+                        </div>
                         @endif --}}
 
                         <div class="respuestas">
                             @foreach ($pregunta->respuestas as $i => $respuesta)
-                                <div class="respuesta" 
+                                <div class="respuesta"
                                     style="background-color: {{ ['#ff4d4d', '#4d79ff', '#4dff4d', '#ffc34d'][$i % 4] }};"
                                     onclick="seleccionarRespuesta(this, {{ $pregunta->id }}, {{ $respuesta->id }})">
                                     <label>
-                                        <input type="radio" name="respuesta_{{ $pregunta->id }}" value="{{ $respuesta->id }}" required>
+                                        <input type="radio" name="respuesta_{{ $pregunta->id }}" value="{{ $respuesta->id }}"
+                                            required>
                                         {{ $respuesta->texto }}
                                     </label>
                                 </div>
@@ -46,9 +73,11 @@
                         </div>
                         <br>
                         @if ($index < count($prueba->preguntas) - 1)
-                            <button type="button" class="boton-siguiente" onclick="siguientePregunta({{ $index }})">Continuar</button>
+                            <button type="button" class="boton-siguiente"
+                                onclick="siguientePregunta({{ $index }})">Continuar</button>
                         @else
-                            <button type="submit" class="boton-finalizar" onclick="finalizarPrueba({{ $index }})">Finalizar</button>
+                            <button type="submit" class="boton-finalizar"
+                                onclick="finalizarPrueba({{ $index }})">Finalizar</button>
                         @endif
                     </div>
                 @endforeach
@@ -60,6 +89,7 @@
 @endsection
 
 <script>
+    
     function iniciarPrueba() {
         document.getElementById("inicio-mensaje").style.display = "none";
         document.getElementById("contenido-prueba").style.display = "block";
@@ -159,8 +189,8 @@
             siguientePregunta.style.display = "block";
             iniciarTiempoPregunta(indiceActual + 1);
         }
-    }   
-    
+    }
+
     function finalizarPrueba(indiceActual) {
         const preguntaActual = document.getElementById(`pregunta-${indiceActual}`);
         const inputs = preguntaActual.querySelectorAll('input[type="radio"]');
@@ -207,6 +237,7 @@
             document.getElementById("formulario-prueba").submit();
         }, 1000);
     }
+    
 </script>
 
 <style>
@@ -214,11 +245,13 @@
         max-width: 100%;
         height: auto;
     }
+
     .respuestas {
         display: flex;
         justify-content: space-around;
         gap: 10px;
     }
+
     .respuesta {
         flex: 1;
         text-align: center;
@@ -229,12 +262,15 @@
         border-radius: 8px;
         transition: background-color 0.3s ease;
     }
+
     .respuesta:hover {
         opacity: 0.9;
     }
+
     .respuesta-seleccionada {
         filter: brightness(0.8);
     }
+
     .boton-finalizar {
         background-color: #4CAF50;
         color: white;
@@ -243,6 +279,7 @@
         border-radius: 5px;
         cursor: pointer;
     }
+
     .boton-finalizar:hover {
         background-color: #45a049;
     }
