@@ -47,26 +47,25 @@ class RegisterController extends Controller
         // Crear el usuario
         $user = User::create($attributes);
 
-        // Log temporal para asegurar que no arrastra datos
-        \Log::info('Usuario recién registrado', [
+        // Registrar logs para depuración
+        \Log::info('Nuevo usuario registrado', [
             'user_id' => $user->id,
             'email' => $user->email,
-            'pruebas_realizadas' => \App\Models\PruebaRealizada::where('user_id', $user->id)->count()
         ]);
 
         // Asignar el rol al usuario usando Spatie Roles y Permisos
         $user->assignRole($role);
 
-        // Borrar cualquier sesión residual
+        // Borrar cualquier sesión residual que pudiera existir
         \DB::table('sessions')->where('user_id', $user->id)->delete();
 
-        // Iniciar sesión al usuario recién registrado
+        // Iniciar sesión con la nueva cuenta registrada
         Auth::login($user);
 
         // Mensaje de confirmación
         session()->flash('success', 'Tu cuenta ha sido creada.');
 
-        // Redireccionar al dashboard según el rol
+        // Redirigir al dashboard según el rol
         return $isAdmin ? redirect('/dashboard') : redirect('/dashboarduser');
     }
 
