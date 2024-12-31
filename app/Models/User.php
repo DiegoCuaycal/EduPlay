@@ -7,8 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
-use Spatie\Permission\Traits\HasRoles; // Asegúrate de importar esto
-
+use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
 {
@@ -48,33 +47,28 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    /*
-    public function roles()
+    /**
+     * Relación: Un usuario (profesor/admin) tiene muchas pruebas
+     */
+    public function pruebas()
     {
-        return $this->belongsTo(Role::class, 'role_id'); // Especifica el campo de la clave foránea
+        return $this->hasMany(Prueba::class);
     }
-        */
-    
 
-        /*
-    public function hasRole($role)
+    /**
+     * Verifica si el usuario tiene rol de administrador
+     */
+    public function isAdmin()
     {
-        return $this->role == $role;
+        return $this->rol === 2; // 2 para Admin
     }
-        */
-    
-        public function isAdmin()
-        {
-            // Verificar si el campo 'rol' es igual a 2 (administrador)
-            return $this->rol === 2;
-        }
-        
-        public function isUser()
-        {
-            // Verificar si el campo 'rol' es igual a 1 (usuario normal)
-            return $this->rol === 1;
-        }
-        
 
-
+    /**
+     * Verifica si el usuario tiene rol de usuario normal
+     */
+    public function isUser()
+    {
+        return $this->rol === 1; // 1 para Usuario normal
+    }
 }
+
