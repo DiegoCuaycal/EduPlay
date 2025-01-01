@@ -1,6 +1,9 @@
 @extends('layouts.user_type.auth')
+
 @section('content')
 <div class="container">
+
+    
     <!-- Sección de Carrusel de Gamificación -->
     <!-- Sección de Saludo Personalizado -->
     <div class="mt-4 mb-4 p-3 bg-light text-center rounded shadow-sm">
@@ -14,15 +17,6 @@
             </a>
         </div>
     </div>
-
-    <!-- Importa Bootstrap -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-
-    <!-- Bootstrap Script -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-
-
 
     <div class="text-center mt-4">
         <h1 style="color: #4A90E2; font-weight: bold;">
@@ -130,10 +124,12 @@
             <button class="scroll-btn left-btn">&#10094;</button>
             <div class="scrollable-content">
                 @foreach ($pruebas as $prueba)
-                    <div class="card shadow-lg border-0 m-2" style="background-color: #f8f9fa; width: 200px; display: inline-block;">
-                        <div class="rectangulo position-relative" style="height: 100px; overflow: hidden; background-color: #e8f4fc;">
-                            <img src="{{ $prueba->imagen ? asset('storage/' . $prueba->imagen) : asset('images/default-image.png') }}" 
-                             alt="{{ $prueba->titulo }}" class="img-fluid w-100 h-100" style="object-fit: cover;">
+                    <div class="card shadow-lg border-0 m-2"
+                        style="background-color: #f8f9fa; width: 200px; display: inline-block;">
+                        <div class="rectangulo position-relative"
+                            style="height: 100px; overflow: hidden; background-color: #e8f4fc;">
+                            <img src="{{ $prueba->imagen ? asset('storage/' . $prueba->imagen) : asset('images/default-image.png') }}"
+                                alt="{{ $prueba->titulo }}" class="img-fluid w-100 h-100" style="object-fit: cover;">
                         </div>
                         <div class="card-body">
                             <span class="badge badge-primary mb-2">{{ $prueba->created_at->diffForHumans() }}</span>
@@ -141,7 +137,7 @@
                             <p class="card-text">Descripción de la prueba</p>
                             <a href="{{ route('pruebas.show', $prueba->id) }}" class="btn btn-primary">Ver Prueba</a>
                         </div>
-                    </div>            
+                    </div>
                 @endforeach
             </div>
             <button class="scroll-btn right-btn">&#10095;</button>
