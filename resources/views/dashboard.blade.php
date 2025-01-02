@@ -2,21 +2,53 @@
 
 @section('content')
 <div class="container">
-
-    
-    <!-- Sección de Carrusel de Gamificación -->
-    <!-- Sección de Saludo Personalizado -->
-    <div class="mt-4 mb-4 p-3 bg-light text-center rounded shadow-sm">
-        <h3 class="mb-2" style="color: #343a40;">Bienvenido, {{ auth()->user()->name }}</h3>
+    <div class="mt-4 mb-4 p-4 text-center rounded shadow-sm custom-box">
+        <h3 class="mb-3 text-dark fw-bold">Bienvenido, {{ auth()->user()->name }}</h3>
         <p class="text-muted">Prepárate para evaluar y potenciar el aprendizaje de tus estudiantes.</p>
 
         <!-- Botón Crear Nueva Prueba -->
-        <div class="text-center mb-4">
-            <a href="{{ route('tables') }}" class="btn btn-primary" style="font-size: 1.2rem; padding: 10px 20px;">
+        <div class="text-center mt-3">
+            <a href="{{ route('tables') }}" class="btn custom-btn btn-lg px-4">
                 <i class="bi bi-plus-circle"></i> Crear Nueva Prueba
             </a>
         </div>
     </div>
+
+    <!-- Estilos personalizados -->
+    <style>
+        /* Fondo transparente con opacidad */
+        .custom-box {
+            background: rgba(255, 255, 255, 0.3);
+            /* Blanco semitransparente */
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            /* Borde sutil */
+            backdrop-filter: blur(10px);
+            /* Desenfoque */
+            -webkit-backdrop-filter: blur(10px);
+            /* Compatibilidad con Safari */
+            border-radius: 10px;
+            /* Bordes redondeados */
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            /* Sombra ligera */
+        }
+
+        /* Estilo del botón azul */
+        .custom-btn {
+            background-color: #007bff !important;
+            /* Azul Bootstrap */
+            color: white !important;
+            border: none;
+        }
+
+        /* Hover del botón */
+        .custom-btn:hover {
+            background-color: #0056b3 !important;
+            /* Azul más oscuro */
+            color: white !important;
+        }
+    </style>
+
+
 
     <div class="text-center mt-4">
         <h1 style="color: #4A90E2; font-weight: bold;">
