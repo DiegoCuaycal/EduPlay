@@ -20,7 +20,7 @@
                   <label>Correo electrónico</label>
                   <div class="mb-3">
                     <input type="email" class="form-control" name="email" id="email" placeholder="Correo electrónico"
-                      value="admin@softui.com" aria-label="Email" aria-describedby="email-addon">
+                      value="profesor@utn.edu.ec" aria-label="Email" aria-describedby="email-addon">
                     @error('email')
             <p class="text-danger text-xs mt-2">{{ $message }}</p>
           @enderror
