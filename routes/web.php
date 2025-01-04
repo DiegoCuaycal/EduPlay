@@ -143,8 +143,8 @@ Route::group(['middleware' => 'auth'], function () {
 
 
  // Ruta para el perfil de usuario
- Route::get('/laravel-examples/user-profile', function () {
-    return view('laravel-examples.user-profile');
+ Route::get('/profile/profile', function () {
+    return view('profile.profile');
 })->name('user-profile');
 
 	
