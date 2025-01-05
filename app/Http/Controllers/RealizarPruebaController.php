@@ -30,7 +30,7 @@ class RealizarPruebaController extends Controller
     {
         $user = auth()->user();
     
-        // Validar que el usuario esté autenticado
+        // Validar que el usuario esté autenticado y tenga el rol 'User'
         if (!$user || !$user->hasRole('User')) {
             return redirect()->route('login')->withErrors(['error' => 'Acceso no autorizado.']);
         }
@@ -76,21 +76,19 @@ class RealizarPruebaController extends Controller
         return redirect()->route('pruebas.realizadas')->with('success', 'Prueba completada con éxito.');
     }
     
-
-    // Mostrar el historial de pruebas realizadas filtrado por usuario
+    // Mostrar el historial de pruebas realizadas (solo para administradores)
     public function index()
     {
         $user = auth()->user();
 
-        // Validar que el usuario esté autenticado
-        if (!$user || !$user->hasRole('User')) {
+        // Validar que el usuario esté autenticado y tenga el rol 'Admin'
+        if (!$user || !$user->hasRole('Admin')) {
             auth()->logout();
             return redirect()->route('login')->withErrors(['error' => 'Acceso no autorizado.']);
         }
 
-        // Obtener pruebas realizadas únicamente por el usuario autenticado
+        // Obtener todas las pruebas realizadas
         $pruebasRealizadas = PruebaRealizada::with('prueba')
-            ->where('user_id', $user->id) // Filtra por el usuario autenticado
             ->orderBy('created_at', 'desc')
             ->paginate(6);
 
@@ -102,7 +100,7 @@ class RealizarPruebaController extends Controller
     {
         $user = auth()->user();
 
-        // Validar que el usuario esté autenticado
+        // Validar que el usuario esté autenticado y tenga el rol 'User'
         if (!$user || !$user->hasRole('User')) {
             auth()->logout();
             return redirect()->route('login')->withErrors(['error' => 'Acceso no autorizado.']);
