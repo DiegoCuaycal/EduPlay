@@ -1,4 +1,4 @@
-<h1> Gamificación </h1>
+<h1> Gamificación UTN </h1>
 
 ## Introducción
 **Gamificación** es una plataforma educativa desarrollada para gamificar la enseñanza de TIC en la Universidad Técnica del Norte. Inspirada en herramientas como Kahoot y DucaPlay, permite a los profesores evaluar a los estudiantes mediante preguntas y puntuaciones basadas en tiempo y precisión.
