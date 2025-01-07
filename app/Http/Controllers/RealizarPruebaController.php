@@ -101,7 +101,7 @@ class RealizarPruebaController extends Controller
         $user = auth()->user();
 
         // Validar que el usuario esté autenticado y tenga el rol 'User'
-        if (!$user || !$user->hasRole('User')) {
+        if (!$user || !$user->hasRole('Admin')) {
             auth()->logout();
             return redirect()->route('login')->withErrors(['error' => 'Acceso no autorizado.']);
         }
