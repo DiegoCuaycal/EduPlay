@@ -22,7 +22,7 @@ class InfoUserController extends Controller
         }
     
         // Renderizar la vista del perfil del usuario
-        return view('laravel-examples/user-profile');
+        return view('profile/profile');
     }
     
     public function store(Request $request)
