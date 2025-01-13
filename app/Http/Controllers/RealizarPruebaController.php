@@ -81,39 +81,44 @@ class RealizarPruebaController extends Controller
     {
         $user = auth()->user();
 
-        // Validar que el usuario esté autenticado y tenga el rol 'Admin'
-        if (!$user || !$user->hasRole('Admin')) {
-            auth()->logout();
-            return redirect()->route('login')->withErrors(['error' => 'Acceso no autorizado.']);
-        }
+        // Obtener todas las pruebas realizadas, agrupadas por prueba
+        $pruebas = Prueba::with('pruebasRealizadas.user')
+            ->whereHas('pruebasRealizadas', function ($query) use ($user) {
+                $query->where('user_id', $user->id)
+                      ->orWhereHas('prueba', function ($subquery) use ($user) {
+                          $subquery->where('user_id', $user->id);
+                      });
+            })
+            ->get();
 
-        // Obtener todas las pruebas realizadas
-        $pruebasRealizadas = PruebaRealizada::with('prueba')
-            ->orderBy('created_at', 'desc')
-            ->paginate(6);
-
-        return view('pruebas_realizadas.index', compact('pruebasRealizadas'));
+        return view('pruebas_realizadas.index', compact('pruebas'));
     }
 
     // Mostrar detalles de una prueba específica
     public function showDetails($id)
     {
         $user = auth()->user();
+        $prueba = Prueba::with('pruebasRealizadas.user')->findOrFail($id);
+        
 
-        // Validar que el usuario esté autenticado y tenga el rol 'User'
-        if (!$user || !$user->hasRole('Admin')) {
-            auth()->logout();
-            return redirect()->route('login')->withErrors(['error' => 'Acceso no autorizado.']);
+        // Verificar permisos
+        if ($prueba->user_id !== $user->id && !$prueba->pruebasRealizadas->where('user_id', $user->id)->count()) {
+            abort(403, 'Acceso no autorizado.');
         }
 
-        // Cargar todos los intentos de la prueba específica
-        $intentos = PruebaRealizada::where('prueba_id', $id)
-            ->where('user_id', $user->id) // Filtrar también por el usuario autenticado
-            ->orderBy('created_at', 'desc')
-            ->get();
+        // Obtener intentos de la prueba ordenados por puntaje
+        $intentos = $prueba->pruebasRealizadas()->orderByDesc('puntaje')->get();
 
-        $prueba = Prueba::findOrFail($id);
+        // Filtrar intentos según el rol del usuario
+        $intentosFiltrados = $intentos;
+        if ($user->hasRole('Admin')) {
+            // Mostrar solo el intento más alto por usuario
+            $intentosFiltrados = $intentos->unique('user_id');
+        } elseif ($user->hasRole('User')) {
+            // Mostrar solo los intentos del usuario autenticado
+            $intentosFiltrados = $intentos->where('user_id', $user->id);
+        }
 
-        return view('pruebas_realizadas.show', compact('intentos', 'prueba'));
+        return view('pruebas_realizadas.show', compact('prueba', 'intentosFiltrados'));
     }
 }
