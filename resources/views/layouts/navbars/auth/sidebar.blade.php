@@ -220,7 +220,7 @@
       </a>
     </li>
   
-    
+    <!--
     <li class="nav-item">
       <a class="nav-link {{ (Request::is('billing') ? 'active' : '') }}" href="{{ url('billing') }}">
       <div
@@ -247,6 +247,7 @@
       <span class="nav-link-text ms-1">Grupos</span>
       </a>
     </li>
+    -->
     
     <li class="nav-item">
       <a class="nav-link {{ request()->routeIs('pruebas.index') ? 'active' : '' }}" href="{{ route('pruebas.index') }}">

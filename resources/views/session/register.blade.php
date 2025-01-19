@@ -4,7 +4,7 @@
 
 <section class="min-vh-100 mb-8">
   <div class="page-header align-items-start min-vh-50 pt-5 pb-11 mx-3 border-radius-lg"
-    style="background-image: url('../assets/img/Fecyt/FecytFondo.jpg');">
+    style="background-image: url('../assets/img/Fecyt/Aula2.jpg');">
     <span class="mask bg-gradient-dark opacity-6"></span>
     <div class="container">
       <div class="row justify-content-center">
