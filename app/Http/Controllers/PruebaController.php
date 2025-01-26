@@ -44,58 +44,88 @@ class PruebaController extends Controller
     }
 
     public function store(Request $request)
-    {
-        $user = auth()->user();
+{
+    $user = auth()->user();
 
-        // Validar que el usuario esté autenticado y tenga el rol de 'Admin'
-        if (!$user || !$user->hasRole('Admin')) {
-            auth()->logout();
-            return redirect()->route('login')->withErrors(['error' => 'Acceso no autorizado.']);
-        }
-
-        // Validar los campos del formulario
-        $validatedData = $request->validate([
-            'titulo' => 'required|string|max:255',
-            'tiempo_limite' => 'nullable|integer|min:1',
-            'imagen' => 'nullable|image|max:2048',
-            'pregunta' => 'required|array|min:1', // Aseguramos que haya al menos una pregunta
-            'pregunta.*' => 'required|string|max:255', // Cada pregunta debe ser un string
-        ]);
-
-        $rutaImagen = null;
-
-        // Si se carga una imagen, guardarla en la carpeta de almacenamiento público
-        if ($request->hasFile('imagen')) {
-            $rutaImagen = $request->file('imagen')->store('imagenes_pruebas', 'public');
-        }
-
-        // Crear la prueba con el user_id del usuario autenticado
-        $prueba = Prueba::create([
-            'user_id' => $user->id,
-            'titulo' => $validatedData['titulo'],
-            'url_token' => bin2hex(random_bytes(10)),
-            'tiempo_limite' => $validatedData['tiempo_limite'] ?? null,
-            'imagen' => $rutaImagen,
-        ]);
-
-        // Guardar las preguntas y sus respuestas asociadas a la prueba
-        foreach ($validatedData['pregunta'] as $index => $preguntaTexto) {
-            $pregunta = $prueba->preguntas()->create(['texto' => $preguntaTexto]);
-
-            if ($request->has("respuesta-" . ($index + 1))) {
-                foreach ($request->input("respuesta-" . ($index + 1)) as $i => $respuestaTexto) {
-                    $esCorrecta = isset($request->input("correcta-" . ($index + 1))[$i + 1]);
-                    $pregunta->respuestas()->create([
-                        'texto' => $respuestaTexto,
-                        'es_correcta' => $esCorrecta ? 1 : 0,
-                    ]);
-                }
-            }
-        }
-
-        // Retornar con un mensaje de éxito
-        return redirect()->back()->with('success', 'Prueba creada exitosamente.');
+    // Validar que el usuario esté autenticado y tenga el rol de 'Admin'
+    if (!$user || !$user->hasRole('Admin')) {
+        auth()->logout();
+        return redirect()->route('login')->withErrors(['error' => 'Acceso no autorizado.']);
     }
+
+    // Validar los campos del formulario
+    $validatedData = $request->validate([
+        'titulo' => 'required|string|max:255',
+        'tiempo_limite' => 'required|integer|min:1',
+        'imagen' => 'nullable|image|max:2048',
+        'pregunta' => 'required|array|min:1', // Aseguramos que haya al menos una pregunta
+        'pregunta.*' => 'required|string|max:255', // Cada pregunta debe ser un string
+    ]);
+
+    $rutaImagen = null;
+
+    // Si se carga una imagen, guardarla en la carpeta de almacenamiento público
+    if ($request->hasFile('imagen')) {
+        $rutaImagen = $request->file('imagen')->store('imagenes_pruebas', 'public');
+    }
+
+    // Crear la prueba con el user_id del usuario autenticado
+    $prueba = Prueba::create([
+        'user_id' => $user->id,
+        'titulo' => $validatedData['titulo'],
+        'url_token' => bin2hex(random_bytes(10)),
+        'tiempo_limite' => $validatedData['tiempo_limite'] ?? null,
+        'imagen' => $rutaImagen,
+    ]);
+
+    // Guardar las preguntas y sus respuestas asociadas a la prueba
+    foreach ($validatedData['pregunta'] as $index => $preguntaTexto) {
+        $pregunta = $prueba->preguntas()->create(['texto' => $preguntaTexto]);
+
+        // Validar que existan respuestas para la pregunta
+        $respuestas = $request->input("respuesta-" . ($index + 1));
+        $correctas = $request->input("correcta-" . ($index + 1));
+
+        if (!$respuestas || count($respuestas) < 4) {
+            // Si faltan respuestas, eliminar la prueba y retornar un error
+            $prueba->delete();
+            return redirect()->back()->withErrors(['error' => "Cada pregunta debe tener al menos 4 respuestas."]);
+        }
+
+        $totalCorrectas = 0;
+        foreach ($respuestas as $i => $respuestaTexto) {
+            if (empty($respuestaTexto)) {
+                // Si hay respuestas vacías, eliminar la prueba y retornar un error
+                $prueba->delete();
+                return redirect()->back()->withErrors(['error' => "No se permiten respuestas vacías."]);
+            }
+
+            // Determinar si la respuesta es correcta
+            $esCorrecta = isset($correctas[$i + 1]) && $correctas[$i + 1] == 1;
+            if ($esCorrecta) {
+                $totalCorrectas++;
+            }
+
+            // Guardar la respuesta
+            $pregunta->respuestas()->create([
+                'texto' => $respuestaTexto,
+                'es_correcta' => $esCorrecta ? 1 : 0,
+            ]);
+        }
+
+        // Validar que haya exactamente una respuesta correcta
+        if ($totalCorrectas !== 1) {
+            $prueba->delete();
+            return redirect()->back()->withErrors([
+                'error' => "Cada pregunta debe tener exactamente una respuesta marcada como correcta.",
+            ]);
+        }
+    }
+
+    // Retornar con un mensaje de éxito
+    return redirect()->back()->with('success', 'Prueba creada exitosamente.');
+}
+
 
     public function show($id)
     {
