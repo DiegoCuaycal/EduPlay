@@ -56,4 +56,25 @@
 </body>
 </html>
 
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        // Selecciona todos los grupos de checkboxes de respuestas
+        document.querySelectorAll("div.form-group").forEach(preguntaContainer => {
+            let checkboxes = preguntaContainer.querySelectorAll("input[type='checkbox']");
+            
+            checkboxes.forEach(checkbox => {
+                checkbox.addEventListener("change", function () {
+                    if (this.checked) {
+                        // Si un checkbox es marcado, desmarcar los otros de la misma pregunta
+                        checkboxes.forEach(otherCheckbox => {
+                            if (otherCheckbox !== this) {
+                                otherCheckbox.checked = false;
+                            }
+                        });
+                    }
+                });
+            });
+        });
+    });
+</script>
 

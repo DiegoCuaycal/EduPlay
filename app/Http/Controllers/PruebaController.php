@@ -164,11 +164,12 @@ class PruebaController extends Controller
             return redirect()->route('login')->withErrors(['error' => 'Acceso no autorizado.']);
         }
 
-        // Filtrar pruebas por el user_id del usuario autenticado
+        // Obtener la prueba del usuario autenticado
         $prueba = Prueba::where('id', $id)
             ->where('user_id', $user->id)
             ->firstOrFail();
 
+        // Actualizar el título de la prueba
         $prueba->update([
             'titulo' => $request->input('titulo'),
         ]);
@@ -177,19 +178,26 @@ class PruebaController extends Controller
             $pregunta = Pregunta::findOrFail($preguntaId);
             $pregunta->update(['texto' => $textoPregunta]);
 
+            // Obtener las respuestas correctas marcadas para esta pregunta
             $correctas = $request->input("correctas.$preguntaId", []);
 
-            foreach ($request->input('respuestas') as $respuestaId => $textoRespuesta) {
-                $respuesta = Respuesta::findOrFail($respuestaId);
+            // Asegurar que solo haya una respuesta correcta por pregunta
+            if (count($correctas) > 1) {
+                return redirect()->back()->withErrors(['error' => 'Solo una respuesta puede ser correcta por pregunta.']);
+            }
+
+            // Actualizar las respuestas
+            foreach ($pregunta->respuestas as $respuesta) {
                 $respuesta->update([
-                    'texto' => $textoRespuesta,
-                    'es_correcta' => in_array($respuestaId, $correctas),
+                    'texto' => $request->input("respuestas.{$respuesta->id}"),
+                    'es_correcta' => in_array($respuesta->id, $correctas),
                 ]);
             }
         }
 
         return redirect()->route('pruebas.show', $prueba->id)->with('success', 'Prueba actualizada correctamente');
     }
+
 
     public function verPruebasCuadros()
     {
