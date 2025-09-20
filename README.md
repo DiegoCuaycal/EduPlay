@@ -1,11 +1,17 @@
-# 🎮 Plataforma Gamificada Educativa
+<p align="center">
+  <h1>🎮 <strong>EduPlay</strong> 🎮</h1>
+</p>
 
+
+**EduPlay** es una plataforma gamificada para docentes y estudiantes, desarrollada con **Laravel, PHP, PostgreSQL** y **Bootstrap**, que permite la creación de evaluaciones interactivas y el seguimiento del rendimiento académico en tiempo real. La plataforma facilita la participación de los estudiantes en pruebas mediante códigos únicos, ofrece rankings dinámicos y mantiene un historial de resultados, mientras que los docentes pueden crear y administrar pruebas de forma sencilla y visual.
+
+---
 
 ## 🚀 Descripción del proyecto
 
-Esta plataforma está inspirada en herramientas educativas como **Kahoot**. Permite que los docentes creen pruebas interactivas y que los estudiantes participen en tiempo real, con rankings dinámicos y seguimiento de sus resultados.  
+EduPlay está inspirada en herramientas educativas como **Kahoot**. Permite que los docentes creen pruebas interactivas y que los estudiantes participen en tiempo real, con rankings dinámicos y seguimiento de resultados.  
 
-El sistema soporta **dos roles principales**:  
+El sistema soporta **dos roles principales**:
 
 ### 👩‍🎓 Rol Estudiante
 - Ingresar a pruebas mediante un **código único**.  
@@ -25,7 +31,7 @@ El sistema soporta **dos roles principales**:
 ## 🛠 Tecnologías utilizadas
 - **Backend:** Laravel (PHP)  
 - **Base de datos:** PostgreSQL  
-- **Frontend:** Blade Templates (Laravel), HTML, CSS, JavaScript  
+- **Frontend:** Blade Templates (Laravel), HTML, CSS, JavaScript, Bootstrap  
 - **Control de versiones:** Git & GitHub  
 
 ---
@@ -36,4 +42,5 @@ El sistema soporta **dos roles principales**:
    ```bash
    git clone https://github.com/usuario/repositorio.git
    cd repositorio
+
 
