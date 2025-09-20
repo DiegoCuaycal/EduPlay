@@ -38,9 +38,25 @@ El sistema soporta **dos roles principales**:
 
 ## ⚙️ Instalación y ejecución
 
-1. Clonar el repositorio:
-   ```bash
-   git clone https://github.com/usuario/repositorio.git
-   cd repositorio
+ 1. Clonar el repositorio
+```sh
+git clone https://github.com/DiegoCuaycal/GamificacionUTN
+cd GamificacionUTN
+code .
+```
 
+2. Backend
+```sh
+composer install
+cp .env.example .env
+php artisan key:generate
+php artisan migrate --seed
+php artisan serve
+```
+
+4. Frontend
+```sh
+npm install
+npm run dev
+```
 
