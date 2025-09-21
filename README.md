@@ -1,6 +1,10 @@
 <p align="center">
-  <h1>🎮 <strong>EduPlay</strong> 🎮</h1>
+  <img src="EduPlay.png" alt="Logo de EduPlay" width="300"/>
 </p>
+
+<p align="center"><i>Plataforma Gamificada de Evaluaciones Interactivas en Línea</i></p>
+
+---
 
 
 **EduPlay** es una plataforma gamificada para docentes y estudiantes, desarrollada con **Laravel, PHP, PostgreSQL** y **Bootstrap**, que permite la creación de evaluaciones interactivas y el seguimiento del rendimiento académico en tiempo real. La plataforma facilita la participación de los estudiantes en pruebas mediante códigos únicos, ofrece rankings dinámicos y mantiene un historial de resultados, mientras que los docentes pueden crear y administrar pruebas de forma sencilla y visual.
