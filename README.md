@@ -63,4 +63,19 @@ php artisan serve
 npm install
 npm run dev
 ```
+## ✍️ Autores
+
+- **Diego Cuaycal**  
+  Desarrollador de Software | GitHub: [@DiegoCuaycal](https://github.com/DiegoCuaycal)
+
+- **Gateons**  
+  Desarrollador de Software | GitHub: [@Gateons](https://github.com/Gateons)
+
+---
+
+## 📄 Licencia
+
+Este proyecto está licenciado bajo la **Licencia MIT**.  
+Consulta el archivo [LICENSE](./LICENSE) para más detalles.
+
 
