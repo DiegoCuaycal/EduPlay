@@ -44,8 +44,8 @@ El sistema soporta **dos roles principales**:
 
  1. Clonar el repositorio
 ```sh
-git clone https://github.com/DiegoCuaycal/GamificacionUTN
-cd GamificacionUTN
+git clone https://github.com/DiegoCuaycal/EduPlay.git
+cd EduPlay
 code .
 ```
 
